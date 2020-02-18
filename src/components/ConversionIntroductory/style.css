@@ -1,0 +1,11 @@
+.conversion-introductory {
+    margin: 14px;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 10px;
+    position: relative;
+}
+
+.conversion-introductory__h2 {
+    display: flex;
+}

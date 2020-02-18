@@ -1,0 +1,20 @@
+.statistics {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 15.99px;
+    padding-left: 15px;
+}
+
+.statistics button {
+    border-radius: 8px;
+    border: 1px solid #ee4d45;
+    background-color: #fff;
+    color: #ee4d45;
+    font-size: 12px;
+    font-weight: 400;
+
+}
+
+.statistics__buy {
+    margin-left: 20px;
+}

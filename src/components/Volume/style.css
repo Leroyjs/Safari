@@ -1,0 +1,117 @@
+.volume h2 {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.volume {
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.volume__table {
+    position: relative;
+    width: 100%;
+    height: 126px;
+    border-radius: 10px;
+    border: 1px solid #cdcdcd;
+    background-color: #ffffff;
+    display: flex;
+    overflow: hidden;
+}
+
+.volume__table-name {
+    font-size: 11px;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+    width: 23%;
+}
+
+.volume__table-name-item h4 {
+    margin: 0;
+    margin-left: 12px;
+}
+
+.volume__table-name-item {
+    height: 22px;
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-right: 1px solid #cdcdcd;
+}
+
+.volume__table-name-item:not(:first-child) {
+    border-top: 1px solid #cdcdcd;
+}
+
+.volume__table-main {
+    overflow-y: hidden;
+    overflow-x: auto;
+    font-size: 10px;
+    font-weight: 300;
+    width: 77%;
+    display: flex;
+}
+
+.volume__table-main-column {
+    width: 14.29%;
+    min-width: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.volume__table-main-column:not(:last-child) {
+    border-right: 1px solid #cdcdcd;
+}
+
+.volume__table-main-item {
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.volume__table-main-item:not(:first-child) {
+    border-top: 1px solid #cdcdcd;
+}
+
+.volume__table-main-item_data {
+    font-size: 8px;
+    font-weight: 300;
+    height: 18px;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.volume__table-name-item_data {
+    height: 18px;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.volume__table-main-item_plus {
+    color: #6ac259;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.table-anthropometry {
+    background-color: #262b3f;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+    color: #ffffff;
+    padding-top: 4px;
+}
+
+.table-anthropometry__table {
+    background-color: #262b3f;
+}
+
+.table-anthropometry__table-name {
+    background-color: #3e4253;
+}

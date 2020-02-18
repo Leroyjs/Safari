@@ -1,0 +1,41 @@
+.introductory-table {
+    padding: 14px;
+}
+
+.introductory-table__inner {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.17);
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.introductory-table h2 {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.introductory-table__name-row {
+    font-size: 11px;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    min-width: 65px;
+    margin-bottom: 16px;
+    margin-top: 15px;
+}
+
+.introductory-table__main-row {
+    font-size: 10px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    min-width: 65px;
+    margin-bottom: 10px;
+}
+
+.introductory-table span {
+    min-width: 60px;
+    display: flex;
+    justify-content: center;
+}

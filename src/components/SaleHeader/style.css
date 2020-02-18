@@ -1,0 +1,40 @@
+.sale-header {
+    background-image: linear-gradient(to top, #ef4244 0%, #f16147 100%);
+    color: #fff;
+    padding: 14px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+}
+
+.sale-header h1 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 45px;
+    margin: 0;
+}
+
+.sale-header span {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.sale-header .sale-header__plan-cost {
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.sale-header button {
+    margin-top: 12px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 7px 23px;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 18px;
+    border: 1px solid #ffffff;
+    align-self: flex-start;
+}

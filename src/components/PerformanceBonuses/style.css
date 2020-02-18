@@ -1,0 +1,20 @@
+.performance-bonuses {
+    background-color: #262b3f;
+    padding-left: 14px;
+    padding-top: 14px;
+    padding-bottom: 30px;
+}
+
+.performance-bonuses__row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-left: -14px;
+}
+
+.performance-bonuses h2 {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+}

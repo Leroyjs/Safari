@@ -1,0 +1,63 @@
+.training-month h2 {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.training-month {
+    margin-left: 14px;
+    margin-right: 14px;
+    position: relative;
+}
+
+.training-month__block {
+    min-width: 280px;
+    width: 100%;
+    height: 110px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.training-month__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 8.33%;
+    padding-top: 38px;
+    transition: 0.2s;
+}
+
+.training-month__items {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.training-month__name {
+    transform: rotate(-90deg);
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 17.08px;
+}
+
+.training-month__data {
+    color: #999999;
+    font-size: 9px;
+    font-weight: 300;
+    line-height: 17.04px;
+}
+
+.training-month__item:hover {
+    color: #fff;
+    background-color: #ee4d45;
+}
+
+.training-month__item:hover .training-month__data {
+    color: #fff;
+}

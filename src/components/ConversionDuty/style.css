@@ -1,0 +1,25 @@
+.conversion-duty {
+    margin: 14px;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 10px;
+    position: relative;
+}
+
+.conversion-duty__percent {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #ee4d45;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefefe;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.conversion-duty__h2 {
+    display: flex;
+}

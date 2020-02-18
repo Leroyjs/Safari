@@ -1,0 +1,75 @@
+.header-personal-area {
+    background-image: linear-gradient(to top, #ef4244 0%, #f16147 100%);
+    color: #fff;
+    padding: 14px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-personal-area h1 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 45px;
+    margin: 0;
+}
+
+.header-personal-area__row {
+    font-size: 10px;
+    font-weight: 300;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+}
+
+.header-personal-area__row img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.header-personal-area__row b {
+    line-height: 1.6;
+    padding: 2px 10px;
+    margin-left: -10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.header-personal-area button {
+    width: 206px;
+    height: 35px;
+    border-radius: 18px;
+    border: 1px solid #ffffff;
+    background-color: #ee4d45;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 21px;
+    margin-bottom: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.header-personal-area__column {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-personal-area__column-2 {
+    right: 15%;
+    position: absolute;
+}

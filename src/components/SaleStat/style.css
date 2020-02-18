@@ -1,0 +1,73 @@
+.sale-stat__inner {
+    margin: 14px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.17);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.sale-stat__inner button {
+    color: #ee4d45;
+    font-size: 10px;
+    font-weight: 400;
+    background-color: #ffffff;
+    border: 1px solid #ee4d45;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.sale-stat__inner h2 {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.sale-stat__name-row {
+    margin-bottom: 10px;
+    display: flex;
+    font-size: 11px;
+    font-weight: 400;
+    justify-content: space-between;
+    min-width: 60px;
+}
+
+.sale-stat__main-row {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.sale-stat__main-row-1 {
+    font-size: 10px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.sale-stat__main-row-2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sale-stat__main-row-inner-1 {
+    font-size: 10px;
+    font-weight: 400;
+    min-width: 85px;
+}
+
+.sale-stat__main-row-inner-1 b {
+    margin-right: 5px;
+}
+
+.sale-stat__main-row-inner-2 {
+    font-size: 10px;
+    font-weight: 400;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sale-stat__main-row-inner-2 b {
+    margin-right: 5px;
+}

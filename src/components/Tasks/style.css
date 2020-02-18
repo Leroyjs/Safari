@@ -1,0 +1,29 @@
+.tasks {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.tasks ul {
+    list-style: none;
+}
+
+.tasks li:before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    left: -20px;
+    background-image: url('./not-checked.png');
+    bottom: 6px;
+    border-radius: 50%;
+}
+
+.tasks li {
+    position: relative;
+}
+
+.tasks li.tasks__completed:before {
+    background-image: url('./checked.svg');
+}
