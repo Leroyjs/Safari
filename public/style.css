@@ -15,3 +15,8 @@ body {
 main {
     padding-bottom: 50px;
 }
+
+textarea:focus,
+input:focus {
+    outline: none;
+}

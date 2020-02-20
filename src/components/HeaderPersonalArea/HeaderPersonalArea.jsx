@@ -12,7 +12,7 @@ let array = {
 };
 export default class HeaderPersonalArea extends Component {
     render() {
-        const { data, isTrainer } = this.props;
+        const { data, whoIsIt } = this.props;
         return (
             <header className="header-personal-area">
                 <h1>Личный кабинет</h1>
@@ -21,7 +21,7 @@ export default class HeaderPersonalArea extends Component {
                         <img src={data.photo_100} alt="" className="" />
                         <span>{data.first_name + ' ' + data.last_name}</span>
                     </div>
-                    {!isTrainer && (
+                    {whoIsIt === 'isClient' && (
                         <div className="header-personal-area__column-2">
                             <b>{array.lvl} уровень Safari из 10</b>
                             <br />
@@ -33,7 +33,7 @@ export default class HeaderPersonalArea extends Component {
                             <br />
                         </div>
                     )}
-                    {isTrainer && (
+                    {whoIsIt === 'isTrainer' && (
                         <div className="header-personal-area__column-2">
                             <span>
                                 Общее кол-во клиентов: {array.customers}
@@ -48,7 +48,7 @@ export default class HeaderPersonalArea extends Component {
                         </div>
                     )}
                 </div>
-                {!isTrainer && <button>Выбрать тренера</button>}
+                {whoIsIt === 'isClient' && <button>Выбрать тренера</button>}
             </header>
         );
     }

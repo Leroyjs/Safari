@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import arrowLeft from './img/left-arrow.png';
 import arrowRight from './img/right-arrow.png';
-import DayNutrition from '../DayNutrition';
 import CalendarListClients from '../CalendarListClients';
 import './style.css';
 
@@ -109,7 +108,7 @@ export default class Calendar extends Component {
     };
     render() {
         let month = '';
-        const { isTrainer, hidden = false } = this.props;
+        const { whoIsIt, hidden = false } = this.props;
         // eslint-disable-next-line default-case
         switch (this.state.month - 1) {
             case 0:
@@ -169,8 +168,7 @@ export default class Calendar extends Component {
                     </div>
                     <div className="calendar__main"></div>
                 </section>
-                {!isTrainer && !hidden && <DayNutrition></DayNutrition>}
-                {isTrainer && !hidden && (
+                {whoIsIt === 'isTrainer' && !hidden && (
                     <CalendarListClients></CalendarListClients>
                 )}
             </>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header';
 import Calendar from '../Calendar';
+import DayNutrition from '../DayNutrition';
 
 export default class Nutrition extends Component {
     render() {
@@ -11,6 +12,7 @@ export default class Nutrition extends Component {
                     desc="Фиксируйте каждый прием пищи (за заполнный день 10 баллов) тренер проверит и напишет комментарий"
                 ></Header>
                 <Calendar></Calendar>
+                <DayNutrition></DayNutrition>
             </main>
         );
     }

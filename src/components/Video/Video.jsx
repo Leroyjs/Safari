@@ -10,7 +10,7 @@ export default class Video extends Component {
                     src="https://www.youtube.com/embed/wGnDG_YOOf8"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
+                    allowfullscreen=""
                 ></iframe>
             </section>
         );

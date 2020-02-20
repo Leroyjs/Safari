@@ -14,37 +14,16 @@ import ClientTrainerAnthropometry from '../ClientTrainerAnthropometry';
 import ClientTrainerGame from '../ClientTrainerGame';
 import ClientTrainerNutrition from '../ClientTrainerNutrition';
 import ClientTrainerTraining from '../ClientTrainerTraining';
-import connect from '@vkontakte/vk-connect';
 
 export default class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: {}
-        };
-    }
-    componentDidMount() {
-        connect.send('VKWebAppInit', {});
-        connect
-            .sendPromise('VKWebAppGetUserInfo', {})
-            .then((dat) => {
-                this.setState({
-                    data: dat
-                });
-            })
-            .catch((error) => {
-                console.log('error');
-            });
-    }
     render() {
-        const { isTrainer } = this.props;
-        const { data } = this.state;
+        const { whoIsIt, data } = this.props;
         return (
             <>
                 <Route
                     path="/"
                     render={() => (
-                        <PersonalArea isTrainer={isTrainer} data={data} />
+                        <PersonalArea whoIsIt={whoIsIt} data={data} />
                     )}
                     exact
                 ></Route>

@@ -9,14 +9,14 @@ import ClientsList from '../ClientsList';
 
 export default class PersonalArea extends Component {
     render() {
-        const { data, isTrainer } = this.props;
+        const { data, whoIsIt } = this.props;
         return (
             <div className="personal-area">
                 <HeaderPersonalArea
-                    isTrainer={isTrainer}
+                    whoIsIt={whoIsIt}
                     data={data}
                 ></HeaderPersonalArea>
-                {!isTrainer && (
+                {whoIsIt === 'isClient' && (
                     <main>
                         <Progress></Progress>
                         <Volume></Volume>
@@ -24,9 +24,9 @@ export default class PersonalArea extends Component {
                         <Bonuses></Bonuses>
                     </main>
                 )}
-                {isTrainer && (
+                {whoIsIt === 'isTrainer' && (
                     <main>
-                        <Calendar isTrainer={isTrainer}></Calendar>
+                        <Calendar whoIsIt={whoIsIt}></Calendar>
                         <ClientsList></ClientsList>
                     </main>
                 )}

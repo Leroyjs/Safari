@@ -16,7 +16,7 @@ export default class App extends Component {
         active: 'personalArea'
     };
     render() {
-        const { isTrainer } = this.props;
+        const { whoIsIt } = this.props;
         return (
             <div className="nav-menu">
                 <Link to="/">
@@ -27,7 +27,7 @@ export default class App extends Component {
                     />
                 </Link>
 
-                {isTrainer && (
+                {whoIsIt === 'isTrainer' && (
                     <Link to="/Calendar">
                         <img
                             src={calendar}
@@ -36,7 +36,7 @@ export default class App extends Component {
                         />
                     </Link>
                 )}
-                {isTrainer && (
+                {whoIsIt === 'isTrainer' && (
                     <Link to="/Introductory">
                         <img
                             src={introductory}
@@ -45,12 +45,12 @@ export default class App extends Component {
                         />
                     </Link>
                 )}
-                {isTrainer && (
+                {whoIsIt === 'isTrainer' && (
                     <Link to="/Sales">
                         <img src={sales} alt="Sales" className="nav__sales" />
                     </Link>
                 )}
-                {!isTrainer && (
+                {whoIsIt === 'isClient' && (
                     <Link to="/Anthropometry">
                         <img
                             src={anthropometry}
@@ -59,7 +59,7 @@ export default class App extends Component {
                         />
                     </Link>
                 )}
-                {!isTrainer && (
+                {whoIsIt === 'isClient' && (
                     <Link to="/Training">
                         <img
                             src={training}
@@ -68,7 +68,7 @@ export default class App extends Component {
                         />
                     </Link>
                 )}
-                {!isTrainer && (
+                {whoIsIt === 'isClient' && (
                     <Link to="/Nutrition">
                         <img
                             src={nutrition}
