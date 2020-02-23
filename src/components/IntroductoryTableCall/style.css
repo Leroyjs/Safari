@@ -39,3 +39,17 @@
     display: flex;
     justify-content: center;
 }
+
+.introductory-table__inner button {
+    width: 95px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #ee4d45;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ee4d45;
+    font-size: 12px;
+    font-weight: 400;
+}

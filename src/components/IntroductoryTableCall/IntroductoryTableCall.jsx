@@ -33,22 +33,33 @@ export default class IntroductoryTableCall extends Component {
                 <div className="introductory-table__inner">
                     <h2>Звонки на запись (за месяц)</h2>
                     <div className="introductory-table__name-row">
-                        <span>Дата</span>
+                        <span className="introductory-table__little-item">
+                            Дата
+                        </span>
                         <span>ФИО</span>
                         <span>Телефон</span>
-                        <span>Запись</span>
+                        <span className="introductory-table__little-item">
+                            Запись
+                        </span>
+                        <span>Причина</span>
                     </div>
                     {array.map((row, index) => (
                         <div
                             key={index + '-introductory-table'}
                             className="introductory-table__main-row"
                         >
-                            <span>{row.data}</span>
+                            <span className="introductory-table__little-item">
+                                {row.data}
+                            </span>
                             <span>{row.name}</span>
                             <span>{row.phone}</span>
+                            <span className="introductory-table__little-item">
+                                {row.recording}
+                            </span>
                             <span>{row.recording}</span>
                         </div>
                     ))}
+                    <button>+</button>
                 </div>
             </section>
         );

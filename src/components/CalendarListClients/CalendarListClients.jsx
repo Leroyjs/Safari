@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ok from './checked.png';
+import no from './not-checked.png';
 import './style.css';
 
 let array = [
@@ -16,7 +17,7 @@ let array = [
     {
         time: '12:00',
         name: 'Ivan I.I.',
-        confirmed: true
+        confirmed: false
     },
     {
         time: '12:00',
@@ -39,7 +40,11 @@ export default class CalendarListClients extends Component {
                         <div key={index}>
                             <b>{user.time}</b>
                             <span>{user.name}</span>
-                            <img src={ok} alt="" />
+                            {user.confirmed ? (
+                                <img src={ok} alt="" />
+                            ) : (
+                                <img src={no} alt="" />
+                            )}
                         </div>
                     ))}
                     <button>Добавить</button>

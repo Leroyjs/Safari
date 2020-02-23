@@ -12,11 +12,17 @@
 .calendar-list-clients-inner div {
     margin: 7px;
     margin-left: 14px;
-    width: 40%;
     min-width: 150px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+}
+
+.calendar-list-clients-inner b {
+    margin-right: 11px;
+}
+
+.calendar-list-clients-inner span {
+    margin-right: 11px;
 }
 
 .calendar-list-clients-inner div:first-child {
@@ -32,6 +38,7 @@
     align-self: flex-start;
     border-radius: 8px;
     border: 1px solid #ee4d45;
+    background-color: #fff;
     margin: 14px;
     margin-top: 7px;
     color: #ee4d45;

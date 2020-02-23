@@ -3,26 +3,30 @@
     color: #ffffff;
     padding: 14px;
 }
+
 .bonuses h2 {
     font-size: 16px;
     font-weight: 400;
     background-color: #ee4d45;
-    width: 155px;
     height: 21px;
     border-radius: 10px;
     padding: 1px 10px;
     margin: 0;
+    display: inline;
 }
+
 .bonuses p {
     font-size: 10px;
     font-weight: 300;
 }
+
 .bonuses li {
     list-style-type: none;
     font-size: 10px;
     font-weight: 400;
     line-height: 21px;
 }
+
 .bonuses li:before {
     content: '';
     display: block;
@@ -33,10 +37,12 @@
     width: 17px;
     border: 1px #fff solid;
 }
+
 li.bonuses_active:before {
     background-color: #ee4d45;
     border: 1px #ee4d45 solid;
 }
+
 .bonuses button {
     width: 216px;
     height: 21px;

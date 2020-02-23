@@ -23,12 +23,12 @@ let array = [
         rating: '5'
     }
 ];
-export default class IntroductoryTableCall extends Component {
+export default class IntroductoryTableRecord extends Component {
     render() {
         return (
             <section className="introductory-table">
                 <div className="introductory-table__inner">
-                    <h2>Звонки на запись (за месяц)</h2>
+                    <h2>Запись на вводные</h2>
                     <div className="introductory-table__name-row">
                         <span className="introductory-table__little-item">
                             Дата
@@ -37,9 +37,6 @@ export default class IntroductoryTableCall extends Component {
                         <span>Телефон</span>
                         <span className="introductory-table__little-item">
                             Время
-                        </span>
-                        <span className="introductory-table__little-item">
-                            Оценка
                         </span>
                     </div>
                     {array.map((row, index) => (
@@ -55,11 +52,9 @@ export default class IntroductoryTableCall extends Component {
                             <span className="introductory-table__little-item">
                                 {row.time}
                             </span>
-                            <span className="introductory-table__little-item">
-                                {row.rating}
-                            </span>
                         </div>
                     ))}
+                    <button>+</button>
                 </div>
             </section>
         );

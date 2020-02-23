@@ -51,8 +51,8 @@ export default class SaleStat extends Component {
                             </div>
                             <div className="sale-stat__main-row-2">
                                 <div className="sale-stat__main-row-inner-1">
-                                    <b>{user.quantity}</b>
-                                    <span>{user.sum}</span>
+                                    <b>Кол-во ПТ: </b>
+                                    <span>{user.quantity}</span>
                                 </div>
                                 <div className="sale-stat__main-row-inner-2">
                                     <b>Сумма:</b> <span>7000р</span>

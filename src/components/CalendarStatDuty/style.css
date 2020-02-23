@@ -15,6 +15,20 @@
     margin: 0;
 }
 
+.calendar-stat-duty__main-table {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.calendar-stat-duty__sum {
+    font-size: 10px;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+}
+
 .calendar-stat-duty h3 {
     font-size: 12px;
     font-weight: 400;
@@ -26,7 +40,6 @@
 
 .calendar-stat-duty__row {
     display: flex;
-    justify-content: space-between;
     margin-bottom: 3px;
 }
 
