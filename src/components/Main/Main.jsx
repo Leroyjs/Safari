@@ -14,6 +14,7 @@ import ClientTrainerAnthropometry from '../ClientTrainerAnthropometry';
 import ClientTrainerGame from '../ClientTrainerGame';
 import ClientTrainerNutrition from '../ClientTrainerNutrition';
 import ClientTrainerTraining from '../ClientTrainerTraining';
+import ClientTrainerNav from '../ClientTrainerNav';
 
 export default class Main extends Component {
     render() {
@@ -31,6 +32,10 @@ export default class Main extends Component {
                     path="/Introductory"
                     component={IntroductoryTraining}
                     exact
+                ></Route>
+                <Route
+                    path="/Client-trainer"
+                    component={ClientTrainerNav}
                 ></Route>
                 <Route
                     path="/Client-trainer"
@@ -66,10 +71,14 @@ export default class Main extends Component {
                 ></Route>
                 <Route path="/Training" component={Training} exact></Route>
                 <Route path="/Nutrition" component={Nutrition} exact></Route>
-                <Route path="/Game" component={Game} exact></Route>
+                <Route
+                    path="/Game"
+                    render={() => <Game whoIsIt={whoIsIt} />}
+                    exact
+                ></Route>
                 <Route
                     path="/SpendPoints"
-                    component={SpendPoints}
+                    render={() => <SpendPoints whoIsIt={whoIsIt} />}
                     exact
                 ></Route>
             </>

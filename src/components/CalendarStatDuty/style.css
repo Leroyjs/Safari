@@ -9,6 +9,11 @@
     flex-direction: column;
 }
 
+.calendar-stat-duty__wrapper {
+    background-color: #ffffff;
+    padding-bottom: 14px;
+}
+
 .calendar-stat-duty h2 {
     font-size: 12px;
     font-weight: 600;
@@ -21,12 +26,23 @@
     position: relative;
 }
 
-.calendar-stat-duty__sum {
+.calendar-stat-duty__sum-center {
     font-size: 10px;
     min-height: 100%;
     display: flex;
     align-items: center;
     font-weight: 400;
+    justify-content: center;
+}
+
+.calendar-stat-duty__sum-right {
+    font-size: 10px;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    justify-content: flex-end;
+    padding-right: 26px;
 }
 
 .calendar-stat-duty h3 {
@@ -51,6 +67,10 @@
     justify-content: center;
     font-size: 10px;
     font-weight: 400;
+}
+
+.calendar-stat-duty__column {
+    width: 33%;
 }
 
 .calendar-stat-duty__name-row {

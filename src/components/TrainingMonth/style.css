@@ -53,11 +53,11 @@
     line-height: 17.04px;
 }
 
-.training-month__item:hover {
+.training-month_active {
     color: #fff;
     background-color: #ee4d45;
 }
 
-.training-month__item:hover .training-month__data {
+.training-month_active .training-month__data {
     color: #fff;
 }

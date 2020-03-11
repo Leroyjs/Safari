@@ -3,6 +3,18 @@
     padding: 20px 16px;
 }
 
+.day-nutrition__list-name {
+    min-width: 40px;
+    display: inline-block;
+}
+
+.day-nutrition__plus {
+    color: #6ac259;
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 7px;
+}
+
 .day-nutrition__block {
     padding: 12px;
     width: 100%;
@@ -47,9 +59,6 @@
     line-height: 15px;
 }
 
-.day-nutrition__eat span:not(:last-child)::after {
-    content: '/ ';
-}
 
 .day-nutrition__footer {
     display: flex;

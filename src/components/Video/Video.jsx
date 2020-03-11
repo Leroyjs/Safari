@@ -2,15 +2,32 @@ import React, { Component } from 'react';
 import './style.css';
 
 export default class Video extends Component {
+    state = {
+        pageData: {
+            name: '3 уровень',
+            url: 'https://www.youtube.com/embed/wGnDG_YOOf8'
+        }
+    };
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+        }
+    }
     render() {
+        const { name, url } = this.state.pageData;
         return (
             <section className="video">
-                <h2>3 уровень</h2>
+                <h2>{name}</h2>
                 <iframe
-                    src="https://www.youtube.com/embed/wGnDG_YOOf8"
-                    frameborder="0"
+                    src={url}
+                    frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen=""
+                    allowFullScreen=""
                 ></iframe>
             </section>
         );

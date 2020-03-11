@@ -1,5 +1,6 @@
 .calendar-list-clients {
-    margin: 14px;
+    padding: 14px;
+    background-color: #fff;
 }
 
 .calendar-list-clients-inner {
@@ -7,6 +8,24 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.calendar-list-clients-inner h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.calendar-list-clients-inner h3 {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.calendar-list-clients__title {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 7px;
 }
 
 .calendar-list-clients-inner div {

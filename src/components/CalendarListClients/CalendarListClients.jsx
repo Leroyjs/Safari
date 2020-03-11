@@ -1,54 +1,146 @@
 import React, { Component } from 'react';
 import ok from './checked.png';
 import no from './not-checked.png';
+import ModalTrainerClientsList from '../ModalTrainerClientsList';
 import './style.css';
 
-let array = [
-    {
-        time: '12:00',
-        name: 'Ivan I.I.',
-        confirmed: true
-    },
-    {
-        time: '12:00',
-        name: 'Ivan I.I.',
-        confirmed: true
-    },
-    {
-        time: '12:00',
-        name: 'Ivan I.I.',
-        confirmed: false
-    },
-    {
-        time: '12:00',
-        name: 'Ivan I.I.',
-        confirmed: true
-    },
-    {
-        time: '12:00',
-        name: 'Ivan I.I.',
-        confirmed: true
-    }
-];
-
 export default class CalendarListClients extends Component {
+    state = {
+        pageData: [],
+        date: '',
+        modal: false,
+        canUpate: true
+    };
+
+    componentDidUpdate() {
+        let date = this.props.activeDate;
+
+        if (
+            (date !== undefined && date !== this.state.date) ||
+            this.state.canUpate
+        ) {
+            date = 'date=' + date.year + '-' + date.month + '-' + date.day;
+
+            const url = 'https://bagiran.ru/main/trainer-get-record';
+
+            fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                body: date,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Access-Control-Request-Headers':
+                        'X-Requested-With, Origin',
+                    Origin: 'https://localhost:3000/'
+                }
+            })
+                .then((result) => {
+                    return result.json();
+                })
+                .then((data) => {
+                    console.log(data);
+
+                    this.setState({
+                        canUpate: false,
+                        pageData: data,
+                        date: this.props.activeDate
+                    });
+                });
+        }
+    }
+
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
+
     render() {
+        const { pageData, date, modal } = this.state;
+        const { clientsList = [] } = this.props;
+        let oneChargeList = [];
+        clientsList.forEach((item, i) => {
+            oneChargeList.push({
+                title: item.name,
+                postArg: 'id',
+                value: item.id
+            });
+        });
+        console.log(date);
+        const addData = 'date=' + date.year + '-' + date.month + '-' + date.day;
+        let newDate;
+
+        // eslint-disable-next-line default-case
+        switch (date.month - 1) {
+            case 0:
+                newDate = date.day + ' Января';
+                break;
+            case 1:
+                newDate = date.day + ' Февраля';
+                break;
+            case 2:
+                newDate = date.day + ' Марта';
+                break;
+            case 3:
+                newDate = date.day + ' Апреля';
+                break;
+            case 4:
+                newDate = date.day + ' Мая';
+                break;
+            case 5:
+                newDate = date.day + ' Июня';
+                break;
+            case 6:
+                newDate = date.day + ' Июля';
+                break;
+            case 7:
+                newDate = date.day + ' Августа';
+                break;
+            case 8:
+                newDate = date.day + ' Сентября';
+                break;
+            case 9:
+                newDate = date.day + ' Октября';
+                break;
+            case 10:
+                newDate = date.day + ' Ноября';
+                break;
+            case 11:
+                newDate = date.day + ' Декабря';
+                break;
+        }
         return (
             <section className="calendar-list-clients">
+                {' '}
                 <div className="calendar-list-clients-inner">
-                    {array.map((user, index) => (
+                    {' '}
+                    <div className="calendar-list-clients__title">
+                        {' '}
+                        <h2>Запись на тренировки</h2> <h3> {newDate}</h3>{' '}
+                    </div>{' '}
+                    {pageData.map((user, index) => (
                         <div key={index}>
-                            <b>{user.time}</b>
-                            <span>{user.name}</span>
-                            {user.confirmed ? (
-                                <img src={ok} alt="" />
-                            ) : (
-                                <img src={no} alt="" />
-                            )}
+                            {' '}
+                            <b> {user.time}</b> <span> {user.name}</span>{' '}
+                            {user.confirmed === 1 && <img src={ok} alt="" />}
+                            {user.confirmed === 0 && <img src={no} alt="" />}
                         </div>
                     ))}
-                    <button>Добавить</button>
-                </div>
+                    <button onClick={() => this.handleModal(true)}>
+                        {' '}
+                        Добавить{' '}
+                    </button>{' '}
+                </div>{' '}
+                {modal && (
+                    <ModalTrainerClientsList
+                        title={'Добавить запись на тренеровку'}
+                        addData={addData}
+                        url={'/client-trainer/training/record'}
+                        handleModal={this.handleModal}
+                        oneChargeList={oneChargeList}
+                    ></ModalTrainerClientsList>
+                )}
             </section>
         );
     }

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import ClientTrainerHeader from '../ClientTrainerHeader';
 import Calendar from '../Calendar';
-import ClientTrainerNav from '../ClientTrainerNav';
 import ClientTrainerDayNutrition from '../ClientTrainerDayNutrition';
+import './style.css';
 
 export default class Nutrition extends Component {
     render() {
         return (
-            <main className="nutrition">
-                <ClientTrainerNav></ClientTrainerNav>
+            <main className="client-trainer-nutrition">
                 <ClientTrainerHeader
                     title="Питание"
                     desc="Клиент фиксирует каждый прием пищи (за заполн-

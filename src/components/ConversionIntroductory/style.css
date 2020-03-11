@@ -9,3 +9,44 @@
 .conversion-introductory__h2 {
     display: flex;
 }
+
+.conversion-duty__percent {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #ee4d45;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefefe;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.conversion-duty__support {
+    margin-top: 7px;
+    background: rgb(221, 221, 221);
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    padding-right: 36px;
+    position: relative;
+}
+
+.conversion-duty__support p {
+    margin: 2px 0;
+}
+
+.conversion-duty__question {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: #fff;
+    height: 14px;
+    width: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}

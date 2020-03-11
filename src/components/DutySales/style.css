@@ -1,7 +1,6 @@
 .duty-sales {
     background-color: #262b3f;
     padding: 14px;
-    margin-top: 14px;
 }
 
 .duty-sales__inner {
@@ -9,6 +8,7 @@
     background-color: #ffffff;
     border-radius: 10px;
     padding: 7px;
+    padding-bottom: 30px;
     min-height: 80px;
 }
 
@@ -32,10 +32,19 @@
     font-weight: 300;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2px;
 }
 
 .duty-sales__item {
     min-width: 65px;
     display: flex;
     justify-content: center;
+}
+
+.duty-sales__sum {
+    font-size: 9px;
+    font-weight: 600;
+    float: right;
+    margin-right: 20px;
+    margin-top: 8px;
 }

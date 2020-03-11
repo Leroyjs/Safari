@@ -8,17 +8,19 @@
     display: -o-flex;
     display: flex;
     flex-direction: column;
+    padding-top: 45px;
 }
 
 .header-personal-area h1 {
-    font-size: 16px;
+
+    font-size: 23px;
     font-weight: 700;
-    line-height: 45px;
+    line-height: 50px;
     margin: 0;
 }
 
 .header-personal-area__row {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 300;
     display: -webkit-flex;
     display: -moz-flex;
@@ -67,9 +69,10 @@
     display: -o-flex;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .header-personal-area__column-2 {
-    right: 15%;
+    right: 8%;
     position: absolute;
 }

@@ -2,42 +2,40 @@ import React, { Component } from 'react';
 import './style.css';
 
 export default class TerenovkaStatistics extends Component {
+    state = {
+        pageData: {}
+    };
+
+    componentDidMount() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+            console.log(this.props.pageData);
+        }
+    }
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+            console.log(this.props.pageData);
+        }
+    }
     render() {
-        let trainingsList = {
-            warmUp: {
-                name: 'Дорожка',
-                quantity: '10 минут',
-                load: 'горка 12'
-            },
-            exercises: [
-                {
-                    name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг', '20кг']
-                },
-                {
-                    name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг', '20кг']
-                },
-                {
-                    name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг', '20кг']
-                }
-            ],
-            hitch: {
-                name: 'Элипс',
-                quantity: '10 минут',
-                load: ''
-            }
-        };
+        const { pageData } = this.state;
         return (
             <section className="terenovka-statistics">
                 <div className="terenovka-statistics__title">
                     <div className="">
                         <h3>14 января </h3>
-                        <h2>Спина</h2>
+                        <h2>{pageData.title}</h2>
                     </div>
                     <div className="rating-area">
                         <span>Оценка:</span>
@@ -79,7 +77,7 @@ export default class TerenovkaStatistics extends Component {
                     </div>
                 </div>
                 <div className="terenovka-statistics__list">
-                    {Object.keys(trainingsList).map((type) => {
+                    {Object.keys(pageData).map((type) => {
                         // eslint-disable-next-line default-case
                         switch (type) {
                             case 'warmUp':
@@ -90,17 +88,15 @@ export default class TerenovkaStatistics extends Component {
                                     >
                                         <div className="terenovka-statistics__item-title">
                                             <h4>Разминка</h4>
-                                            <span>
-                                                {trainingsList.warmUp.name}
-                                            </span>
+                                            <span>{pageData.warmUp.name}</span>
                                         </div>
                                         <div className="terenovka-statistics__item-load_warm-up">
                                             <b>
-                                                {trainingsList.warmUp.quantity +
-                                                    (trainingsList.warmUp
-                                                        .load && '/') +
+                                                {pageData.warmUp.quantity +
+                                                    (pageData.warmUp.load &&
+                                                        '/') +
                                                     ' ' +
-                                                    trainingsList.warmUp.load}
+                                                    pageData.warmUp.load}
                                             </b>
                                         </div>
                                     </div>
@@ -108,7 +104,7 @@ export default class TerenovkaStatistics extends Component {
                             case 'exercises':
                                 return (
                                     <>
-                                        {trainingsList.exercises.map(
+                                        {pageData.exercises.map(
                                             (exercise, index) => (
                                                 <div
                                                     key={index + 'exercise'}
@@ -173,17 +169,15 @@ export default class TerenovkaStatistics extends Component {
                                     >
                                         <div className="terenovka-statistics__item-title">
                                             <h4>Заминка</h4>
-                                            <span>
-                                                {trainingsList.hitch.name}
-                                            </span>
+                                            <span>{pageData.hitch.name}</span>
                                         </div>
                                         <div className="terenovka-statistics__item-load_warm-up">
                                             <b>
-                                                {trainingsList.hitch.quantity +
-                                                    (trainingsList.hitch.load &&
+                                                {pageData.hitch.quantity +
+                                                    (pageData.hitch.load &&
                                                         '/') +
                                                     ' ' +
-                                                    trainingsList.hitch.load}
+                                                    pageData.hitch.load}
                                             </b>
                                         </div>
                                     </div>

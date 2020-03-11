@@ -6,7 +6,7 @@ let array = [
         name: 'Иванов И.И.',
         phone: '89512700000',
         source: 'Дежурство',
-        quantity: '10 пт',
+        quantity: '10',
         sum: '7000р'
     },
     {
@@ -14,7 +14,7 @@ let array = [
         name: 'Иванов И.И.',
         phone: '89512700000',
         source: 'Дежурство',
-        quantity: '10 пт',
+        quantity: '10',
         sum: '7000р'
     },
     {
@@ -22,12 +22,26 @@ let array = [
         name: 'Иванов И.И.',
         phone: '89512700000',
         source: 'Дежурство',
-        quantity: '10 пт',
+        quantity: '10',
         sum: '7000р'
     }
 ];
 export default class SaleStat extends Component {
+    state = {
+        pageData: []
+    };
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+        }
+    }
     render() {
+        const { pageData } = this.state;
         return (
             <section className="sale-stat">
                 <div className="sale-stat__inner">
@@ -38,28 +52,32 @@ export default class SaleStat extends Component {
                         <span>Телефон</span>
                         <span>Источник</span>
                     </div>
-                    {array.map((user, index) => (
-                        <div
-                            key={index + 'sale-stat'}
-                            className="sale-stat__main-row"
-                        >
-                            <div className="sale-stat__main-row-1">
-                                <span>{user.data}</span>
-                                <span>{user.name}</span>
-                                <span>{user.phone}</span>
-                                <span>{user.source}</span>
-                            </div>
-                            <div className="sale-stat__main-row-2">
-                                <div className="sale-stat__main-row-inner-1">
-                                    <b>Кол-во ПТ: </b>
-                                    <span>{user.quantity}</span>
+                    {pageData.length !== 0 ? (
+                        pageData.map((user, index) => (
+                            <div
+                                key={index + 'sale-stat'}
+                                className="sale-stat__main-row"
+                            >
+                                <div className="sale-stat__main-row-1">
+                                    <span>{user.date}</span>
+                                    <span>{user.name}</span>
+                                    <span>{user.phone}</span>
+                                    <span>{user.source}</span>
                                 </div>
-                                <div className="sale-stat__main-row-inner-2">
-                                    <b>Сумма:</b> <span>7000р</span>
+                                <div className="sale-stat__main-row-2">
+                                    <div className="sale-stat__main-row-inner-1">
+                                        <b>Кол-во ПТ: </b>
+                                        <span>{user.count}</span>
+                                    </div>
+                                    <div className="sale-stat__main-row-inner-2">
+                                        <b>Сумма:</b> <span>7000р</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p>Продаж нет</p>
+                    )}
                     <button>Провести продажу</button>
                 </div>
             </section>

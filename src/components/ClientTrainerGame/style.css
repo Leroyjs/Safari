@@ -1,0 +1,4 @@
+.client-trainer-game {
+    min-height: calc(100vh - 124px);
+    background-color: #252A3D;
+}

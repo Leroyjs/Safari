@@ -8,12 +8,13 @@
     display: -o-flex;
     display: flex;
     flex-direction: column;
+    padding-top: 45px;
 }
 
 .sale-header h1 {
-    font-size: 16px;
+    font-size: 23px;
     font-weight: 700;
-    line-height: 45px;
+    line-height: 50px;
     margin: 0;
 }
 

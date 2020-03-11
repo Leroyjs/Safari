@@ -1,7 +1,31 @@
-.progress h2{
-	font-size: 12px;
-	font-weight: 600;
+.progress h2 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 0;
 }
-.progress{
-	margin-left: 14px;
+
+.progress {
+    position: relative;
+    padding-left: 14px;
+    padding-top: 14px;
+    background-color: #fff;
+}
+
+.progress__axis {
+    position: absolute;
+    z-index: 1;
+    font-size: 11px;
+    fill: rgb(34, 34, 34);
+
+}
+
+.progress_weight {
+    top: 28px;
+    left: 5px;
+}
+
+.progress_date {
+    right: 5px;
+    bottom: 10px;
+
 }

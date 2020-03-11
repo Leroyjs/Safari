@@ -1,116 +1,127 @@
 import React, { Component } from 'react';
 import arrowLeft from './img/left-arrow.png';
 import arrowRight from './img/right-arrow.png';
-import CalendarListClients from '../CalendarListClients';
 import './style.css';
 
 export default class Calendar extends Component {
-    state = {
-        day: 21,
-        month: 11,
-        year: 2020
-    };
-    componentDidUpdate(params) {
-        function createCalendar(elem, year, month) {
-            let mon = month - 1;
-            let d = new Date(year, mon);
-
-            let table = '';
-
-            for (let i = 0; i < getDay(d); i++) {
-                table += '<div class="calendar__item"></div>';
-            }
-
-            while (d.getMonth() == mon) {
-                table +=
-                    '<div class="calendar__item">' + d.getDate() + '</div>';
-
-                d.setDate(d.getDate() + 1);
-            }
-
-            if (getDay(d) != 0) {
-                for (let i = getDay(d); i < 7; i++) {
-                    table += '<div class="calendar__item"></div>';
-                }
-            }
-
-            elem.innerHTML = table;
-        }
-
-        function getDay(date) {
-            let day = date.getDay();
-            if (day == 0) day = 7;
-            return day - 1;
-        }
-        const calendar = document.querySelector('.calendar__main');
-        createCalendar(calendar, this.state.year, this.state.month);
+    constructor(props) {
+        super(props);
+        this.calendar = React.createRef();
     }
-    componentDidMount() {
-        function createCalendar(elem, year, month) {
-            let mon = month - 1;
-            let d = new Date(year, mon);
+    createCalendar(elem, year, month, activeDay) {
+        const { pageData } = this.props;
 
-            let table = '';
+        let mon = month - 1;
+        let d = new Date(year, mon);
+        let table = '';
 
-            for (let i = 0; i < getDay(d); i++) {
+        for (let i = 0; i < this.getDay(d); i++) {
+            table += '<div class="calendar__item"></div>';
+        }
+        let g = 0;
+        let b = 0;
+        let y = 0;
+        console.log(pageData);
+        while (d.getMonth() === mon) {
+            table +=
+                '<div id=' +
+                year +
+                '-' +
+                month +
+                '-' +
+                d.getDate() +
+                ' class="calendar__item ' +
+                (activeDay == d.getDate() && ' calendar_red ') +
+                ' ' +
+                (pageData.green[g] == d.getDate() && ' calendar_green ') +
+                (pageData.blue[b] == d.getDate() && ' calendar_blue ') +
+                (pageData.yellow[y] == d.getDate() && ' calendar_yellow ') +
+                '">' +
+                d.getDate() +
+                '</div>';
+            if (pageData.green[g] == d.getDate()) {
+                g++;
+            }
+            if (pageData.blue[b] == d.getDate()) {
+                b++;
+            }
+            if (pageData.yellow[y] == d.getDate()) {
+                y++;
+            }
+            d.setDate(d.getDate() + 1);
+        }
+
+        if (this.getDay(d) !== 0) {
+            for (let i = this.getDay(d); i < 7; i++) {
                 table += '<div class="calendar__item"></div>';
             }
-
-            while (d.getMonth() == mon) {
-                table +=
-                    '<div class="calendar__item">' + d.getDate() + '</div>';
-
-                d.setDate(d.getDate() + 1);
-            }
-
-            if (getDay(d) != 0) {
-                for (let i = getDay(d); i < 7; i++) {
-                    table += '<div class="calendar__item"></div>';
-                }
-            }
-
-            elem.innerHTML = table;
         }
 
-        function getDay(date) {
-            let day = date.getDay();
-            if (day == 0) day = 7;
-            return day - 1;
+        elem.innerHTML = table;
+        const elemChildren = elem.children;
+        for (let i = 0; i < elemChildren.length; i++) {
+            elemChildren[i].addEventListener('click', () => {
+                const id = elemChildren[i].id.split('-');
+                let date = {
+                    year: +id[0],
+                    month: +id[1],
+                    day: +id[2]
+                };
+
+                const { handleChange } = this.props;
+                handleChange(date);
+            });
         }
-        const calendar = document.querySelector('.calendar__main');
-        createCalendar(calendar, this.state.year, this.state.month);
+    }
+
+    getDay(date) {
+        let day = date.getDay();
+        if (day === 0) day = 7;
+        return day - 1;
+    }
+    componentDidUpdate() {
+        const calendar = this.calendar.current;
+        const { year, month, day } = this.props.activeDate;
+        this.createCalendar(calendar, year, month, day);
     }
     nextMonth = () => {
-        if (this.state.month < 12) {
-            this.setState({
-                month: this.state.month + 1
+        const { handleChange } = this.props;
+        const { year, month } = this.props.activeDate;
+        if (month < 12) {
+            handleChange({
+                year,
+                month: month + 1,
+                day: 1
             });
         } else {
-            this.setState({
+            handleChange({
+                year: year + 1,
                 month: 1,
-                year: this.state.year + 1
+                day: 1
             });
         }
-        console.log(this.state);
     };
     earlyMonth = () => {
-        if (this.state.month > 1) {
-            this.setState({
-                month: this.state.month - 1
+        const { handleChange } = this.props;
+        const { year, month, day } = this.props.activeDate;
+        if (month > 1) {
+            handleChange({
+                year,
+                month: month - 1,
+                day: 1
             });
         } else {
-            this.setState({
+            handleChange({
+                year: year - 1,
                 month: 12,
-                year: this.state.year - 1
+                day: 1
             });
         }
-        console.log(this.state);
     };
     render() {
         let month = '';
-        const { whoIsIt, hidden = false } = this.props;
         // eslint-disable-next-line default-case
-        switch (this.state.month - 1) {
+        switch (this.props.activeDate.month - 1) {
             case 0:
                 month = 'Январь';
                 break;
@@ -166,11 +177,8 @@ export default class Calendar extends Component {
                             onClick={this.nextMonth}
                         />
                     </div>
-                    <div className="calendar__main"></div>
+                    <div ref={this.calendar} className="calendar__main"></div>
                 </section>
-                {whoIsIt === 'isTrainer' && !hidden && (
-                    <CalendarListClients></CalendarListClients>
-                )}
             </>
         );
     }

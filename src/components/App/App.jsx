@@ -9,7 +9,9 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {}
+            data: {},
+            whoIsIt: '',
+            stub: true
         };
     }
     componentDidMount() {
@@ -17,17 +19,16 @@ export default class App extends Component {
         connect
             .sendPromise('VKWebAppGetUserInfo', {})
             .then((dat) => {
-                console.log(dat);
                 this.setState({
                     data: dat
                 });
             })
             .catch((error) => {
-                console.log('error');
+                console.log(error);
             });
     }
     render() {
-        const { whoIsIt } = this.props;
+        const { stub, whoIsIt } = this.props;
         const { data } = this.state;
         return (
             <>

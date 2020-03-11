@@ -6,6 +6,7 @@
     display: -o-flex;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
 }
 
 .client-trainer-header-pa h1 {
@@ -18,7 +19,7 @@
 }
 
 .client-trainer-header-pa__row {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 300;
     display: -webkit-flex;
     display: -moz-flex;
@@ -67,9 +68,10 @@
     display: -o-flex;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .client-trainer-header-pa__column-2 {
-    right: 15%;
+    right: 8%;
     position: absolute;
 }

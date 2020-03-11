@@ -6,7 +6,6 @@ import Result from '../Result';
 import Bonuses from '../Bonuses';
 import Calendar from '../Calendar';
 import ClientsList from '../ClientsList';
-import ClientTrainerNav from '../ClientTrainerNav';
 
 const data = {
     photo_100:
@@ -17,7 +16,6 @@ export default class ClientTrainer extends Component {
         const isTrainer = false;
         return (
             <div className="personal-area">
-                <ClientTrainerNav></ClientTrainerNav>
                 <ClientTrainerHeaderPA
                     isTrainer={isTrainer}
                     data={data}
@@ -27,7 +25,7 @@ export default class ClientTrainer extends Component {
                         <Progress></Progress>
                         <Volume></Volume>
                         <Result></Result>
-                        <Bonuses></Bonuses>
+                        <Bonuses buttonOff={true}></Bonuses>
                     </main>
                 )}
                 {isTrainer && (

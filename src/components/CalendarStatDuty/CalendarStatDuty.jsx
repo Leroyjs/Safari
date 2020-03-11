@@ -1,71 +1,161 @@
 import React, { Component } from 'react';
+import ModalTrainerDuty from '../ModalTrainerDuty';
 import './style.css';
 
-let array = [
-    {
-        time: '14:00-17:00',
-        sum: 2,
-        supports: '5'
-    },
-    {
-        time: '14:00-17:00',
-        sum: 2,
-        supports: '5'
-    },
-    {
-        time: '14:00-17:00',
-        sum: 2,
-        supports: '5'
-    },
-    {
-        time: '14:00-17:00',
-        sum: 2,
-        supports: '5'
-    }
-];
 export default class CalendarStatDuty extends Component {
+    state = {
+        pageData: {
+            time: []
+        },
+        date: '',
+        modal: false,
+        canUpate: false
+    };
+    componentDidUpdate() {
+        let date = this.props.activeDate;
+        console.log(date);
+        if (
+            (date !== undefined && date !== this.state.date) ||
+            this.state.canUpate
+        ) {
+            date = 'date=' + date.year + '-' + date.month + '-' + date.day;
+
+            const url = 'https://bagiran.ru/calendar/get-day';
+            fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                body: date,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Access-Control-Request-Headers':
+                        'X-Requested-With, Origin',
+                    Origin: 'https://localhost:3000/'
+                }
+            })
+                .then((result) => {
+                    return result.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    this.setState({
+                        canUpate: false,
+                        pageData: data,
+                        date: this.props.activeDate
+                    });
+                });
+        }
+    }
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
-        let sum = 0;
-        for (let i = 0; array.length > i; i++) {
-            sum += array[i].sum;
+        const { pageData, date, modal } = this.state;
+        const addData = 'date=' + date.year + '-' + date.month + '-' + date.day;
+        let oneChargeList = [];
+        for (let i = 0; i < 24; i++) {
+            if (i < 10) {
+                oneChargeList.push({
+                    title: '0' + i + ' : 00',
+                    postArg: 'from',
+                    value: i
+                });
+            } else {
+                oneChargeList.push({
+                    title: i + ' : 00',
+                    postArg: 'from',
+                    value: i
+                });
+            }
+        }
+        console.log(oneChargeList);
+        let newDate;
+        // eslint-disable-next-line default-case
+        switch (date.month - 1) {
+            case 0:
+                newDate = date.day + ' Января';
+                break;
+            case 1:
+                newDate = date.day + ' Февраля';
+                break;
+            case 2:
+                newDate = date.day + ' Марта';
+                break;
+            case 3:
+                newDate = date.day + ' Апреля';
+                break;
+            case 4:
+                newDate = date.day + ' Мая';
+                break;
+            case 5:
+                newDate = date.day + ' Июня';
+                break;
+            case 6:
+                newDate = date.day + ' Июля';
+                break;
+            case 7:
+                newDate = date.day + ' Августа';
+                break;
+            case 8:
+                newDate = date.day + ' Сентября';
+                break;
+            case 9:
+                newDate = date.day + ' Октября';
+                break;
+            case 10:
+                newDate = date.day + ' Ноября';
+                break;
+            case 11:
+                newDate = date.day + ' Декабря';
+                break;
         }
         return (
-            <section className="calendar-stat-duty">
-                <h2>30 Января</h2>
-                <div className="calendar-stat-duty__name-row">
-                    <h3>Время</h3>
-                    <h3>Часов</h3>
-                    <h3>Помощи</h3>
-                </div>
-                <div className="calendar-stat-duty__main-table">
-                    <div className="calendar-stat-duty__column">
-                        {array.map((dutyItem, index) => (
-                            <div
-                                key={index + 'duty'}
-                                className="calendar-stat-duty__row"
-                            >
-                                <span>{dutyItem.time}</span>
-                            </div>
-                        ))}
+            <section className="calendar-stat-duty__wrapper">
+                <div className="calendar-stat-duty">
+                    <h2>{newDate}</h2>
+                    <div className="calendar-stat-duty__name-row">
+                        <h3>Время</h3>
+                        <h3>Часов</h3>
+                        <h3>Помощи</h3>
                     </div>
-                    <div className="calendar-stat-duty__column calendar-stat-duty__sum">
-                        <span>{sum}</span>
+                    <div className="calendar-stat-duty__main-table">
+                        <div className="calendar-stat-duty__column">
+                            {pageData.time.map((dutyItem, index) => (
+                                <div
+                                    key={index + 'duty'}
+                                    className="calendar-stat-duty__row"
+                                >
+                                    <span>{dutyItem}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="calendar-stat-duty__column calendar-stat-duty__sum-center">
+                            {pageData.time.length !== 0 && (
+                                <span>{pageData.sum}</span>
+                            )}
+                        </div>
+                        <div className="calendar-stat-duty__column calendar-stat-duty__sum-right">
+                            {pageData.time.length !== 0 && (
+                                <span>{pageData.supports}</span>
+                            )}
+                        </div>
                     </div>
-                    <div className="calendar-stat-duty__column">
-                        {array.map((dutyItem, index) => (
-                            <div
-                                key={index + 'duty'}
-                                className="calendar-stat-duty__row"
-                            >
-                                <span>{dutyItem.supports}</span>
-                            </div>
-                        ))}
+                    <button onClick={() => this.handleModal(true)}>+</button>
+                    <div className="calendar-stat-duty__bottom-row">
+                        <span>Вы получаете 71 балл!</span>
                     </div>
                 </div>
-                <button>+</button>
-                <div className="calendar-stat-duty__bottom-row">
-                    <span>Вы получаете 71 балл!</span>
-                </div>
+                {modal && (
+                    <ModalTrainerDuty
+                        title={'Записаться на дежурство'}
+                        addData={addData}
+                        url={'/calendar/add'}
+                        handleModal={this.handleModal}
+                        oneChargeList={oneChargeList}
+                    ></ModalTrainerDuty>
+                )}
             </section>
         );
     }

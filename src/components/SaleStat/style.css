@@ -12,8 +12,15 @@
     font-weight: 400;
     background-color: #ffffff;
     border: 1px solid #ee4d45;
-    border-radius: 8px;
+    border-radius: 15px;
+    padding: 5px 15px;
     margin-top: 10px;
+    transition: .2s;
+}
+
+.sale-stat__inner button:hover {
+    color: #fff;
+    background-color: #ee4d45;
 }
 
 .sale-stat__inner h2 {
@@ -23,18 +30,33 @@
     margin-bottom: 14px;
 }
 
+.sale-stat__inner p {
+    font-size: 11px;
+    font-weight: 500;
+}
+
 .sale-stat__name-row {
     margin-bottom: 10px;
     display: flex;
     font-size: 11px;
     font-weight: 400;
     justify-content: space-between;
+}
+
+.sale-stat__name-row span {
     min-width: 60px;
+    margin-right: 5px;
 }
 
 .sale-stat__main-row {
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     border-bottom: 1px solid #cdcdcd;
+}
+
+.sale-stat__main-row span {
+    min-width: 60px;
+    margin-right: 5px;
 }
 
 .sale-stat__main-row-1 {
@@ -53,7 +75,7 @@
 .sale-stat__main-row-inner-1 {
     font-size: 10px;
     font-weight: 400;
-    min-width: 85px;
+    min-width: 100px;
 }
 
 .sale-stat__main-row-inner-1 b {

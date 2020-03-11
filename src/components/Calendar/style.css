@@ -1,9 +1,10 @@
 .calendar {
-    width: 198px;
-    margin: 0 auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #fff;
+    align-items: center;
 }
 
 .calendar__month {
@@ -40,9 +41,34 @@
     margin: 2px;
     font-size: 16px;
     font-weight: 400;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .calendar__item:empty {
     opacity: 0;
+}
+
+
+div.calendar_green {
+    background-color: #6ac156;
+    color: #fff;
+}
+
+div.calendar_blue {
+    background-color: blue;
+    color: #fff;
+}
+
+div.calendar_yellow {
+    background-color: yellow;
+}
+
+
+
+
+div.calendar_red {
+    background-color: #EF4344;
+    color: #fff;
 }

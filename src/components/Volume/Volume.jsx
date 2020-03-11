@@ -1,123 +1,56 @@
 import React, { Component } from 'react';
 import './style.css';
-let array = [
-    {
-        waist: '12',
-        hips: '12',
-        arm: '23',
-        chest: '34',
-        legs: '45',
-        data: '01.12'
-    },
-    {
-        waist: '12',
-        hips: '12',
-        arm: '23',
-        chest: '34',
-        legs: '45',
-        data: '01.12'
-    }
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // },
-    // {
-    //     waist: '12',
-    //     hips: '12',
-    //     arm: '23',
-    //     chest: '34',
-    //     legs: '45',
-    //     data: '01.12'
-    // }
-];
+
 export default class Volume extends Component {
     constructor(props) {
         super(props);
         this.tableMain = React.createRef();
+        this.state = {
+            pageData: []
+        };
     }
-    componentDidMount() {
-        const { anthropometry } = this.props;
-        const tableMain = this.tableMain.current;
-        let emptyBlocks = 6 - array.length;
-        for (let i = 0; i < emptyBlocks; i++) {
-            let div = document.createElement('div');
-            div.classList.add('volume__table-main-column');
-            div.innerHTML =
-                '<div class="volume__table-main-item volume__table-main-item_data ' +
-                (anthropometry && 'table-anthropometry__table') +
-                '"></div>' +
-                '<div class="volume__table-main-item  ' +
-                (anthropometry && 'table-anthropometry__table') +
-                '"></div>' +
-                '<div class="volume__table-main-item ' +
-                (anthropometry && 'table-anthropometry__table') +
-                '"></div>' +
-                '<div class="volume__table-main-item ' +
-                (anthropometry && 'table-anthropometry__table') +
-                '"></div>' +
-                '<div class="volume__table-main-item ' +
-                (anthropometry && 'table-anthropometry__table') +
-                '"></div>' +
-                '<div class="volume__table-main-item ' +
-                (anthropometry && 'table-anthropometry__table') +
-                '"></div>';
-            tableMain.append(div);
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            const tableMain = this.tableMain.current;
+            this.setState({
+                pageData: this.props.pageData
+            });
+            const { anthropometry } = this.props;
+
+            let emptyBlocks = 6 - this.props.pageData.length;
+            for (let i = 0; i < emptyBlocks; i++) {
+                let div = document.createElement('div');
+                div.classList.add('volume__table-main-column');
+                div.innerHTML =
+                    '<div class="volume__table-main-item volume__table-main-item_data ' +
+                    (anthropometry && 'table-anthropometry__table') +
+                    '"></div>' +
+                    '<div class="volume__table-main-item  ' +
+                    (anthropometry && 'table-anthropometry__table') +
+                    '"></div>' +
+                    '<div class="volume__table-main-item ' +
+                    (anthropometry && 'table-anthropometry__table') +
+                    '"></div>' +
+                    '<div class="volume__table-main-item ' +
+                    (anthropometry && 'table-anthropometry__table') +
+                    '"></div>' +
+                    '<div class="volume__table-main-item ' +
+                    (anthropometry && 'table-anthropometry__table') +
+                    '"></div>' +
+                    '<div class="volume__table-main-item ' +
+                    (anthropometry && 'table-anthropometry__table') +
+                    '"></div>';
+                tableMain.append(div);
+            }
         }
     }
+
     render() {
         const { anthropometry } = this.props;
+        const { pageData } = this.state;
         return (
             <section
                 className={
@@ -189,7 +122,7 @@ export default class Volume extends Component {
                         </div>
                     </div>
                     <div ref={this.tableMain} className="volume__table-main">
-                        {array.map((volum, index) => (
+                        {pageData.map((volum, index) => (
                             <div
                                 key={index + 'column'}
                                 className="volume__table-main-column"

@@ -52,7 +52,38 @@
     margin-top: 10px;
 }
 
-.sales-graphics__main-graphics img {
+.main-graphics__box {
     margin-left: 10px;
     margin-right: 10px;
+    border: 1px solid #d8d8d4;
+    border-bottom: none;
+    overflow: hidden;
+    width: 114px;
+    height: 57px;
+    position: relative;
+    border-top-left-radius: 57px;
+    border-top-right-radius: 57px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-graphics__inner {
+    background-color: #ee4d45;
+    height: 228px;
+    width: 120px;
+    position: absolute;
+    bottom: -228px;
+    left: -3px;
+    transform-origin: center top;
+}
+
+.main-graphics__inner-inner {
+    height: 98px;
+    width: 98px;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-top: 7px;
+    border: 1px solid #d8d8d4;
 }

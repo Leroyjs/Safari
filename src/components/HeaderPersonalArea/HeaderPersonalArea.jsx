@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import './style.css';
 
-let array = {
-    data: '01.01.20',
-    number: '861928719921',
-    points: '500',
-    lvl: '3',
-    rating: '4.9',
-    training: '654',
-    customers: '34'
-};
 export default class HeaderPersonalArea extends Component {
+    state = {
+        pageData: {
+            data: '',
+            number: '',
+            points: '500',
+            lvl: '3',
+            rating: '4.9',
+            training: '654',
+            customers: '34'
+        }
+    };
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+        }
+    }
     render() {
         const { data, whoIsIt } = this.props;
+        const { pageData } = this.state;
         return (
             <header className="header-personal-area">
                 <h1>Личный кабинет</h1>
@@ -23,27 +36,27 @@ export default class HeaderPersonalArea extends Component {
                     </div>
                     {whoIsIt === 'isClient' && (
                         <div className="header-personal-area__column-2">
-                            <b>{array.lvl} уровень Safari из 10</b>
+                            <b>{pageData.lvl} уровень Safari из 10</b>
                             <br />
-                            <span>Начал тренировки: {array.data}</span>
+                            <span>Начал тренировки: {pageData.data}</span>
                             <br />
-                            <span>Клубная карта: {array.number}</span>
+                            <span>Клубная карта: {pageData.number}</span>
                             <br />
-                            <span>Заработано баллов: {array.points}</span>
+                            <span>Заработано баллов: {pageData.points}</span>
                             <br />
                         </div>
                     )}
                     {whoIsIt === 'isTrainer' && (
                         <div className="header-personal-area__column-2">
                             <span>
-                                Общее кол-во клиентов: {array.customers}
+                                Общее кол-во клиентов: {pageData.customers}
                             </span>
                             <br />
-                            <span>Кол-во тренировок: {array.training}</span>
+                            <span>Кол-во тренировок: {pageData.training}</span>
                             <br />
-                            <span>Оценка от клиентов: {array.rating}</span>
+                            <span>Оценка от клиентов: {pageData.rating}</span>
                             <br />
-                            <span>Кол-во баллов: {array.points}</span>
+                            <span>Кол-во баллов: {pageData.points}</span>
                             <br />
                         </div>
                     )}

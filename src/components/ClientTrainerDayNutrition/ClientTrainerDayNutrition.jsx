@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
-import star from './rate-star.png';
 import './style.css';
 let nutrition = {
+    rating: [1, 1, 1, 1],
     comment: 'какой плов??? а так норм',
-    breakfast: ['овсянка', '1 кусок хлеба', 'чай'],
-    snack_1: ['овсянка', '1 кусок хлеба', 'чай'],
-    lunch: ['овсянка', '1 кусок хлеба', 'чай'],
-    snack_2: ['овсянка', '1 кусок хлеба', 'чай'],
-    dinner: ['овсянка', '1 кусок хлеба', 'чай']
+    points: '12',
+    eat: [
+        {
+            name: 'breakfast',
+            value: 'овсянка, 1 кусок хлеба, чай'
+        },
+        {
+            name: 'snack_1',
+            value: 'овсянка, 1 кусок хлеба, чай'
+        },
+        {
+            name: 'lunch',
+            value: 'овсянка, 1 кусок хлеба, чай'
+        },
+        {
+            name: 'snack_2',
+            value: 'овсянка, 1 кусок хлеба, чай'
+        },
+        {
+            name: 'dinner',
+            value: 'овсянка, 1 кусок хлеба, чай'
+        }
+    ]
 };
 export default class DayNutrition extends Component {
     render() {
@@ -55,36 +73,12 @@ export default class DayNutrition extends Component {
                         </span>
                     </div>
                     <div className="day-nutrition__main">
-                        <span className="day-nutrition__eat">
-                            Завтрак:{' '}
-                            {nutrition.breakfast.map((eat, index) => (
-                                <span key={index}>{eat}</span>
-                            ))}
-                        </span>
-                        <span className="day-nutrition__eat">
-                            Перекус:{' '}
-                            {nutrition.snack_1.map((eat, index) => (
-                                <span key={index}>{eat}</span>
-                            ))}
-                        </span>
-                        <span className="day-nutrition__eat">
-                            Обед:{' '}
-                            {nutrition.lunch.map((eat, index) => (
-                                <span key={index}>{eat}</span>
-                            ))}
-                        </span>
-                        <span className="day-nutrition__eat">
-                            Перекус:{' '}
-                            {nutrition.snack_2.map((eat, index) => (
-                                <span key={index}>{eat}</span>
-                            ))}
-                        </span>
-                        <span className="day-nutrition__eat">
-                            Ужин:{' '}
-                            {nutrition.dinner.map((eat, index) => (
-                                <span key={index}>{eat}</span>
-                            ))}
-                        </span>
+                        {nutrition.eat.map((eat, index) => (
+                            <span className="day-nutrition__eat">
+                                {eat.name}: <span key={index}>{eat.value}</span>
+                                <span className="day-nutrition__plus">+</span>
+                            </span>
+                        ))}
                     </div>
                     <div className="day-nutrition__footer">
                         <span>

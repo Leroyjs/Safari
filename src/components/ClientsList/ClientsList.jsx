@@ -2,77 +2,29 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-let array = [
-    {
-        name: 'Колташов Никита',
-        training: '6/10',
-        nutrition: true,
-        lvl: '5',
-        play: false,
-        nextTraining: '18.02.2020',
-        rating: '4.9',
-        foto:
-            'https://sun3-12.userapi.com/c845123/v845123844/1e1542/WCGx0WTjkWc.jpg?ava=1'
-    },
-
-    {
-        name: 'Колташов Никита',
-        training: '6/10',
-        nutrition: true,
-        lvl: '5',
-        play: false,
-        nextTraining: '18.02.2020',
-        rating: '4.9',
-        foto:
-            'https://sun3-12.userapi.com/c845123/v845123844/1e1542/WCGx0WTjkWc.jpg?ava=1'
-    },
-
-    {
-        name: 'Колташов Никита',
-        training: '6/10',
-        nutrition: true,
-        lvl: '5',
-        play: false,
-        nextTraining: '18.02.2020',
-        rating: '4.9',
-        foto:
-            'https://sun3-12.userapi.com/c845123/v845123844/1e1542/WCGx0WTjkWc.jpg?ava=1'
-    },
-
-    {
-        name: 'Колташов Никита',
-        training: '6/10',
-        nutrition: false,
-        lvl: '5',
-        play: true,
-        nextTraining: '18.02.2020',
-        rating: '4.9',
-        foto:
-            'https://sun3-12.userapi.com/c845123/v845123844/1e1542/WCGx0WTjkWc.jpg?ava=1'
-    },
-
-    {
-        name: 'Колташов Никита',
-        training: '6/10',
-        nutrition: true,
-        lvl: '5',
-        play: false,
-        nextTraining: '18.02.2020',
-        rating: '4.9',
-        foto:
-            'https://sun3-12.userapi.com/c845123/v845123844/1e1542/WCGx0WTjkWc.jpg?ava=1'
-    }
-];
-
 export default class ClientsList extends Component {
+    state = {
+        pageData: []
+    };
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+        }
+    }
     render() {
+        const { pageData } = this.state;
+        console.log(pageData);
         return (
             <section className="clients-list">
                 <h2>Клиенты</h2>
-                {array.map((client, index) => (
+                {pageData.map((client, index) => (
                     <Link key={'client' + index} to="/Client-trainer">
                         <div className="clients-list__item">
-                            {' '}
                             <img src={client.foto} alt="client" />{' '}
                             <div className="clients-list__text">
                                 {' '}

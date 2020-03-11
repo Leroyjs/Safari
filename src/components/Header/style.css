@@ -2,12 +2,13 @@
     background-image: linear-gradient(to top, #ef4244 0%, #f16147 100%);
     color: #ffffff;
     padding: 14px;
+    padding-top: 45px;
 }
 
 .header h1 {
-    font-size: 16px;
+    font-size: 23px;
     font-weight: 700;
-    line-height: 45px;
+    line-height: 50px;
     margin: 0;
 }
 

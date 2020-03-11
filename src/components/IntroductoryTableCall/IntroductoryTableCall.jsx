@@ -1,33 +1,59 @@
 import React, { Component } from 'react';
+import ModalTrainerIntroductoryCall from '../ModalTrainerIntroductoryCall';
 import './style.css';
-let array = [
-    {
-        data: '03.01',
-        name: 'Ivan I.I.',
-        phone: '89512700000',
-        recording: 'Да'
-    },
-    {
-        data: '03.01',
-        name: 'Иван И.И',
-        phone: '89512700000',
-        recording: 'Да'
-    },
-    {
-        data: '03.01',
-        name: 'Андреев К.А.',
-        phone: '89512700000',
-        recording: 'Да'
-    },
-    {
-        data: '03.01',
-        name: 'Ivan I.I.',
-        phone: '89512700000',
-        recording: 'Да'
-    }
-];
+
 export default class IntroductoryTableCall extends Component {
+    state = {
+        pageData: [],
+        date: '',
+        modal: false,
+        canUpate: false
+    };
+    componentDidUpdate() {
+        let date = this.props.activeDate;
+        if (
+            (date !== undefined &&
+                (date.month !== this.state.date.month ||
+                    date.year !== this.state.date.year)) ||
+            this.state.canUpate
+        ) {
+            console.log('call');
+            date = 'date=' + date.year + '-' + date.month + '-' + date.day;
+
+            const url = 'https://bagiran.ru/introductory/get-day';
+            fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                body: date,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Access-Control-Request-Headers':
+                        'X-Requested-With, Origin',
+                    Origin: 'https://localhost:3000/'
+                }
+            })
+                .then((result) => {
+                    return result.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    this.setState({
+                        canUpate: false,
+                        pageData: data.IntroductoryTableCall,
+                        date: this.props.activeDate
+                    });
+                });
+        }
+    }
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
+        const { pageData, modal } = this.state;
+        console.log(pageData);
         return (
             <section className="introductory-table">
                 <div className="introductory-table__inner">
@@ -43,7 +69,7 @@ export default class IntroductoryTableCall extends Component {
                         </span>
                         <span>Причина</span>
                     </div>
-                    {array.map((row, index) => (
+                    {pageData.map((row, index) => (
                         <div
                             key={index + '-introductory-table'}
                             className="introductory-table__main-row"
@@ -56,11 +82,18 @@ export default class IntroductoryTableCall extends Component {
                             <span className="introductory-table__little-item">
                                 {row.recording}
                             </span>
-                            <span>{row.recording}</span>
+                            <span>{row.comment}</span>
                         </div>
                     ))}
-                    <button>+</button>
+                    <button onClick={() => this.handleModal(true)}>+</button>
                 </div>
+                {modal && (
+                    <ModalTrainerIntroductoryCall
+                        title={'Записаться на дежурство'}
+                        url={'/calendar/add'}
+                        handleModal={this.handleModal}
+                    ></ModalTrainerIntroductoryCall>
+                )}
             </section>
         );
     }

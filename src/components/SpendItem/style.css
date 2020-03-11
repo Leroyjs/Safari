@@ -5,7 +5,7 @@
     border-radius: 10px;
     background-color: #ffffff;
     margin-top: 16px;
-    transition: .2s;
+    transition: .1s;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -22,8 +22,13 @@
     color: #fff;
 }
 
-.spend-item img {
-    height: 52px;
+.spend-item:hover path,
+rect {
+    fill: #fff;
+}
+
+.spend-item svg {
+    height: 58px;
     margin-bottom: -20px;
 }
 

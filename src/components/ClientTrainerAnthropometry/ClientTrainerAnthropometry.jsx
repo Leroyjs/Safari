@@ -3,13 +3,11 @@ import ClientTrainerHeader from '../ClientTrainerHeader';
 import Volume from '../Volume';
 import Result from '../Result';
 import Weight from '../Weight';
-import ClientTrainerNav from '../ClientTrainerNav';
-
+import './style.css';
 export default class ClientTrainerAnthropometry extends Component {
     render() {
         return (
-            <main className="anthropometry">
-                <ClientTrainerNav></ClientTrainerNav>
+            <main className="client-trainer-anthropometry">
                 <ClientTrainerHeader
                     title="Антропометрия"
                     desc="Показатели фиксируются 1 раз в месяц 1 числа каждого месяца"

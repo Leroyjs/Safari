@@ -5,7 +5,7 @@ export default class AdminTrainersGame extends Component {
     state = {
         lvlList: [
             {
-                video: 'https://www.youtube.com/embed/-qzRU7T4la0',
+                video: '',
                 text: '',
                 numberWorkouts: '',
                 powerChecks: '',
@@ -54,13 +54,90 @@ export default class AdminTrainersGame extends Component {
         lvlList.push(template);
         this.setState({ lvlList });
     };
+    handleSave = (event) => {
+        const [index] = event.target.name.split('_');
+        let lvlList = JSON.parse(JSON.stringify(this.state.lvlList[index]));
+        console.log(lvlList);
+        const url = 'https://bagiran.ru/admin/trainers-game/save';
+        const {
+            video,
+            text,
+            numberWorkouts,
+            powerChecks,
+            duty,
+            help,
+            calls,
+            introductory,
+            sales,
+            salesAmount,
+            taskManager,
+            bonus0,
+            bonus1,
+            bonus2,
+            points
+        } = lvlList;
+        let data = `lvl=${+index +
+            1}&video=${video}&text=${text}&numberWorkouts=${numberWorkouts}&powerChecks=${powerChecks}&duty=${duty}&help=${help}&calls=${calls}&introductory=${introductory}&sales=${sales}&salesAmount=${salesAmount}&points=${points}&taskManager=${taskManager}&bonus0=${bonus0}&bonus1=${bonus1}&bonus2=${bonus2}`;
+        console.log(data);
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        });
+    };
     handleDel = (event) => {
         const [index, name] = event.target.name.split('_');
         let lvlList = JSON.parse(JSON.stringify(this.state));
         lvlList = lvlList.lvlList;
         lvlList.splice(index, 1);
-        this.setState({ lvlList });
+        const url = 'https://bagiran.ru/admin/trainers-game/delete';
+        const data = 'lvl=' + (+index + 1);
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log(data);
+                if (data.success === 'Уровень успешно удален.') {
+                    this.setState({ lvlList });
+                }
+            });
     };
+    componentDidMount() {
+        let url = 'https://bagiran.ru/admin/trainers-game/get-all';
+        fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log(data);
+                this.setState({
+                    lvlList: data
+                });
+            });
+    }
     render() {
         return (
             <section className="admin-trainers-game">
@@ -182,7 +259,12 @@ export default class AdminTrainersGame extends Component {
                                 />
                             </label>
                             <div className="admin-trainers-game__button-block">
-                                <button>Сохранить изменения</button>
+                                <button
+                                    name={index + '_save'}
+                                    onClick={this.handleSave}
+                                >
+                                    Сохранить изменения
+                                </button>
                                 <button
                                     name={index + '_del'}
                                     onClick={this.handleDel}
@@ -194,14 +276,13 @@ export default class AdminTrainersGame extends Component {
                         <div className="admin-trainers-game__column">
                             <iframe
                                 src={
-                                    lvlData.video.split(
-                                        'https://www.youtube.com/embed/'
-                                    ).length > 1 && lvlData.video
+                                    lvlData.video &&
+                                    'https://www.youtube.com/embed/' +
+                                        lvlData.video
                                 }
-                                allowfullscreen
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                frameborder="0"
-                                allowfullscreen=""
+                                frameBorder="0"
+                                allowFullScreen=""
                             ></iframe>
                             <label>
                                 Награда 1

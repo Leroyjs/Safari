@@ -5,7 +5,7 @@ export default class AdminCustomerGame extends Component {
     state = {
         lvlList: [
             {
-                video: 'https://www.youtube.com/embed/-qzRU7T4la0',
+                video: '',
                 text: '',
                 numberWorkouts: '',
                 taskCoach: '',
@@ -19,8 +19,7 @@ export default class AdminCustomerGame extends Component {
     };
     handleChange = (event) => {
         const [index, name] = event.target.name.split('_');
-        let lvlList = JSON.parse(JSON.stringify(this.state));
-        lvlList = lvlList.lvlList;
+        let lvlList = JSON.parse(JSON.stringify(this.state.lvlList));
         lvlList[index][name] = event.target.value;
         this.setState({ lvlList });
     };
@@ -37,19 +36,86 @@ export default class AdminCustomerGame extends Component {
             bonus2: '',
             points: ''
         };
-        let lvlList = JSON.parse(JSON.stringify(this.state));
-        lvlList = lvlList.lvlList;
+        let lvlList = JSON.parse(JSON.stringify(this.state.lvlList));
         lvlList.push(template);
         this.setState({ lvlList });
     };
     handleDel = (event) => {
         const [index, name] = event.target.name.split('_');
-        let lvlList = JSON.parse(JSON.stringify(this.state));
-        lvlList = lvlList.lvlList;
-        console.log(index);
+        let lvlList = JSON.parse(JSON.stringify(this.state.lvlList));
         lvlList.splice(index, 1);
-        this.setState({ lvlList });
+        const url = 'https://bagiran.ru/main/admin-delete';
+        const data = 'lvl=' + (+index + 1);
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log(data);
+                if (data.success === 'Уровень успешно удален.') {
+                    this.setState({ lvlList });
+                }
+            });
     };
+    handleSave = (event) => {
+        const [index] = event.target.name.split('_');
+        let lvlList = JSON.parse(JSON.stringify(this.state.lvlList[index]));
+        console.log(lvlList);
+        const url = 'https://bagiran.ru/main/admin-save';
+        const {
+            video,
+            text,
+            numberWorkouts,
+            taskCoach,
+            taskAdmin,
+            bonus0,
+            bonus1,
+            bonus2,
+            points
+        } = lvlList;
+        let data = `lvl=${+index +
+            1}&video=${video}&text=${text}&numberWorkouts=${numberWorkouts}&taskCoach=${taskCoach}&taskAdmin=${taskAdmin}&bonus0=${bonus0}&bonus1=${bonus1}&bonus2=${bonus2}&points=${points}`;
+        console.log(data);
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        });
+    };
+    componentDidMount() {
+        let url = 'https://bagiran.ru/main/admin';
+        fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                this.setState({
+                    lvlList: data
+                });
+            });
+    }
     render() {
         return (
             <section className="admin-customer-game">
@@ -115,7 +181,12 @@ export default class AdminCustomerGame extends Component {
                                 />
                             </label>
                             <div className="admin-customer-game__button-block">
-                                <button>Сохранить изменения</button>
+                                <button
+                                    onClick={this.handleSave}
+                                    name={index + '_save'}
+                                >
+                                    Сохранить изменения
+                                </button>
                                 <button
                                     name={index + '_del'}
                                     onClick={this.handleDel}
@@ -127,14 +198,13 @@ export default class AdminCustomerGame extends Component {
                         <div className="admin-customer-game__column">
                             <iframe
                                 src={
-                                    lvlData.video.split(
-                                        'https://www.youtube.com/embed/'
-                                    ).length > 1 && lvlData.video
+                                    lvlData.video &&
+                                    'https://www.youtube.com/embed/' +
+                                        lvlData.video
                                 }
-                                allowfullscreen
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                frameborder="0"
-                                allowfullscreen=""
+                                frameBorder="0"
+                                allowFullScreen=""
                             ></iframe>
                             <label>
                                 Награда 1

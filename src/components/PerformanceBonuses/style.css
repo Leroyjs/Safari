@@ -14,6 +14,14 @@
     margin-left: -14px;
 }
 
+.performance-bonuses__desc {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 21px;
+    margin: 0;
+    padding-right: 16px;
+}
+
 .performance-bonuses h2 {
     color: #ffffff;
     font-size: 12px;

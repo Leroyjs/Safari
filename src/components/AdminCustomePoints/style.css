@@ -1,6 +1,23 @@
 .admin-custome-points {
-    width: 980px;
+    width: 800px;
     margin: 60px auto;
+}
+
+.admin-custome-points__load-bottom {
+    font-size: 18px;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px #ee4d45 solid;
+    color: #ee4d45;
+    margin-top: 20px;
+    padding: 5px 30px;
+    border-radius: 50px;
+    transition: .2s;
+}
+
+.admin-custome-points button:hover {
+    background-color: #ee4d45;
+    color: #fff;
 }
 
 .admin-custome-points__name-row {
@@ -52,7 +69,6 @@
 }
 
 .admin-custome-points__search input {
-    margin-left: -40px;
     font-weight: 400;
     border: none;
     border-bottom: 1px solid #acacac;
@@ -73,10 +89,6 @@
     transition: .1s;
 }
 
-.admin-custome-points__search button:hover {
-    color: #fff;
-    background-color: #ee4d45;
-}
 
 .admin-custome-points__img {
     display: flex;

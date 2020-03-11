@@ -3,14 +3,13 @@ import ClientTrainerHeader from '../ClientTrainerHeader';
 import Video from '../Video';
 import Tasks from '../Tasks';
 import PerformanceBonuses from '../PerformanceBonuses';
-import ClientTrainerNav from '../ClientTrainerNav';
+import './style.css';
 
 export default class Game extends Component {
     render() {
         console.log(process.env.PUBLIC_URL);
         return (
-            <main className="anthropometry">
-                <ClientTrainerNav></ClientTrainerNav>
+            <main className="client-trainer-game">
                 <ClientTrainerHeader
                     title="Игра"
                     desc="Добро пожаловать! Смотри видео, выполняй задания, повышай уровень, получай бонусы"

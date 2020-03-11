@@ -2,8 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 
-let isTrainer = true;
-let isAdmin = true;
-const whoIsIt = 'isClient';
+let whoIsIt = '';
+let stub = true;
+let url = 'https://bagiran.ru/api/cors';
+fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+        Origin: 'https://localhost:3000/'
+    }
+}).then(() => {
+    let url = 'https://bagiran.ru/api/auth';
+    fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+            Origin: 'https://localhost:3000/'
+        }
+    })
+        .then((result) => {
+            return result.json();
+        })
+        .then((data) => {
+            whoIsIt = data.who;
+            stub = data.stub;
 
-ReactDOM.render(<App whoIsIt={whoIsIt} />, document.getElementById('root'));
+            console.log(data);
+            ReactDOM.render(
+                <App whoIsIt={'isTrainer'} />,
+                document.getElementById('root')
+            );
+        });
+});

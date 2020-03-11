@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import plus from './+.png';
+import star from './rate-star.png';
 import './style.css';
 
 export default class TerenovkaStatistics extends Component {
@@ -13,13 +14,13 @@ export default class TerenovkaStatistics extends Component {
             exercises: [
                 {
                     name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг', '20кг']
+                    quantity: [5, 5, 5, 5],
+                    load: ['20кг', '20кг', '20кг', '20кг']
                 },
                 {
-                    name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг', '20кг']
+                    name: null,
+                    quantity: [],
+                    load: []
                 },
                 {
                     name: 'Подтягивания',
@@ -29,57 +30,28 @@ export default class TerenovkaStatistics extends Component {
             ],
             hitch: {
                 name: 'Элипс',
-                quantity: '10 минут',
+                quantity: '10 мин',
                 load: ''
             }
         };
         return (
-            <section className="terenovka-statistics">
-                <div className="terenovka-statistics__title">
-                    <div className="">
+            <section className="ct-terenovka-statistics">
+                <div className="ct-terenovka-statistics__title">
+                    <div className="ct-terenovka-statistics__title-main">
                         <h3>14 января </h3>
-                        <h2>Спина</h2>
                     </div>
-                    <div className="rating-area">
+                    <h2>Спина</h2>
+                    <div className="ct-terenovka-statistics__rating-area">
                         <span>Оценка:</span>
-                        <input
-                            type="radio"
-                            id="star-5"
-                            name="rating"
-                            value="5"
-                        />
-                        <label htmlFor="star-5" title="Оценка «5»"></label>
-                        <input
-                            type="radio"
-                            id="star-4"
-                            name="rating"
-                            value="4"
-                        />
-                        <label htmlFor="star-4" title="Оценка «4»"></label>
-                        <input
-                            type="radio"
-                            id="star-3"
-                            name="rating"
-                            value="3"
-                        />
-                        <label htmlFor="star-3" title="Оценка «3»"></label>
-                        <input
-                            type="radio"
-                            id="star-2"
-                            name="rating"
-                            value="2"
-                        />
-                        <label htmlFor="star-2" title="Оценка «2»"></label>
-                        <input
-                            type="radio"
-                            id="star-1"
-                            name="rating"
-                            value="1"
-                        />
-                        <label htmlFor="star-1" title="Оценка «1»"></label>
+                        <br />
+                        <img src={star} alt="star" />
+                        <img src={star} alt="star" />
+                        <img src={star} alt="star" />
+                        <img src={star} alt="star" />
+                        <img src={star} alt="star" />
                     </div>
                 </div>
-                <div className="terenovka-statistics__list">
+                <div className="ct-terenovka-statistics__list">
                     {Object.keys(trainingsList).map((type) => {
                         // eslint-disable-next-line default-case
                         switch (type) {
@@ -87,14 +59,32 @@ export default class TerenovkaStatistics extends Component {
                                 return (
                                     <div
                                         key={'warmUp'}
-                                        className="terenovka-statistics__item"
+                                        className="ct-terenovka-statistics__item"
                                     >
-                                        <div className="terenovka-statistics__item-title">
+                                        <div className="ct-terenovka-statistics__item-title">
                                             <h4>Разминка</h4>
-                                            <button>+</button>
+                                            {trainingsList.warmUp.name ? (
+                                                <span>
+                                                    {trainingsList.warmUp.name}
+                                                </span>
+                                            ) : (
+                                                <button>+</button>
+                                            )}
                                         </div>
-                                        <div className="terenovka-statistics__item-load_warm-up">
-                                            <img src={plus} alt="" />
+                                        <div className="ct-terenovka-statistics__item-load_warm-up">
+                                            {trainingsList.warmUp.quantity ? (
+                                                <b>
+                                                    {trainingsList.warmUp
+                                                        .quantity +
+                                                        (trainingsList.warmUp
+                                                            .load && '/') +
+                                                        ' ' +
+                                                        trainingsList.warmUp
+                                                            .load}
+                                                </b>
+                                            ) : (
+                                                <img src={plus} alt="" />
+                                            )}
                                         </div>
                                     </div>
                                 );
@@ -105,18 +95,24 @@ export default class TerenovkaStatistics extends Component {
                                             (exercise, index) => (
                                                 <div
                                                     key={index + 'exercise'}
-                                                    className="terenovka-statistics__item"
+                                                    className="ct-terenovka-statistics__item"
                                                 >
-                                                    <div className="terenovka-statistics__item-title">
+                                                    <div className="ct-terenovka-statistics__item-title">
                                                         <h4>
                                                             {index +
                                                                 1 +
                                                                 ' упражнение'}
                                                         </h4>
-                                                        <button>+</button>
+                                                        {exercise.name ? (
+                                                            <span>
+                                                                {exercise.name}
+                                                            </span>
+                                                        ) : (
+                                                            <button>+</button>
+                                                        )}
                                                     </div>
-                                                    <div className="terenovka-statistics__item-load">
-                                                        <div className="terenovka-statistics__item-load-top">
+                                                    <div className="ct-terenovka-statistics__item-load">
+                                                        <div className="ct-terenovka-statistics__item-load-top">
                                                             {exercise.quantity.map(
                                                                 (
                                                                     quantity,
@@ -127,21 +123,56 @@ export default class TerenovkaStatistics extends Component {
                                                                             index
                                                                         }
                                                                     >
-                                                                        <img
-                                                                            src={
-                                                                                plus
-                                                                            }
-                                                                            alt=""
-                                                                        />
+                                                                        {
+                                                                            quantity
+                                                                        }
                                                                     </b>
                                                                 )
+                                                            )}
+                                                            {exercise.load
+                                                                .length !==
+                                                                5 && (
+                                                                <b key={index}>
+                                                                    <img
+                                                                        src={
+                                                                            plus
+                                                                        }
+                                                                        alt=""
+                                                                    />
+                                                                </b>
+                                                            )}
+                                                        </div>
+                                                        <div className="ct-terenovka-statistics__item-load-bottom">
+                                                            {exercise.load &&
+                                                                exercise.load.map(
+                                                                    (
+                                                                        load,
+                                                                        index
+                                                                    ) => (
+                                                                        <b
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                load
+                                                                            }
+                                                                        </b>
+                                                                    )
+                                                                )}
+                                                            {exercise.load
+                                                                .length !==
+                                                                5 && (
+                                                                <b
+                                                                    key={index}
+                                                                ></b>
                                                             )}
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         )}
-                                        <button className="terenovka-statistics__dop-item">
+                                        <button className="ct-terenovka-statistics__dop-item">
                                             Добавить упражнение
                                         </button>
                                     </>
@@ -150,16 +181,32 @@ export default class TerenovkaStatistics extends Component {
                                 return (
                                     <div
                                         key={'hitch'}
-                                        className="terenovka-statistics__item"
+                                        className="ct-terenovka-statistics__item"
                                     >
-                                        <div className="terenovka-statistics__item-title">
+                                        <div className="ct-terenovka-statistics__item-title">
                                             <h4>Заминка</h4>
-                                            <button>+</button>
+                                            {trainingsList.hitch.name ? (
+                                                <span>
+                                                    {trainingsList.hitch.name}
+                                                </span>
+                                            ) : (
+                                                <button>+</button>
+                                            )}
                                         </div>
-                                        <div className="terenovka-statistics__item-load_warm-up">
-                                            <b>
+                                        <div className="ct-terenovka-statistics__item-load_warm-up">
+                                            {trainingsList.hitch.quantity ? (
+                                                <b>
+                                                    {trainingsList.hitch
+                                                        .quantity +
+                                                        (trainingsList.hitch
+                                                            .load && '/') +
+                                                        ' ' +
+                                                        trainingsList.hitch
+                                                            .load}
+                                                </b>
+                                            ) : (
                                                 <img src={plus} alt="" />
-                                            </b>
+                                            )}
                                         </div>
                                     </div>
                                 );

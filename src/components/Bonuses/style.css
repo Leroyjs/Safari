@@ -44,17 +44,24 @@ li.bonuses_active:before {
 }
 
 .bonuses button {
-    width: 216px;
-    height: 21px;
-    border-radius: 10px;
+    padding: 8px 30px;
+    border-radius: 20px;
     border: 1px solid #ee4d45;
     background-color: #262b3f;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     position: relative;
     left: 50%;
-    margin-left: -108px;
+    margin-left: -125px;
     outline: none;
     cursor: pointer;
+    margin-bottom: 5px;
+    transition: .2s;
+}
+
+.bonuses button:hover {
+    background-color: #ee4d45;
+    color: #ffffff;
+
 }
