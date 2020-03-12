@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import ModalTrainerSaleStat from '../ModalTrainerSaleStat';
 import './style.css';
 
 export default class SaleHeader extends Component {
     state = {
-        pageData: {}
+        pageData: {},
+        modal: false
     };
     componentDidUpdate() {
         if (
@@ -15,8 +17,14 @@ export default class SaleHeader extends Component {
             });
         }
     }
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
-        const { pageData } = this.state;
+        const { pageData, modal } = this.state;
         return (
             <header className="sale-header">
                 <h1>Продажи</h1>
@@ -24,7 +32,14 @@ export default class SaleHeader extends Component {
                 <span className="sale-header__plan-cost">
                     {pageData.now} / {pageData.plan}
                 </span>
-                <button>Провести продажу</button>
+                <button onClick={() => this.handleModal(true)}>
+                    Провести продажу
+                </button>
+                {modal && (
+                    <ModalTrainerSaleStat
+                        handleModal={this.handleModal}
+                    ></ModalTrainerSaleStat>
+                )}
             </header>
         );
     }

@@ -13,6 +13,7 @@
         "react-dom": "^16.12.0",
         "react-google-charts": "^3.0.15",
         "react-google-static": "^0.1.1",
+        "react-redux": "^7.2.0",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.3.1",
         "react-vk": "^5.0.2"

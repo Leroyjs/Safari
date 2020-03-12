@@ -28,12 +28,100 @@ let nutrition = {
     ]
 };
 export default class DayNutrition extends Component {
+    state = {
+        pageData: {
+            rating: [],
+            comment: '',
+            points: '',
+            eat: []
+        },
+        date: {}
+    };
+    componentDidUpdate() {
+        const { activeId } = this.props;
+        let date = this.props.activeDate;
+        if (date !== undefined && date !== this.state.date) {
+            date =
+                'date=' +
+                date.year +
+                '-' +
+                date.month +
+                '-' +
+                date.day +
+                '&id=' +
+                activeId;
+            console.log(date);
+            const url = 'https://bagiran.ru/client-trainer/nutrition';
+            fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                body: date,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Access-Control-Request-Headers':
+                        'X-Requested-With, Origin',
+                    Origin: 'https://localhost:3000/'
+                }
+            })
+                .then((result) => {
+                    return result.json();
+                })
+                .then((data) => {
+                    this.setState({
+                        pageData: data,
+                        date: this.props.activeDate
+                    });
+                });
+        }
+    }
     render() {
+        const { pageData, date } = this.state;
+        console.log(pageData);
+        let newDate;
+        // eslint-disable-next-line default-case
+        switch (date.month - 1) {
+            case 0:
+                newDate = date.day + ' Января';
+                break;
+            case 1:
+                newDate = date.day + ' Февраля';
+                break;
+            case 2:
+                newDate = date.day + ' Марта';
+                break;
+            case 3:
+                newDate = date.day + ' Апреля';
+                break;
+            case 4:
+                newDate = date.day + ' Мая';
+                break;
+            case 5:
+                newDate = date.day + ' Июня';
+                break;
+            case 6:
+                newDate = date.day + ' Июля';
+                break;
+            case 7:
+                newDate = date.day + ' Августа';
+                break;
+            case 8:
+                newDate = date.day + ' Сентября';
+                break;
+            case 9:
+                newDate = date.day + ' Октября';
+                break;
+            case 10:
+                newDate = date.day + ' Ноября';
+                break;
+            case 11:
+                newDate = date.day + ' Декабря';
+                break;
+        }
         return (
             <section className="day-nutrition">
                 <div className="day-nutrition__block">
                     <div className="day-nutrition__header">
-                        <h3>30 Января</h3>
+                        <h3>{newDate}</h3>
                         <span className="day-nutrition__rating-area">
                             <input
                                 type="radio"
@@ -73,24 +161,32 @@ export default class DayNutrition extends Component {
                         </span>
                     </div>
                     <div className="day-nutrition__main">
-                        {nutrition.eat.map((eat, index) => (
-                            <span className="day-nutrition__eat">
-                                {eat.name}: <span key={index}>{eat.value}</span>
-                                <span className="day-nutrition__plus">+</span>
-                            </span>
-                        ))}
+                        {pageData.eat.length ? (
+                            pageData.eat.map((eat, index) => (
+                                <span className="day-nutrition__eat">
+                                    <span>{eat.name}: </span>
+                                    <span key={index}>{eat.value}</span>
+                                </span>
+                            ))
+                        ) : (
+                            <span>Клиент не заполнил питание</span>
+                        )}
                     </div>
                     <div className="day-nutrition__footer">
                         <span>
                             Комментарий тренера: <br />
-                            <b>
-                                <button>+</button>
-                            </b>
+                            {pageData.comment ? (
+                                <b>{pageData.comment}</b>
+                            ) : (
+                                <b>
+                                    <button>+</button>
+                                </b>
+                            )}
                         </span>
                         <br />
                         <br />
                         <span className="day-nutrition__bonus">
-                            5 баллов за проверку
+                            {pageData.comment && '5 баллов за проверку'}
                         </span>
                     </div>
                 </div>

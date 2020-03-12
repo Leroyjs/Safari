@@ -4,36 +4,54 @@ import Progress from '../Progress';
 import Volume from '../Volume';
 import Result from '../Result';
 import Bonuses from '../Bonuses';
-import Calendar from '../Calendar';
-import ClientsList from '../ClientsList';
 
-const data = {
-    photo_100:
-        'https://up.kpop.re/src/3c/f96574f680afa90a9d6b37849656757082bd19.jpg'
-};
 export default class ClientTrainer extends Component {
+    state = {
+        pageData: {}
+    };
+    componentDidMount() {
+        const { activeId } = this.props;
+        const url = 'https://bagiran.ru/client-trainer/';
+        const data = 'id=' + activeId;
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log(data);
+                this.setState({
+                    pageData: data
+                });
+            });
+    }
     render() {
+        const { pageData } = this.state;
         const isTrainer = false;
         return (
             <div className="personal-area">
                 <ClientTrainerHeaderPA
                     isTrainer={isTrainer}
-                    data={data}
+                    pageData={pageData.header}
                 ></ClientTrainerHeaderPA>
-                {!isTrainer && (
-                    <main>
-                        <Progress></Progress>
-                        <Volume></Volume>
-                        <Result></Result>
-                        <Bonuses buttonOff={true}></Bonuses>
-                    </main>
-                )}
-                {isTrainer && (
-                    <main>
-                        <Calendar isTrainer={isTrainer}></Calendar>
-                        <ClientsList></ClientsList>
-                    </main>
-                )}
+
+                <main>
+                    <Progress pageData={pageData.chartWeight}></Progress>
+                    <Volume pageData={pageData.volume}></Volume>
+                    <Result pageData={pageData.result}></Result>
+                    <Bonuses
+                        pageData={pageData.bonus}
+                        buttonOff={true}
+                    ></Bonuses>
+                </main>
             </div>
         );
     }

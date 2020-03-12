@@ -18,63 +18,7 @@ export default class Duty extends Component {
         demo: {},
         activeMonth: '',
         list: {
-            trainings: [
-                {
-                    title: 'Январь',
-                    subtitle: '30к',
-                    date: '2020-01'
-                },
-                {
-                    title: 'Февраль',
-                    subtitle: '20к',
-                    date: '2020-02'
-                },
-                {
-                    title: 'Март',
-                    subtitle: '',
-                    date: '2020-03'
-                },
-                {
-                    title: 'Апрель',
-                    subtitle: '',
-                    date: '2020-04'
-                },
-                {
-                    title: 'Май',
-                    subtitle: '',
-                    date: '2020-05'
-                },
-                {
-                    title: 'Июнь',
-                    subtitle: '',
-                    date: '2020-06'
-                },
-                {
-                    title: 'Июль',
-                    subtitle: '',
-                    date: '2020-04'
-                },
-                {
-                    title: 'Август',
-                    subtitle: ''
-                },
-                {
-                    title: 'Сентябрь',
-                    subtitle: ''
-                },
-                {
-                    title: 'Октябрь',
-                    subtitle: ''
-                },
-                {
-                    title: 'Ноябрь',
-                    subtitle: ''
-                },
-                {
-                    title: 'Декабрь',
-                    subtitle: ''
-                }
-            ]
+            trainings: []
         }
     };
     componentDidMount() {
@@ -92,8 +36,14 @@ export default class Duty extends Component {
                 return result.json();
             })
             .then((data) => {
-                console.log(data);
+                let list = {
+                    trainings: data.trainings
+                };
+                console.log(list);
                 this.setState({
+                    list: {
+                        trainings: data.trainings
+                    },
                     pageData: data,
                     sales: data.sales,
                     duty: data.duty,
@@ -130,6 +80,7 @@ export default class Duty extends Component {
     };
     render() {
         const { pageData, list, sales, duty, demo } = this.state;
+        console.log(list);
         return (
             <main className="sales">
                 <SaleHeader pageData={pageData.header}></SaleHeader>

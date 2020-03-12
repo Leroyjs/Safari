@@ -6,7 +6,7 @@ export default class Modal extends Component {
     state = {
         url: '/introductory/add-call',
         addData: '',
-        title: '',
+        title: 'Записаться на дежурство',
         inputs: [
             {
                 title: 'ФИО',
@@ -148,7 +148,8 @@ export default class Modal extends Component {
         addData
             ? (data += addData)
             : (data = data.substring(0, data.length - 1));
-        let countErrors = 0;
+        let countErrors = newErrors.inputs.filter((error) => error === true)
+            .length;
         if (newErrors.oneChargeList === true) {
             countErrors++;
         }

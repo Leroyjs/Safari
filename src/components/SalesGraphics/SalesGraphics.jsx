@@ -22,6 +22,7 @@ export default class SalesGraphics extends Component {
     }
     componentDidUpdate() {
         if (
+            this.props.pageData.main !== undefined &&
             this.props.pageData !== undefined &&
             this.props.pageData !== this.state.pageData
         ) {
@@ -33,8 +34,8 @@ export default class SalesGraphics extends Component {
 
     render() {
         const { pageData } = this.state;
+        console.log(pageData);
         const mainRotate = Math.round((180 * +pageData.main.percent) / 100);
-        console.log(mainRotate);
         return (
             <section className="sales-graphics">
                 <div className="sales-graphics__inner">

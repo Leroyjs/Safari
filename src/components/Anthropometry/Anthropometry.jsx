@@ -31,7 +31,6 @@ export default class Anthropometry extends Component {
     }
     render() {
         const { pageData } = this.state;
-        console.log(pageData);
         return (
             <main className="anthropometry">
                 <Header

@@ -39,6 +39,8 @@
 }
 
 .training-month__name {
+    min-width: 40px;
+    text-align: center;
     transform: rotate(-90deg);
     font-size: 9px;
     font-weight: 400;

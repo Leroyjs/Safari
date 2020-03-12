@@ -17,14 +17,28 @@ import ClientTrainerTraining from '../ClientTrainerTraining';
 import ClientTrainerNav from '../ClientTrainerNav';
 
 export default class Main extends Component {
+    state = {
+        activeId: '1'
+    };
+    handleChangeId = (activeId) => {
+        console.log(activeId);
+        this.setState({
+            activeId
+        });
+    };
     render() {
         const { whoIsIt, data } = this.props;
+        const { activeId } = this.state;
         return (
             <>
                 <Route
                     path="/"
                     render={() => (
-                        <PersonalArea whoIsIt={whoIsIt} data={data} />
+                        <PersonalArea
+                            handleChangeId={this.handleChangeId}
+                            whoIsIt={whoIsIt}
+                            data={data}
+                        />
                     )}
                     exact
                 ></Route>
@@ -39,27 +53,31 @@ export default class Main extends Component {
                 ></Route>
                 <Route
                     path="/Client-trainer"
-                    component={ClientTrainer}
+                    render={() => <ClientTrainer activeId={activeId} />}
                     exact
                 ></Route>
                 <Route
                     path="/Client-trainer/Anthropometry"
-                    component={ClientTrainerAnthropometry}
+                    render={() => (
+                        <ClientTrainerAnthropometry activeId={activeId} />
+                    )}
                     exact
                 ></Route>
                 <Route
                     path="/Client-trainer/Game"
-                    component={ClientTrainerGame}
+                    render={() => <ClientTrainerGame activeId={activeId} />}
                     exact
                 ></Route>
                 <Route
                     path="/Client-trainer/Nutrition"
-                    component={ClientTrainerNutrition}
+                    render={() => (
+                        <ClientTrainerNutrition activeId={activeId} />
+                    )}
                     exact
                 ></Route>
                 <Route
                     path="/Client-trainer/Training"
-                    component={ClientTrainerTraining}
+                    render={() => <ClientTrainerTraining activeId={activeId} />}
                     exact
                 ></Route>
                 <Route path="/Calendar" component={Duty} exact></Route>

@@ -89,8 +89,6 @@ export default class IntroductoryTableCall extends Component {
                 </div>
                 {modal && (
                     <ModalTrainerIntroductoryCall
-                        title={'Записаться на дежурство'}
-                        url={'/calendar/add'}
                         handleModal={this.handleModal}
                     ></ModalTrainerIntroductoryCall>
                 )}

@@ -1,34 +1,11 @@
 import React, { Component } from 'react';
+import ModalTrainerSaleStat from '../ModalTrainerSaleStat';
 import './style.css';
-let array = [
-    {
-        data: '02.01',
-        name: 'Иванов И.И.',
-        phone: '89512700000',
-        source: 'Дежурство',
-        quantity: '10',
-        sum: '7000р'
-    },
-    {
-        data: '02.01',
-        name: 'Иванов И.И.',
-        phone: '89512700000',
-        source: 'Дежурство',
-        quantity: '10',
-        sum: '7000р'
-    },
-    {
-        data: '02.01',
-        name: 'Иванов И.И.',
-        phone: '89512700000',
-        source: 'Дежурство',
-        quantity: '10',
-        sum: '7000р'
-    }
-];
+
 export default class SaleStat extends Component {
     state = {
-        pageData: []
+        pageData: [],
+        modal: false
     };
     componentDidUpdate() {
         if (
@@ -40,8 +17,14 @@ export default class SaleStat extends Component {
             });
         }
     }
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
-        const { pageData } = this.state;
+        const { pageData, modal } = this.state;
         return (
             <section className="sale-stat">
                 <div className="sale-stat__inner">
@@ -69,8 +52,9 @@ export default class SaleStat extends Component {
                                         <b>Кол-во ПТ: </b>
                                         <span>{user.count}</span>
                                     </div>
+
                                     <div className="sale-stat__main-row-inner-2">
-                                        <b>Сумма:</b> <span>7000р</span>
+                                        <b>Сумма:</b> <span>{user.sum}р</span>
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +62,15 @@ export default class SaleStat extends Component {
                     ) : (
                         <p>Продаж нет</p>
                     )}
-                    <button>Провести продажу</button>
+                    <button onClick={() => this.handleModal(true)}>
+                        Провести продажу
+                    </button>
                 </div>
+                {modal && (
+                    <ModalTrainerSaleStat
+                        handleModal={this.handleModal}
+                    ></ModalTrainerSaleStat>
+                )}
             </section>
         );
     }

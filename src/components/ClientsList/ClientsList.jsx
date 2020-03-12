@@ -23,7 +23,11 @@ export default class ClientsList extends Component {
             <section className="clients-list">
                 <h2>Клиенты</h2>
                 {pageData.map((client, index) => (
-                    <Link key={'client' + index} to="/Client-trainer">
+                    <Link
+                        onClick={() => this.props.handleChangeId(client.id)}
+                        key={'client' + index}
+                        to="/Client-trainer"
+                    >
                         <div className="clients-list__item">
                             <img src={client.foto} alt="client" />{' '}
                             <div className="clients-list__text">

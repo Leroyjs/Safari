@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import ModalTrainerIntroductoryRecord from '../ModalTrainerIntroductoryRecord';
 import './style.css';
 
 export default class IntroductoryTableRecord extends Component {
     state = {
         pageData: [],
-        date: ''
+        date: '',
+        modal: false,
+        canUpate: true
     };
     componentDidUpdate() {
         let date = this.props.activeDate;
-        if (date !== undefined && date !== this.state.date) {
+        if (
+            (date !== undefined && date !== this.state.date) ||
+            this.state.canUpate
+        ) {
             date = 'date=' + date.year + '-' + date.month + '-' + date.day;
 
             const url = 'https://bagiran.ru/introductory/get-day';
@@ -30,13 +36,20 @@ export default class IntroductoryTableRecord extends Component {
                     console.log(data);
                     this.setState({
                         pageData: data.IntroductoryTableRecord,
-                        date: this.props.activeDate
+                        date: this.props.activeDate,
+                        canUpate: false
                     });
                 });
         }
     }
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
-        const { pageData } = this.state;
+        const { pageData, modal } = this.state;
         console.log(pageData);
         return (
             <section className="introductory-table">
@@ -65,8 +78,13 @@ export default class IntroductoryTableRecord extends Component {
                             </span>
                         </div>
                     ))}
-                    <button>+</button>
+                    <button onClick={() => this.handleModal(true)}>+</button>
                 </div>
+                {modal && (
+                    <ModalTrainerIntroductoryRecord
+                        handleModal={this.handleModal}
+                    ></ModalTrainerIntroductoryRecord>
+                )}
             </section>
         );
     }

@@ -138,6 +138,7 @@ export default class PersonalArea extends Component {
                             clientsList={pageData.clientsList}
                         ></CalendarListClients>
                         <ClientsList
+                            handleChangeId={this.props.handleChangeId}
                             pageData={pageData.clientsList}
                         ></ClientsList>
                     </main>

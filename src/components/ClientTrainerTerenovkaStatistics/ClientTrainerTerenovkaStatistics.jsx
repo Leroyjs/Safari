@@ -4,55 +4,53 @@ import star from './rate-star.png';
 import './style.css';
 
 export default class TerenovkaStatistics extends Component {
+    state = {
+        pageData: {}
+    };
+
+    componentDidMount() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+            console.log(this.props.pageData);
+        }
+    }
+    componentDidUpdate() {
+        if (
+            this.props.pageData !== undefined &&
+            this.props.pageData !== this.state.pageData
+        ) {
+            this.setState({
+                pageData: this.props.pageData
+            });
+            console.log(this.props.pageData);
+        }
+    }
     render() {
-        let trainingsList = {
-            warmUp: {
-                name: 'Дорожка',
-                quantity: '10 минут',
-                load: 'горка 12'
-            },
-            exercises: [
-                {
-                    name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг']
-                },
-                {
-                    name: null,
-                    quantity: [],
-                    load: []
-                },
-                {
-                    name: 'Подтягивания',
-                    quantity: [5, 5, 5, 5, 5],
-                    load: ['20кг', '20кг', '20кг', '20кг', '20кг']
-                }
-            ],
-            hitch: {
-                name: 'Элипс',
-                quantity: '10 мин',
-                load: ''
-            }
-        };
+        const { pageData } = this.state;
+        console.log(pageData);
         return (
             <section className="ct-terenovka-statistics">
                 <div className="ct-terenovka-statistics__title">
                     <div className="ct-terenovka-statistics__title-main">
                         <h3>14 января </h3>
                     </div>
-                    <h2>Спина</h2>
+                    <h2>{pageData.title}</h2>
                     <div className="ct-terenovka-statistics__rating-area">
                         <span>Оценка:</span>
                         <br />
-                        <img src={star} alt="star" />
-                        <img src={star} alt="star" />
-                        <img src={star} alt="star" />
-                        <img src={star} alt="star" />
-                        <img src={star} alt="star" />
+                        {pageData.score !== undefined &&
+                            pageData.score.map(() => (
+                                <img src={star} alt="star" />
+                            ))}
                     </div>
                 </div>
                 <div className="ct-terenovka-statistics__list">
-                    {Object.keys(trainingsList).map((type) => {
+                    {Object.keys(pageData).map((type) => {
                         // eslint-disable-next-line default-case
                         switch (type) {
                             case 'warmUp':
@@ -63,24 +61,22 @@ export default class TerenovkaStatistics extends Component {
                                     >
                                         <div className="ct-terenovka-statistics__item-title">
                                             <h4>Разминка</h4>
-                                            {trainingsList.warmUp.name ? (
+                                            {pageData.warmUp.name ? (
                                                 <span>
-                                                    {trainingsList.warmUp.name}
+                                                    {pageData.warmUp.name}
                                                 </span>
                                             ) : (
                                                 <button>+</button>
                                             )}
                                         </div>
                                         <div className="ct-terenovka-statistics__item-load_warm-up">
-                                            {trainingsList.warmUp.quantity ? (
+                                            {pageData.warmUp.quantity ? (
                                                 <b>
-                                                    {trainingsList.warmUp
-                                                        .quantity +
-                                                        (trainingsList.warmUp
-                                                            .load && '/') +
+                                                    {pageData.warmUp.quantity +
+                                                        (pageData.warmUp.load &&
+                                                            '/') +
                                                         ' ' +
-                                                        trainingsList.warmUp
-                                                            .load}
+                                                        pageData.warmUp.load}
                                                 </b>
                                             ) : (
                                                 <img src={plus} alt="" />
@@ -91,7 +87,7 @@ export default class TerenovkaStatistics extends Component {
                             case 'exercises':
                                 return (
                                     <>
-                                        {trainingsList.exercises.map(
+                                        {pageData.exercises.map(
                                             (exercise, index) => (
                                                 <div
                                                     key={index + 'exercise'}
@@ -185,24 +181,22 @@ export default class TerenovkaStatistics extends Component {
                                     >
                                         <div className="ct-terenovka-statistics__item-title">
                                             <h4>Заминка</h4>
-                                            {trainingsList.hitch.name ? (
+                                            {pageData.hitch.name ? (
                                                 <span>
-                                                    {trainingsList.hitch.name}
+                                                    {pageData.hitch.name}
                                                 </span>
                                             ) : (
                                                 <button>+</button>
                                             )}
                                         </div>
                                         <div className="ct-terenovka-statistics__item-load_warm-up">
-                                            {trainingsList.hitch.quantity ? (
+                                            {pageData.hitch.quantity ? (
                                                 <b>
-                                                    {trainingsList.hitch
-                                                        .quantity +
-                                                        (trainingsList.hitch
-                                                            .load && '/') +
+                                                    {pageData.hitch.quantity +
+                                                        (pageData.hitch.load &&
+                                                            '/') +
                                                         ' ' +
-                                                        trainingsList.hitch
-                                                            .load}
+                                                        pageData.hitch.load}
                                                 </b>
                                             ) : (
                                                 <img src={plus} alt="" />

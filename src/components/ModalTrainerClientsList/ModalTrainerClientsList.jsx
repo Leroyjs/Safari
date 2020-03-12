@@ -26,6 +26,7 @@ export default class Modal extends Component {
         const body = document.querySelector('body');
         body.style.overflow = 'hidden';
         let data = this.props.addData;
+        console.log(data);
         fetch(
             'https://bagiran.ru/client-trainer/training/get-time-for-record',
             {
