@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ModalSelectTrainer from '../ModalSelectTrainer';
 import './style.css';
 
 export default class HeaderPersonalArea extends Component {
@@ -11,8 +12,10 @@ export default class HeaderPersonalArea extends Component {
             rating: '4.9',
             training: '654',
             customers: '34'
-        }
+        },
+        modal: false
     };
+
     componentDidUpdate() {
         if (
             this.props.pageData !== undefined &&
@@ -23,9 +26,17 @@ export default class HeaderPersonalArea extends Component {
             });
         }
     }
+    handleModal = (modal) => {
+        this.props.updata();
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
-        const { data, whoIsIt } = this.props;
-        const { pageData } = this.state;
+        const { data, whoIsIt, myCoach, children } = this.props;
+        const { pageData, modal } = this.state;
+        console.warn(myCoach);
         return (
             <header className="header-personal-area">
                 <h1>Личный кабинет</h1>
@@ -58,10 +69,34 @@ export default class HeaderPersonalArea extends Component {
                             <br />
                             <span>Кол-во баллов: {pageData.points}</span>
                             <br />
+                            {children}
                         </div>
                     )}
                 </div>
-                {whoIsIt === 'isClient' && <button>Выбрать тренера</button>}
+
+                {whoIsIt === 'isClient' && !myCoach ? (
+                    <button onClick={() => this.handleModal(true)}>
+                        Выбрать тренера
+                    </button>
+                ) : (
+                    whoIsIt === 'isClient' && (
+                        <span
+                            style={{
+                                fontSize: '11px',
+                                marginTop: '5px'
+                            }}
+                        >
+                            {'Ваш тренер: ' + myCoach.name}
+                        </span>
+                    )
+                )}
+                {modal && (
+                    <ModalSelectTrainer
+                        url={'/main/customer-select-trainer'}
+                        handleModal={this.handleModal}
+                        title="Выбрать тренера"
+                    ></ModalSelectTrainer>
+                )}
             </header>
         );
     }

@@ -1,52 +1,115 @@
 import React, { Component } from 'react';
 import plus from './+.png';
 import star from './rate-star.png';
+import ModalClientTrainerAnthropometry from '../ModalClientTrainerAnthropometry';
 import './style.css';
 
 export default class TerenovkaStatistics extends Component {
     state = {
-        pageData: {}
+        pageData: {},
+        canUpate: true,
+        modal: false,
+        madalTitle: '',
+        input: [
+            {
+                title: '',
+                postArg: '',
+                mandatory: true
+            }
+        ],
+        addData: '',
+        modalUrl: ''
     };
-
     componentDidMount() {
         if (
             this.props.pageData !== undefined &&
             this.props.pageData !== this.state.pageData
         ) {
             this.setState({
-                pageData: this.props.pageData
+                pageData: this.props.pageData,
+                canUpate: false
             });
-            console.log(this.props.pageData);
         }
     }
     componentDidUpdate() {
         if (
-            this.props.pageData !== undefined &&
-            this.props.pageData !== this.state.pageData
+            (this.props.pageData !== undefined &&
+                this.props.pageData !== this.state.pageData) ||
+            this.state.canUpate
         ) {
             this.setState({
-                pageData: this.props.pageData
+                pageData: this.props.pageData,
+                canUpate: false
             });
-            console.log(this.props.pageData);
         }
     }
+
+    handleModal = (modal, madalTitle, input, addData, modalUrl) => {
+        this.setState({
+            canUpate: true,
+            modal,
+            madalTitle,
+            input,
+            addData,
+            modalUrl
+        });
+        this.props.handleLoad(this.state.pageData.date, 0);
+    };
     render() {
-        const { pageData } = this.state;
-        console.log(pageData);
+        const oneInput = [
+            {
+                title: 'Название упражнения',
+                postArg: 'ex_title',
+                mandatory: true
+            }
+        ];
+        const twoInput = [
+            {
+                title: 'Кол-во повторений',
+                postArg: 'app_val1',
+                mandatory: true
+            },
+            {
+                title: 'Вес',
+                postArg: 'app_val2',
+                mandatory: true
+            }
+        ];
+        const {
+            pageData,
+            modal,
+            madalTitle,
+            input,
+            addData,
+            modalUrl
+        } = this.state;
+        const { activeId } = this.props;
+        let canAdd = false;
+        if (this.state.pageData.date) {
+            let date = this.state.pageData.date.split('-');
+            date = date.map((item) => +item);
+            console.warn(pageData);
+            const now = new Date();
+            if (
+                now.getFullYear() === date[0] &&
+                now.getMonth() + 1 === date[1] &&
+                now.getDate() === date[2]
+            ) {
+                canAdd = true;
+            }
+        }
         return (
             <section className="ct-terenovka-statistics">
                 <div className="ct-terenovka-statistics__title">
-                    <div className="ct-terenovka-statistics__title-main">
-                        <h3>14 января </h3>
-                    </div>
                     <h2>{pageData.title}</h2>
                     <div className="ct-terenovka-statistics__rating-area">
                         <span>Оценка:</span>
                         <br />
-                        {pageData.score !== undefined &&
-                            pageData.score.map(() => (
-                                <img src={star} alt="star" />
-                            ))}
+                        {pageData.score !== undefined && pageData.score.length
+                            ? pageData.score.map(() => (
+                                  <img src={star} alt="star" />
+                              ))
+                            : 'Нет оценки'}
                     </div>
                 </div>
                 <div className="ct-terenovka-statistics__list">
@@ -66,7 +129,21 @@ export default class TerenovkaStatistics extends Component {
                                                     {pageData.warmUp.name}
                                                 </span>
                                             ) : (
-                                                <button>+</button>
+                                                canAdd && (
+                                                    <button
+                                                        onClick={() =>
+                                                            this.handleModal(
+                                                                true,
+                                                                'Добавить название упражнения',
+                                                                oneInput,
+                                                                'ex_number=-1',
+                                                                '/client-trainer/training/save-ex-title'
+                                                            )
+                                                        }
+                                                    >
+                                                        +
+                                                    </button>
+                                                )
                                             )}
                                         </div>
                                         <div className="ct-terenovka-statistics__item-load_warm-up">
@@ -79,7 +156,22 @@ export default class TerenovkaStatistics extends Component {
                                                         pageData.warmUp.load}
                                                 </b>
                                             ) : (
-                                                <img src={plus} alt="" />
+                                                canAdd && (
+                                                    <img
+                                                        onClick={() =>
+                                                            this.handleModal(
+                                                                true,
+                                                                'Добавить подход',
+                                                                twoInput,
+                                                                'ex_number=-1' +
+                                                                    '&app_number=1',
+                                                                '/client-trainer/training/save'
+                                                            )
+                                                        }
+                                                        src={plus}
+                                                        alt=""
+                                                    />
+                                                )
                                             )}
                                         </div>
                                     </div>
@@ -104,7 +196,23 @@ export default class TerenovkaStatistics extends Component {
                                                                 {exercise.name}
                                                             </span>
                                                         ) : (
-                                                            <button>+</button>
+                                                            canAdd && (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        this.handleModal(
+                                                                            true,
+                                                                            'Добавить название упражнения',
+                                                                            oneInput,
+                                                                            'ex_number=' +
+                                                                                (index +
+                                                                                    1),
+                                                                            '/client-trainer/training/save-ex-title'
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    +
+                                                                </button>
+                                                            )
                                                         )}
                                                     </div>
                                                     <div className="ct-terenovka-statistics__item-load">
@@ -126,17 +234,37 @@ export default class TerenovkaStatistics extends Component {
                                                                 )
                                                             )}
                                                             {exercise.load
-                                                                .length !==
-                                                                5 && (
-                                                                <b key={index}>
-                                                                    <img
-                                                                        src={
-                                                                            plus
+                                                                .length !== 5 &&
+                                                                canAdd && (
+                                                                    <b
+                                                                        key={
+                                                                            index
                                                                         }
-                                                                        alt=""
-                                                                    />
-                                                                </b>
-                                                            )}
+                                                                    >
+                                                                        <img
+                                                                            onClick={() =>
+                                                                                this.handleModal(
+                                                                                    true,
+                                                                                    'Добавить подход',
+                                                                                    twoInput,
+                                                                                    'ex_number=' +
+                                                                                        (index +
+                                                                                            1) +
+                                                                                        '&app_number=' +
+                                                                                        (exercise
+                                                                                            .quantity
+                                                                                            .length +
+                                                                                            1),
+                                                                                    '/client-trainer/training/save'
+                                                                                )
+                                                                            }
+                                                                            src={
+                                                                                plus
+                                                                            }
+                                                                            alt=""
+                                                                        />
+                                                                    </b>
+                                                                )}
                                                         </div>
                                                         <div className="ct-terenovka-statistics__item-load-bottom">
                                                             {exercise.load &&
@@ -168,9 +296,25 @@ export default class TerenovkaStatistics extends Component {
                                                 </div>
                                             )
                                         )}
-                                        <button className="ct-terenovka-statistics__dop-item">
-                                            Добавить упражнение
-                                        </button>
+                                        {canAdd && (
+                                            <button
+                                                onClick={() =>
+                                                    this.handleModal(
+                                                        true,
+                                                        'Добавить название упражнения',
+                                                        oneInput,
+                                                        'ex_number=' +
+                                                            (pageData.exercises
+                                                                .length +
+                                                                1),
+                                                        '/client-trainer/training/save-ex-title'
+                                                    )
+                                                }
+                                                className="ct-terenovka-statistics__dop-item"
+                                            >
+                                                Добавить упражнение
+                                            </button>
+                                        )}
                                     </>
                                 );
                             case 'hitch':
@@ -186,7 +330,21 @@ export default class TerenovkaStatistics extends Component {
                                                     {pageData.hitch.name}
                                                 </span>
                                             ) : (
-                                                <button>+</button>
+                                                canAdd && (
+                                                    <button
+                                                        onClick={() =>
+                                                            this.handleModal(
+                                                                true,
+                                                                'Добавить название упражнения',
+                                                                oneInput,
+                                                                'ex_number=-2',
+                                                                '/client-trainer/training/save-ex-title'
+                                                            )
+                                                        }
+                                                    >
+                                                        +
+                                                    </button>
+                                                )
                                             )}
                                         </div>
                                         <div className="ct-terenovka-statistics__item-load_warm-up">
@@ -199,7 +357,22 @@ export default class TerenovkaStatistics extends Component {
                                                         pageData.hitch.load}
                                                 </b>
                                             ) : (
-                                                <img src={plus} alt="" />
+                                                canAdd && (
+                                                    <img
+                                                        onClick={() =>
+                                                            this.handleModal(
+                                                                true,
+                                                                'Добавить подход',
+                                                                twoInput,
+                                                                'ex_number=-2' +
+                                                                    '&app_number=1',
+                                                                '/client-trainer/training/save'
+                                                            )
+                                                        }
+                                                        src={plus}
+                                                        alt=""
+                                                    />
+                                                )
                                             )}
                                         </div>
                                     </div>
@@ -207,6 +380,15 @@ export default class TerenovkaStatistics extends Component {
                         }
                     })}
                 </div>
+                {modal && (
+                    <ModalClientTrainerAnthropometry
+                        url={modalUrl}
+                        title={madalTitle}
+                        inputs={input}
+                        handleModal={this.handleModal}
+                        addData={'id=' + activeId + '&' + addData}
+                    ></ModalClientTrainerAnthropometry>
+                )}
             </section>
         );
     }

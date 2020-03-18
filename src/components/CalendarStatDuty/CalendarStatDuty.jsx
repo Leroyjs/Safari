@@ -70,7 +70,7 @@ export default class CalendarStatDuty extends Component {
                 });
             }
         }
-        console.log(oneChargeList);
+        console.log(pageData);
         let newDate;
         // eslint-disable-next-line default-case
         switch (date.month - 1) {
@@ -144,7 +144,7 @@ export default class CalendarStatDuty extends Component {
                     </div>
                     <button onClick={() => this.handleModal(true)}>+</button>
                     <div className="calendar-stat-duty__bottom-row">
-                        <span>Вы получаете 71 балл!</span>
+                        {/* <span>Вы получаете 71 балл!</span> */}
                     </div>
                 </div>
                 {modal && (

@@ -8,6 +8,15 @@
     display: inline-block;
 }
 
+.day-nutrition__rating-star {
+    width: 86px;
+    display: flex;
+}
+
+.day-nutrition__rating-star img {
+    margin-right: 3px;
+}
+
 .day-nutrition__plus {
     color: #6ac259;
     font-size: 18px;

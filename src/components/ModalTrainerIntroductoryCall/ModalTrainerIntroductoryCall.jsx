@@ -57,26 +57,6 @@ export default class Modal extends Component {
         body.style.overflow = 'auto';
     }
 
-    // componentDidUpdate() {
-    //     const { oneChargeList, title, addData, url } = this.props;
-    //     if (
-    //         (oneChargeList !== this.state.oneChargeList ||
-    //             title !== this.state.title ||
-    //             addData !== this.state.addData ||
-    //             url !== this.state.url) &&
-    //         oneChargeList !== undefined &&
-    //         title !== undefined &&
-    //         addData !== undefined &&
-    //         url !== undefined
-    //     ) {
-    //         this.setState({
-    //             oneChargeList,
-    //             title,
-    //             addData,
-    //             url
-    //         });
-    //     }
-    // }
     handleTextChange = (event) => {
         const [index, type] = event.target.name.split('_');
         let values = JSON.parse(JSON.stringify(this.state.values));

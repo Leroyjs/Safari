@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ModalClientTrainerTraining from '../ModalClientTrainerTraining';
 import './style.css';
 
 export default class TrainingMonth extends Component {
@@ -11,10 +12,16 @@ export default class TrainingMonth extends Component {
             pageData: {
                 trainings: []
             },
-            index: 0
+            index: 0,
+            modal: false,
+            canUpate: true
         };
     }
     componentDidUpdate() {
+        if (this.state.canUpate) {
+            const { update } = this.props;
+            update();
+        }
         if (
             this.props.pageData !== undefined &&
             this.props.pageData !== this.state.pageData
@@ -30,12 +37,14 @@ export default class TrainingMonth extends Component {
             }
             console.log(this.props);
             if (
-                this.props.pageData !== undefined &&
-                this.props.pageData !== this.state.pageData
+                (this.props.pageData !== undefined &&
+                    this.props.pageData !== this.state.pageData) ||
+                this.state.canUpate
             ) {
                 this.setState({
                     pageData: this.props.pageData,
-                    index: this.props.index
+                    index: this.props.index,
+                    canUpate: false
                 });
                 console.log(this.props);
                 const monthBlock = this.trainingMonthBlock.current;
@@ -160,7 +169,7 @@ export default class TrainingMonth extends Component {
     }
     handleClick = (data) => {
         const { handleLoad, folding = true } = this.props;
-        console.log(this.state.index);
+        console.log(this.props.pageData);
         const index = JSON.parse(JSON.stringify(this.state.index));
         if (data === this.state.activeTraining) {
             if (folding) {
@@ -176,9 +185,25 @@ export default class TrainingMonth extends Component {
             handleLoad(data, index, false);
         }
     };
+    handleModal = (modal) => {
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
     render() {
         const { title, trainings } = this.state.pageData;
-        const { activeTraining } = this.state;
+        const { activeTraining, modal, index } = this.state;
+        const { activeId } = this.props;
+        console.log(trainings);
+        let now = new Date();
+        now = now.getDate();
+        let plus = true;
+        if (trainings.length !== 0) {
+            if (now == trainings[trainings.length - 1].subtitle) {
+                plus = false;
+            }
+        }
         return (
             <section className="training-month">
                 <h2>{title}</h2>
@@ -208,11 +233,37 @@ export default class TrainingMonth extends Component {
                                 </span>
                             </div>
                         ))}
-                        <div className="training-month__item training-month_last">
-                            <span className="training-month__name">+</span>
+                        <div
+                            className="training-month__item training-month_last"
+                            style={{ paddingTop: '0' }}
+                        >
+                            {index === 0 && plus && (
+                                <span
+                                    onClick={() => this.handleModal(true)}
+                                    className="training-month__name"
+                                >
+                                    +
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
+
+                {modal && (
+                    <ModalClientTrainerTraining
+                        url={'/client-trainer/training/save-title'}
+                        title={'Добавить тренировку'}
+                        inputs={[
+                            {
+                                title: 'Название тренировки',
+                                postArg: 'title',
+                                mandatory: true
+                            }
+                        ]}
+                        handleModal={this.handleModal}
+                        addData={'id=' + activeId}
+                    ></ModalClientTrainerTraining>
+                )}
             </section>
         );
     }

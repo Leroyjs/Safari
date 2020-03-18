@@ -4,11 +4,13 @@ import './style.css';
 
 export default class SpendItems extends Component {
     render() {
-        const { title, style } = this.props;
+        const { title, style, whoIsIt, update } = this.props;
         return (
             <section style={style} className="spend-items">
                 <h2> {title}</h2>
                 <SpendItem
+                    update={update}
+                    whoIsIt={whoIsIt}
                     img={
                         <svg
                             viewBox="0 0 64 64"
@@ -18,9 +20,12 @@ export default class SpendItems extends Component {
                         </svg>
                     }
                     title="1 пт"
-                    price="100 баллов"
+                    price="300"
+                    id="1"
                 ></SpendItem>
                 <SpendItem
+                    update={update}
+                    whoIsIt={whoIsIt}
                     img={
                         <svg
                             viewBox="1 -69 511.999 511"
@@ -32,9 +37,12 @@ export default class SpendItems extends Component {
                         </svg>
                     }
                     title="Массаж"
-                    price="100 баллов"
+                    price="100"
+                    id="2"
                 ></SpendItem>
                 <SpendItem
+                    update={update}
+                    whoIsIt={whoIsIt}
                     img={
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -78,9 +86,12 @@ export default class SpendItems extends Component {
                         </svg>
                     }
                     title="SPA"
-                    price="200 баллов"
+                    price="200"
+                    id="3"
                 ></SpendItem>
                 <SpendItem
+                    update={update}
+                    whoIsIt={whoIsIt}
                     img={
                         <svg
                             viewBox="0 0 60 60"
@@ -94,9 +105,12 @@ export default class SpendItems extends Component {
                         </svg>
                     }
                     title="Курс LPG"
-                    price="1500 баллов"
+                    price="1500"
+                    id="4"
                 ></SpendItem>
                 <SpendItem
+                    update={update}
+                    whoIsIt={whoIsIt}
                     img={
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -128,9 +142,12 @@ export default class SpendItems extends Component {
                         </svg>
                     }
                     title="Обучение на тренера"
-                    price="5000 баллов"
+                    price="5000"
+                    id="5"
                 ></SpendItem>
                 <SpendItem
+                    update={update}
+                    whoIsIt={whoIsIt}
                     img={
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +193,8 @@ export default class SpendItems extends Component {
                         </svg>
                     }
                     title="Тренировка по боксу"
-                    price="200 баллов"
+                    price="200"
+                    id="6"
                 ></SpendItem>
             </section>
         );

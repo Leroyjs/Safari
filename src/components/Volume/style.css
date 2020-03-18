@@ -38,7 +38,7 @@
 }
 
 .volume__table-name-item {
-    height: 22px;
+    min-height: 22px;
     display: flex;
     align-items: center;
     background-color: #f0f0f0;

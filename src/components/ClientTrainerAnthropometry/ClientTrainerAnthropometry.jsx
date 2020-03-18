@@ -31,8 +31,33 @@ export default class ClientTrainerAnthropometry extends Component {
                 });
             });
     }
+
+    update = () => {
+        const { activeId } = this.props;
+        const url = 'https://bagiran.ru/client-trainer/anthropometry';
+        const data = 'id=' + activeId;
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                this.setState({
+                    pageData: data
+                });
+            });
+    };
     render() {
         const { pageData } = this.state;
+        const { activeId } = this.props;
         return (
             <main className="client-trainer-anthropometry">
                 <ClientTrainerHeader
@@ -43,13 +68,38 @@ export default class ClientTrainerAnthropometry extends Component {
                 <Volume
                     pageData={pageData.volume}
                     anthropometry="true"
+                    activeId={activeId}
+                    update={this.update}
+                    modalData={{
+                        url: '/client-trainer'
+                    }}
                 ></Volume>
                 <Weight
+                    update={this.update}
+                    modalData={{
+                        url: '/client-trainer/anthropometry/save-weight',
+                        title: 'Ваш вес',
+                        inputs: {
+                            title: 'Вес',
+                            postArg: 'val'
+                        }
+                    }}
                     pageData={pageData.weight}
                     anthropometry="true"
                     name="Вес (кг)"
+                    activeId={activeId}
                 ></Weight>
                 <Weight
+                    update={this.update}
+                    modalData={{
+                        url: '/client-trainer/anthropometry/save-pulse',
+                        title: 'Ваш пульс',
+                        inputs: {
+                            title: 'Пульс',
+                            postArg: 'val'
+                        }
+                    }}
+                    activeId={activeId}
                     pageData={pageData.puls}
                     anthropometry="true"
                     name="Пульс  (уд. мин)"

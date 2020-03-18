@@ -6,7 +6,7 @@ export default class Modal extends Component {
     state = {
         url: '/sales/add',
         addData: '',
-        title: 'Записаться на дежурство',
+        title: 'Провести продажу',
         inputs: [
             {
                 title: 'ФИО',
@@ -18,11 +18,7 @@ export default class Modal extends Component {
                 postArg: 'phone',
                 mandatory: true
             },
-            {
-                title: 'Источник',
-                postArg: 'source',
-                mandatory: true
-            },
+
             {
                 title: 'Кол-во ПТ',
                 postArg: 'count',
@@ -39,8 +35,36 @@ export default class Modal extends Component {
                 mandatory: true
             }
         ],
+        oneChargeList: [
+            {
+                title: 'Дежурство',
+                postArg: 'source',
+                value: 'дежурство'
+            },
+            {
+                title: 'Вводная',
+                postArg: 'source',
+                value: 'вводная'
+            },
+            {
+                title: 'Рекомендация',
+                postArg: 'source',
+                value: 'рекомендация'
+            },
+            {
+                title: 'Соц сети',
+                postArg: 'source',
+                value: 'соц сети'
+            },
+            {
+                title: 'Сам привел',
+                postArg: 'source',
+                value: 'сам привел'
+            }
+        ],
         values: {
-            inputs: ['', '', '', '', '', '']
+            inputs: ['', '', '', '', '', ''],
+            oneChargeList: ''
         },
         errors: {
             inputs: []
@@ -55,27 +79,15 @@ export default class Modal extends Component {
         const body = document.querySelector('body');
         body.style.overflow = 'auto';
     }
-
-    // componentDidUpdate() {
-    //     const { oneChargeList, title, addData, url } = this.props;
-    //     if (
-    //         (oneChargeList !== this.state.oneChargeList ||
-    //             title !== this.state.title ||
-    //             addData !== this.state.addData ||
-    //             url !== this.state.url) &&
-    //         oneChargeList !== undefined &&
-    //         title !== undefined &&
-    //         addData !== undefined &&
-    //         url !== undefined
-    //     ) {
-    //         this.setState({
-    //             oneChargeList,
-    //             title,
-    //             addData,
-    //             url
-    //         });
-    //     }
-    // }
+    handleRadioChange = (event) => {
+        const radioValue = event.target.value;
+        let values = JSON.parse(JSON.stringify(this.state.values));
+        let errors = JSON.parse(JSON.stringify(this.state.errors));
+        values.oneChargeList = radioValue;
+        errors.oneChargeList = false;
+        console.log(this.state);
+        this.setState({ values, errors });
+    };
     handleTextChange = (event) => {
         const [index, type] = event.target.name.split('_');
         let values = JSON.parse(JSON.stringify(this.state.values));
@@ -87,7 +99,14 @@ export default class Modal extends Component {
     };
 
     handleSave = () => {
-        const { url, inputs, values, errors, addData } = this.state;
+        const {
+            url,
+            inputs,
+            values,
+            errors,
+            addData,
+            oneChargeList
+        } = this.state;
         let data = '';
         let newErrors = JSON.parse(JSON.stringify(errors));
         inputs.forEach((item, i) => {
@@ -100,7 +119,15 @@ export default class Modal extends Component {
                 }
             }
         });
-
+        if (oneChargeList.length !== 0) {
+            if (values.oneChargeList) {
+                data +=
+                    oneChargeList[0].postArg + '=' + values.oneChargeList + '&';
+                newErrors.oneChargeList = false;
+            } else {
+                newErrors.oneChargeList = true;
+            }
+        }
         addData
             ? (data += addData)
             : (data = data.substring(0, data.length - 1));
@@ -141,7 +168,14 @@ export default class Modal extends Component {
     }
     render() {
         const { handleModal } = this.props;
-        const { title, errors, values, inputs, errorBack } = this.state;
+        const {
+            title,
+            errors,
+            values,
+            inputs,
+            errorBack,
+            oneChargeList
+        } = this.state;
         console.log(errors);
         const freeTimeNone = true;
         console.log(freeTimeNone);
@@ -169,6 +203,48 @@ export default class Modal extends Component {
                         ))}
                     </div>
                 )}
+                <span>Источник</span>
+                <div
+                    className={
+                        'modal-trainer-introductory-call__List ' +
+                        (errors.oneChargeList &&
+                            'modal-trainer-introductory-call__error')
+                    }
+                >
+                    {oneChargeList.map((input, index) => (
+                        <div
+                            key={index + '-modal-list'}
+                            className={
+                                'modal-trainer-introductory-call__List-item ' +
+                                (errors.oneChargeList &&
+                                    'modal-trainer-introductory-call__error')
+                            }
+                        >
+                            <input
+                                id={
+                                    index +
+                                    '-modal-trainer-introductory-call-list'
+                                }
+                                className={
+                                    errors.oneChargeList &&
+                                    'modal-trainer-introductory-call__error'
+                                }
+                                onChange={this.handleRadioChange}
+                                name={'radio'}
+                                type="radio"
+                                value={input.value}
+                            />
+                            <label
+                                htmlFor={
+                                    index +
+                                    '-modal-trainer-introductory-call-list'
+                                }
+                            >
+                                {input.title}
+                            </label>
+                        </div>
+                    ))}
+                </div>
 
                 {errorBack}
                 <div className="modal-trainer-introductory-call__buttons">

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProgressDop from '../ProgressDop';
+import ModalClientTrainerAnthropometry from '../ModalClientTrainerAnthropometry';
 import './style.css';
 export default class Weight extends Component {
     constructor(props) {
@@ -7,36 +8,64 @@ export default class Weight extends Component {
         this.tableMain = React.createRef();
     }
     state = {
-        pageData: [['data', 'Вес']]
+        pageData: [['data', 'Вес']],
+        modal: false,
+        canUpate: false,
+        emptyBlocks: []
     };
 
     componentDidUpdate() {
+        const { canUpate } = this.state;
+        const { modalData, pageData } = this.props;
         if (
-            this.props.pageData !== undefined &&
-            this.props.pageData !== this.state.pageData
+            (pageData !== undefined && pageData !== this.state.pageData) ||
+            canUpate
         ) {
-            this.setState({
-                pageData: this.props.pageData
-            });
-            const { anthropometry } = this.props;
-            console.log(this.props.pageData);
-            const tableMain = this.tableMain.current;
-            let emptyBlocks = 7 - this.props.pageData.length;
-            for (let i = 0; i < emptyBlocks; i++) {
-                let div = document.createElement('div');
-                div.classList.add('weight__table-main-column');
-                div.innerHTML =
-                    '<div class="weight__table-main-item ' +
-                    (anthropometry && 'table-anthropometry__table-name') +
-                    '"></div>';
-                tableMain.append(div);
+            let emptyBlocks = [];
+            let emptyBlocksLength;
+
+            emptyBlocksLength = 8 - pageData.length;
+
+            for (let i = 0; i < emptyBlocksLength; i++) {
+                emptyBlocks.push(1);
             }
+            this.setState({
+                pageData,
+                emptyBlocks,
+                canUpate: false
+            });
         }
     }
+    handleModal = (modal) => {
+        this.props.update();
+        this.setState({
+            canUpate: true,
+            modal
+        });
+    };
 
     render() {
-        const { name, anthropometry } = this.props;
-        const { pageData } = this.state;
+        const {
+            name,
+            anthropometry,
+            activeId,
+            modalData,
+            isClientModal
+        } = this.props;
+        const { pageData, modal, emptyBlocks } = this.state;
+        console.warn(pageData);
+        let nextPlus = false;
+        if (pageData.length !== 0) {
+            let lastData = pageData[pageData.length - 1][0];
+            lastData = lastData.split('.');
+            const now = new Date();
+            console.warn(now.getDate());
+            if (now.getDate() == 1 && lastData[1] != now.getMonth() + 1) {
+                nextPlus = true;
+            }
+        } else {
+            nextPlus = true;
+        }
         return (
             <section
                 className={'weight ' + (anthropometry && 'table-anthropometry')}
@@ -47,7 +76,8 @@ export default class Weight extends Component {
                     <div ref={this.tableMain} className="weight__table-main">
                         {pageData.map(
                             (volum, index) =>
-                                index !== 0 && (
+                                index !== 0 &&
+                                (volum[1] !== 'plus' ? (
                                     <div
                                         key={index + '-weight'}
                                         className="weight__table-main-column"
@@ -62,21 +92,72 @@ export default class Weight extends Component {
                                             <span>{volum[1]}</span>
                                         </div>
                                     </div>
-                                )
+                                ) : (
+                                    <div className="weight__table-main-column">
+                                        <div
+                                            className={
+                                                'volume__table-main-item volume__table-main-item_plus ' +
+                                                (anthropometry &&
+                                                    'table-anthropometry__table-name')
+                                            }
+                                        >
+                                            {modalData && (
+                                                <span
+                                                    onClick={() =>
+                                                        this.handleModal(true)
+                                                    }
+                                                >
+                                                    +
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
                         )}
-                        <div className="weight__table-main-column">
-                            <div
-                                className={
-                                    'volume__table-main-item volume__table-main-item_plus ' +
-                                    (anthropometry &&
-                                        'table-anthropometry__table-name')
-                                }
-                            >
-                                <span>+</span>
+                        {emptyBlocks.map(() => (
+                            <div className="weight__table-main-column">
+                                <div
+                                    className={
+                                        'volume__table-main-item volume__table-main-item_plus ' +
+                                        (anthropometry &&
+                                            'table-anthropometry__table-name')
+                                    }
+                                ></div>
                             </div>
-                        </div>
+                        ))}
                     </div>
+                    {console.log(modalData)}
                 </div>
+                {modal && !isClientModal && (
+                    <ModalClientTrainerAnthropometry
+                        url={modalData.url}
+                        title={modalData.title}
+                        inputs={[
+                            {
+                                title: modalData.inputs.title,
+                                postArg: modalData.inputs.postArg,
+                                mandatory: true
+                            }
+                        ]}
+                        handleModal={this.handleModal}
+                        addData={'id=' + activeId}
+                    ></ModalClientTrainerAnthropometry>
+                )}
+                {modal && isClientModal && (
+                    <ModalClientTrainerAnthropometry
+                        url={modalData.url}
+                        title={modalData.title}
+                        inputs={[
+                            {
+                                title: modalData.inputs.title,
+                                postArg: modalData.inputs.postArg,
+                                mandatory: true
+                            }
+                        ]}
+                        handleModal={this.handleModal}
+                        addData={''}
+                    ></ModalClientTrainerAnthropometry>
+                )}
             </section>
         );
     }

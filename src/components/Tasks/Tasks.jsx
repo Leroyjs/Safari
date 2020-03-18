@@ -36,6 +36,7 @@ export default class Tasks extends Component {
                                 ' тренировок (считает по посещениям в программе)'}
                         </li>
                     ))}
+                    {this.props.children}
                 </ul>
             </section>
         );

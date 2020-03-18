@@ -4,8 +4,7 @@ import App from './components/App';
 
 // let whoIsIt = '';
 // let stub = true;
-// let url = 'https://bagiran.ru/api/cors';
-// fetch(url, {
+// fetch('https://bagiran.ru/api/cors', {
 //     method: 'POST',
 //     credentials: 'include',
 //     headers: {
@@ -14,8 +13,7 @@ import App from './components/App';
 //         Origin: 'https://localhost:3000/'
 //     }
 // }).then(() => {
-//     let url = 'https://bagiran.ru/api/auth';
-//     fetch(url, {
+//     fetch('https://bagiran.ru/api/auth', {
 //         method: 'POST',
 //         credentials: 'include',
 //         headers: {
@@ -32,6 +30,6 @@ import App from './components/App';
 //             stub = data.stub;
 
 //             console.log(data);
-ReactDOM.render(<App whoIsIt={'isTrainer'} />, document.getElementById('root'));
+ReactDOM.render(<App whoIsIt={'isClient'} />, document.getElementById('root'));
 //         });
 // });

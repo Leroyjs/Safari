@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import star from './rate-star.png';
 import './style.css';
 
 export default class TerenovkaStatistics extends Component {
@@ -30,6 +31,7 @@ export default class TerenovkaStatistics extends Component {
     }
     render() {
         const { pageData } = this.state;
+        console.log(pageData);
         return (
             <section className="terenovka-statistics">
                 <div className="terenovka-statistics__title">
@@ -39,41 +41,12 @@ export default class TerenovkaStatistics extends Component {
                     </div>
                     <div className="rating-area">
                         <span>Оценка:</span>
-                        <input
-                            type="radio"
-                            id="star-5"
-                            name="rating"
-                            value="5"
-                        />
-                        <label htmlFor="star-5" title="Оценка «5»"></label>
-                        <input
-                            type="radio"
-                            id="star-4"
-                            name="rating"
-                            value="4"
-                        />
-                        <label htmlFor="star-4" title="Оценка «4»"></label>
-                        <input
-                            type="radio"
-                            id="star-3"
-                            name="rating"
-                            value="3"
-                        />
-                        <label htmlFor="star-3" title="Оценка «3»"></label>
-                        <input
-                            type="radio"
-                            id="star-2"
-                            name="rating"
-                            value="2"
-                        />
-                        <label htmlFor="star-2" title="Оценка «2»"></label>
-                        <input
-                            type="radio"
-                            id="star-1"
-                            name="rating"
-                            value="1"
-                        />
-                        <label htmlFor="star-1" title="Оценка «1»"></label>
+                        <br />
+                        {pageData.score && pageData.score.length !== 0
+                            ? pageData.score.map(() => (
+                                  <img src={star} alt="" />
+                              ))
+                            : 'Нет оценки'}
                     </div>
                 </div>
                 <div className="terenovka-statistics__list">

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import ModalBool from '../ModalBool';
 import './style.css';
 
 export default class Bonuses extends Component {
     state = {
-        pageData: []
+        pageData: [],
+        modul: false
     };
     componentDidUpdate() {
         if (
@@ -15,28 +17,55 @@ export default class Bonuses extends Component {
             });
         }
     }
+    handleModal = (modal) => {
+        this.setState({
+            modal
+        });
+    };
     render() {
-        const { buttonOff = false } = this.props;
-        const { pageData } = this.state;
+        const { buttonOff = false, lvl } = this.props;
+        const { pageData, modal } = this.state;
         return (
             <section className="bonuses">
-                <h2>Бонусы 3 уровня</h2>
-                <p>
-                    Бонусы действительны в течение 5 дней, затем сгорают
-                    <br />
-                    Получить бонусы или купоны можно на ресепшене
-                </p>
-                <ul>
-                    {pageData.map((bonus, index) => (
-                        <li
-                            key={index + '-bonuses'}
-                            className={bonus.status && 'bonuses_active'}
-                        >
-                            {bonus.name}
-                        </li>
-                    ))}
-                </ul>
-                {!buttonOff && <button>Мне помог дежурный тренер</button>}
+                {lvl > 1 && (
+                    <>
+                        <h2>Бонусы {lvl - 1} уровня</h2>
+                        <p>
+                            Бонусы действительны в течение 5 дней, затем сгорают
+                            <br />
+                            Получить бонусы или купоны можно на ресепшене
+                        </p>
+                        {pageData.length !== 0 ? (
+                            <ul>
+                                {pageData.map((bonus, index) => (
+                                    <li
+                                        key={index + '-bonuses'}
+                                        className={
+                                            bonus.status && 'bonuses_active'
+                                        }
+                                    >
+                                        {bonus.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>Бонусов нет</p>
+                        )}
+                    </>
+                )}
+                {!buttonOff && (
+                    <button onClick={() => this.handleModal(true)}>
+                        Мне помог дежурный тренер
+                    </button>
+                )}
+                {modal && (
+                    <ModalBool
+                        url={'/main/customer-help'}
+                        title={'Вам помог дежурный тренер?'}
+                        handleModal={this.handleModal}
+                        addData={''}
+                    ></ModalBool>
+                )}
             </section>
         );
     }

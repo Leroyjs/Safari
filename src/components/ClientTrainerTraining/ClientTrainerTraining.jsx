@@ -12,7 +12,8 @@ export default class Training extends Component {
             Workout: []
         },
         activeDay: [],
-        statistics: []
+        statistics: [],
+        dateActive: ''
     };
     componentDidMount() {
         const { activeId } = this.props;
@@ -47,6 +48,30 @@ export default class Training extends Component {
                 });
             });
     }
+    update = () => {
+        console.log('update');
+        const { activeId } = this.props;
+        const data = 'id=' + activeId;
+        const url = 'https://bagiran.ru/client-trainer/training';
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                this.setState({
+                    pageData: data
+                });
+            });
+    };
     handleLoad = (date, index, close) => {
         const { activeId } = this.props;
 
@@ -71,7 +96,8 @@ export default class Training extends Component {
                 })
                 .then((dat) => {
                     statistics[index] = dat;
-                    console.log(close, activeDay[index]);
+                    statistics[index].date = date;
+                    console.warn(dat);
                     if (!activeDay[index] || close) {
                         activeDay[index] = !activeDay[index];
                         this.setState({
@@ -93,6 +119,7 @@ export default class Training extends Component {
     };
     render() {
         const { pageData, activeDay, statistics } = this.state;
+        const { activeId } = this.props;
         return (
             <main className="training">
                 <ClientTrainerHeader
@@ -109,10 +136,14 @@ export default class Training extends Component {
                             index={index}
                             handleLoad={this.handleLoad}
                             pageData={block}
+                            activeId={activeId}
+                            update={this.update}
                         ></ClientTrainerTrainingMonth>
                         {activeDay[index] && (
                             <ClientTrainerTerenovkaStatistics
                                 pageData={statistics[index]}
+                                activeId={activeId}
+                                handleLoad={this.handleLoad}
                             ></ClientTrainerTerenovkaStatistics>
                         )}
                     </div>
