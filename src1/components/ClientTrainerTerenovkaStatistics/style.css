@@ -1,0 +1,126 @@
+.ct-terenovka-statistics {
+    margin-top: 14px;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.ct-terenovka-statistics__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+
+
+.ct-terenovka-statistics__title h2 {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.ct-terenovka-statistics__title h3 {
+    font-weight: 400;
+    font-size: 12px;
+    margin: 0;
+}
+
+.ct-terenovka-statistics__item {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 7px;
+
+    padding-top: 7px;
+}
+
+.ct-terenovka-statistics__item:not(:last-of-type) {
+    border-bottom: 1px solid rgb(185, 185, 185);
+}
+
+.ct-terenovka-statistics__item:last-of-type {
+    border-top: 1px solid rgb(185, 185, 185);
+}
+
+
+.ct-terenovka-statistics__item-load_warm-up {
+    width: 70%;
+    min-width: 180px;
+    border-left: 1px solid rgb(185, 185, 185);
+    height: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.ct-terenovka-statistics__item-load {
+    border-left: 1px solid rgb(185, 185, 185);
+    width: 70%;
+    min-width: 180px;
+    min-height: 26px;
+}
+
+.ct-terenovka-statistics__item-load-top {
+    width: 100%;
+    display: flex;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.ct-terenovka-statistics__item-load-top b {
+    width: 20%;
+    text-align: center;
+}
+
+.ct-terenovka-statistics__item-load-top img {
+    margin-bottom: -10px;
+}
+
+.ct-terenovka-statistics__item-load-bottom b {
+    width: 20%;
+    text-align: center;
+}
+
+.ct-terenovka-statistics__item-load-bottom {
+    width: 100%;
+    display: flex;
+    color: #a1a1a1;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.ct-terenovka-statistics__item h4 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ct-terenovka-statistics__item-title span {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.ct-terenovka-statistics__rating-area {
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 14px;
+}
+
+.ct-terenovka-statistics button {
+    color: #ee4d45;
+    font-size: 12px;
+    font-weight: 400;
+    min-width: 38px;
+    height: 17px;
+    border-radius: 10px;
+    border: 1px solid #ee4d45;
+    background-color: #fff;
+}
+
+.ct-terenovka-statistics__dop-item {
+    position: relative;
+    margin: 14px;
+}

@@ -1,0 +1,50 @@
+.duty-sales {
+    background-color: #262b3f;
+    padding: 14px;
+}
+
+.duty-sales__inner {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.17);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 7px;
+    padding-bottom: 30px;
+    min-height: 80px;
+}
+
+.duty-sales__inner h2 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.duty-sales__name-row {
+    font-size: 9px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.duty-sales__main-row {
+    font-size: 10px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.duty-sales__item {
+    min-width: 65px;
+    display: flex;
+    justify-content: center;
+}
+
+.duty-sales__sum {
+    font-size: 9px;
+    font-weight: 600;
+    float: right;
+    margin-right: 20px;
+    margin-top: 8px;
+}
