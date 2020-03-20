@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ok from './checked.png';
+import x from './x.png';
 import no from './not-checked.png';
 import ModalTrainerClientsList from '../ModalTrainerClientsList';
+import ModalTrainerStatus from '../ModalTrainerStatus';
 import './style.css';
 
 export default class CalendarListClients extends Component {
@@ -55,9 +57,15 @@ export default class CalendarListClients extends Component {
             modal
         });
     };
-
+    handleSelectModal = (selectModal, activeId) => {
+        this.setState({
+            canUpate: true,
+            selectModal,
+            activeId
+        });
+    };
     render() {
-        const { pageData, date, modal } = this.state;
+        const { pageData, date, modal, selectModal, activeId } = this.state;
         const { clientsList = [] } = this.props;
         let oneChargeList = [];
         clientsList.forEach((item, i) => {
@@ -67,7 +75,7 @@ export default class CalendarListClients extends Component {
                 value: item.id
             });
         });
-        console.log(date);
+        console.log(pageData);
         const addData = 'date=' + date.year + '-' + date.month + '-' + date.day;
         let newDate;
 
@@ -120,11 +128,18 @@ export default class CalendarListClients extends Component {
                         <h2>Запись на тренировки</h2> <h3> {newDate}</h3>{' '}
                     </div>{' '}
                     {pageData.map((user, index) => (
-                        <div key={index}>
-                            {' '}
+                        <div
+                            key={index}
+                            onClick={() =>
+                                this.handleSelectModal(true, user.id)
+                            }
+                        >
                             <b> {user.time}</b> <span> {user.name}</span>{' '}
+                            {user.confirmed === 3 && <img src={x} alt="" />}
+                            {user.confirmed === 2 && <img src={x} alt="" />}
                             {user.confirmed === 1 && <img src={ok} alt="" />}
                             {user.confirmed === 0 && <img src={no} alt="" />}
+                            <span> {user.mark}</span>
                         </div>
                     ))}
                     <button onClick={() => this.handleModal(true)}>
@@ -132,6 +147,12 @@ export default class CalendarListClients extends Component {
                         Добавить{' '}
                     </button>{' '}
                 </div>{' '}
+                {selectModal && (
+                    <ModalTrainerStatus
+                        addData={'id=' + activeId}
+                        handleModal={this.handleSelectModal}
+                    ></ModalTrainerStatus>
+                )}
                 {modal && (
                     <ModalTrainerClientsList
                         title={'Добавить запись на тренеровку'}

@@ -122,7 +122,7 @@ export default class DayNutrition extends Component {
             }
         ];
         let newDate;
-        console.warn(date);
+        console.warn(pageData);
         const { activeId } = this.props;
         // eslint-disable-next-line default-case
         switch (date.month - 1) {
@@ -169,7 +169,8 @@ export default class DayNutrition extends Component {
                 <div className="day-nutrition__block">
                     <div className="day-nutrition__header">
                         <h3>{newDate}</h3>
-                        {pageData.comment && pageData.rating.length === 0 ? (
+                        {pageData.eat.length !== 0 &&
+                        pageData.rating.length === 0 ? (
                             <span className="day-nutrition__rating-area">
                                 <input
                                     type="radio"
@@ -280,7 +281,9 @@ export default class DayNutrition extends Component {
                         <br />
                         <br />
                         <span className="day-nutrition__bonus">
-                            {pageData.comment && '5 баллов за проверку'}
+                            {pageData.comment &&
+                                pageData.header.points.trainerFood +
+                                    ' баллов за проверку'}
                         </span>
                     </div>
                 </div>

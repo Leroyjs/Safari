@@ -6,7 +6,13 @@ import './style.css';
 
 export default class Nutrition extends Component {
     state = {
-        pageData: [],
+        pageData: {
+            header: {
+                points: {
+                    trainerFood: ''
+                }
+            }
+        },
         activeDate: {
             day: 0,
             month: 0,
@@ -87,13 +93,18 @@ export default class Nutrition extends Component {
     render() {
         const { activeId } = this.props;
         const { pageData, activeDate } = this.state;
+        console.log(pageData);
         return (
             <main className="client-trainer-nutrition">
                 <ClientTrainerHeader
                     title="Питание"
-                    desc="Клиент фиксирует каждый прием пищи (за заполн-
-ный день 10 баллов) тренер проверяет и пишет
-комментарий"
+                    // desc={
+                    //     <>
+                    //         Клиент фиксирует каждый прием пищи (за заполнный
+                    //         день {pageData.header.points.trainerFood} баллов)
+                    //         тренер проверяет и пишет комментарий"
+                    //     </>
+                    // }
                 ></ClientTrainerHeader>
                 <Calendar
                     handleChange={this.handleChange}

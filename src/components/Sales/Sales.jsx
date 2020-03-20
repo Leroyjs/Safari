@@ -80,7 +80,7 @@ export default class Duty extends Component {
     };
     render() {
         const { pageData, list, sales, duty, demo } = this.state;
-        console.log(list);
+        console.log(pageData);
         return (
             <main className="sales">
                 <SaleHeader pageData={pageData.header}></SaleHeader>

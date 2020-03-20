@@ -8,7 +8,14 @@ import ModalDutyRating from '../ModalDutyRating';
 import './style.css';
 export default class Duty extends Component {
     state = {
-        pageData: {},
+        pageData: {
+            header: {
+                points: {
+                    trainerDutyDay: ' ',
+                    trainerDutyHelp: ' '
+                }
+            }
+        },
         dataList: {},
         activeDate: {
             day: 0,
@@ -207,9 +214,12 @@ export default class Duty extends Component {
                     desc={
                         <>
                             Тренер фиксирует дежурство в календаре <br />
-                            (за заполненный день 3 балла) <br />
-                            (за каждую помощь 3 балла) <br />
-                            (за продажу с дежурства 50 баллов)
+                            (за заполненный день{' '}
+                            {pageData.header.points.trainerDutyDay} балла){' '}
+                            <br />
+                            (за каждую помощь{' '}
+                            {pageData.header.points.trainerDutyHelp} балла){' '}
+                            <br />
                         </>
                     }
                 >

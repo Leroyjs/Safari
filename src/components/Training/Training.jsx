@@ -6,13 +6,15 @@ import ClientTerenovkaStatistics from '../ClientTerenovkaStatistics';
 import TrainingMonth from '../TrainingMonth';
 import TerenovkaStatistics from '../TerenovkaStatistics';
 import ModalRating from '../ModalRating';
+import ModalRatingSolo from '../ModalRatingSolo';
 import './style.css';
 
 export default class Training extends Component {
     state = {
         pageData: {
             workoutState: {},
-            Workout: []
+            Workout: [],
+            header: { points: { training: '' } }
         },
         activeDay: [],
         statistics: [],
@@ -147,11 +149,19 @@ export default class Training extends Component {
     render() {
         const { pageData, activeDay, statistics, myCoach, modal } = this.state;
         let newTraning = Boolean(pageData.prevTrainingId);
+        console.log(pageData);
         return (
             <main className="training">
                 <Header
                     title="Тренировки"
-                    desc="Тренер фиксирует всю тренировку с подходами, повторениями и весами"
+                    desc={
+                        <>
+                            Тренер фиксирует всю тренировку с подходами,
+                            повторениями и весами <br></br>
+                            Баллы за тренировку{' '}
+                            {pageData.header.points.training}
+                        </>
+                    }
                 ></Header>
                 <Statistics
                     update={this.update}
@@ -190,12 +200,19 @@ export default class Training extends Component {
                               )}
                           </div>
                       ))}
-                {modal && newTraning && (
+                {modal && myCoach && newTraning && (
                     <ModalRating
                         handleModal={this.handleModal}
                         update={this.update}
                         id={pageData.prevTrainingId}
                     ></ModalRating>
+                )}
+                {modal && !myCoach && newTraning && (
+                    <ModalRatingSolo
+                        handleModal={this.handleModal}
+                        update={this.update}
+                        id={pageData.prevTrainingId}
+                    ></ModalRatingSolo>
                 )}
             </main>
         );

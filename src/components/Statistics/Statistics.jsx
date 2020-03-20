@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ModalClientRecording from '../ModalClientRecording';
+import ModalClientStatRecording from '../ModalClientStatRecording';
 import ModalBuyWorkout from '../ModalBuyWorkout';
 import './style.css';
 
@@ -38,7 +39,7 @@ export default class Statistics extends Component {
         });
     };
     render() {
-        const { button = true, update } = this.props;
+        const { isTrainer, update, activeId } = this.props;
         const { pageData = true, modalRecord, modalBlock } = this.state;
         return (
             <section className="statistics">
@@ -47,7 +48,7 @@ export default class Statistics extends Component {
                 </p>
                 <p>
                     Действующий блок: <span>{pageData.block}</span>
-                    {button && !pageData.block && (
+                    {!isTrainer && !pageData.block && (
                         <button
                             onClick={() => this.handleModalBlock(true)}
                             className="statistics__buy"
@@ -63,17 +64,24 @@ export default class Statistics extends Component {
                 <p>
                     Следующая тренировка: <span>{pageData.nextWorkout}</span>
                 </p>
-                {button && !pageData.nextWorkout && (
+                {!pageData.nextWorkout && (
                     <button onClick={() => this.handleModal(true)}>
                         Записаться на тренировку
                     </button>
                 )}
-                {modalRecord && (
-                    <ModalClientRecording
-                        update={update}
-                        handleModal={this.handleModal}
-                    ></ModalClientRecording>
-                )}
+                {modalRecord &&
+                    (isTrainer ? (
+                        <ModalClientStatRecording
+                            update={update}
+                            handleModal={this.handleModal}
+                            addData={'id=' + activeId}
+                        ></ModalClientStatRecording>
+                    ) : (
+                        <ModalClientRecording
+                            update={update}
+                            handleModal={this.handleModal}
+                        ></ModalClientRecording>
+                    ))}
 
                 {modalBlock && (
                     <ModalBuyWorkout

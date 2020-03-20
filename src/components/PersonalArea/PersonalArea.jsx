@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HeaderPersonalArea from '../HeaderPersonalArea/';
 import Progress from '../Progress';
+import TrainerBonuses from '../TrainerBonuses';
 import Volume from '../Volume';
 import Result from '../Result';
 import Bonuses from '../Bonuses';
@@ -246,7 +247,7 @@ export default class PersonalArea extends Component {
             modal,
             vacationList
         } = this.state;
-        console.warn(vacationList);
+        console.warn(pageData);
         let lvl = 0;
         if (pageData.header) {
             lvl = pageData.header.lvl;
@@ -280,7 +281,11 @@ export default class PersonalArea extends Component {
                         <Progress pageData={pageData.chartWeight}></Progress>
                         <Volume pageData={pageData.volume}></Volume>
                         <Result pageData={pageData.result}></Result>
-                        <Bonuses lvl={lvl} pageData={pageData.bonus}></Bonuses>
+                        <Bonuses
+                            lvl={lvl}
+                            update={this.updata}
+                            pageData={pageData.bonus}
+                        ></Bonuses>
                     </main>
                 )}
                 {whoIsIt === 'isTrainer' && (
@@ -333,7 +338,13 @@ export default class PersonalArea extends Component {
                             activeDate={activeDate}
                             clientsList={pageData.clientsList}
                         ></CalendarListClients>
+                        <TrainerBonuses
+                            lvl={lvl}
+                            update={this.updata}
+                            pageData={pageData.bonus}
+                        ></TrainerBonuses>
                         <ClientsList
+                            update={this.updata}
                             handleChangeId={this.props.handleChangeId}
                             pageData={pageData.clientsList}
                         ></ClientsList>

@@ -25,7 +25,7 @@ export default class AdminCustomePoints extends Component {
     handleChange = (event) => {
         const input = event.target.value;
         if (input) {
-            let url = '/admin/custome-points/search';
+            let url = 'https://bagiran.ru/admin/custome-points/search';
             const body = 's=' + input;
             fetch(url, {
                 method: 'POST',
@@ -60,7 +60,7 @@ export default class AdminCustomePoints extends Component {
                 });
         } else {
             console.log(input, 'else');
-            let url = '/admin/custome-points/get-all';
+            let url = 'https://bagiran.ru/admin/custome-points/get-all';
             fetch(url, {
                 method: 'POST',
                 credentials: 'include',
@@ -86,7 +86,7 @@ export default class AdminCustomePoints extends Component {
         }
     };
     componentDidMount() {
-        let url = '/admin/custome-points/get-all';
+        let url = 'https://bagiran.ru/admin/custome-points/get-all';
         fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -123,7 +123,7 @@ export default class AdminCustomePoints extends Component {
         } else {
             body = 'page=' + (this.state.page + 1);
         }
-        let url = '/admin/custome-points/get-part';
+        let url = 'https://bagiran.ru/admin/custome-points/get-part';
         fetch(url, {
             method: 'POST',
             body: body,
@@ -148,7 +148,7 @@ export default class AdminCustomePoints extends Component {
     };
     update() {
         console.log('update');
-        let url = '/admin/custome-points/get-all';
+        let url = 'https://bagiran.ru/admin/custome-points/get-all';
         fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -186,7 +186,7 @@ export default class AdminCustomePoints extends Component {
     };
     handleModalBool = (modalBool, actideId) => {
         if (modalBool) {
-            fetch('/admin/custome-points/get-task', {
+            fetch('https://bagiran.ru/admin/custome-points/get-task', {
                 method: 'POST',
                 body: 'user=' + actideId,
                 credentials: 'include',

@@ -31,18 +31,12 @@ export default class Bonuses extends Component {
         });
     };
     render() {
-        const { buttonOff = false, lvl } = this.props;
-        const {
-            pageData,
-            modal,
-            modalOrder,
-            activeId,
-            activeBonus
-        } = this.state;
+        const { lvl } = this.props;
+        const { pageData, modalOrder, activeId, activeBonus } = this.state;
         console.log(pageData);
         return (
             <section className="bonuses">
-                {lvl > 1 && (
+                {lvl > 0 && (
                     <>
                         <h2>Бонусы {lvl} уровня</h2>
                         <p>
@@ -76,25 +70,12 @@ export default class Bonuses extends Component {
                         )}
                     </>
                 )}
-                {!buttonOff && (
-                    <button onClick={() => this.handleModal(true)}>
-                        Мне помог дежурный тренер
-                    </button>
-                )}
                 {modalOrder && (
                     <ModalBool
-                        url={'/main/customer-order-bonus'}
+                        url={'/main/trainer-order-bonus'}
                         title={'Заказать бонус ' + activeBonus + '?'}
                         handleModal={this.handleOrder}
                         addData={'id=' + activeId}
-                    ></ModalBool>
-                )}
-                {modal && (
-                    <ModalBool
-                        url={'/main/customer-help'}
-                        title={'Вам помог дежурный тренер?'}
-                        handleModal={this.handleModal}
-                        addData={''}
                     ></ModalBool>
                 )}
             </section>

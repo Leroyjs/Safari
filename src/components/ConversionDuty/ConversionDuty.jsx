@@ -17,6 +17,11 @@ export default class ConversionDuty extends Component {
     }
     render() {
         const { pageData } = this.state;
+        let warn = false;
+
+        if (pageData.cvSaleHelp < 5) {
+            warn = true;
+        }
         return (
             <section className="conversion-duty">
                 <div className="conversion-duty__h2">
@@ -25,6 +30,12 @@ export default class ConversionDuty extends Component {
                         {pageData.cvSaleHelp}%
                     </div>
                 </div>
+                {warn && (
+                    <div className="conversion-duty__support">
+                        <div className="conversion-duty__question">!</div>
+                        <p>Пройди курс по продажам, ты плохо продаешь</p>
+                    </div>
+                )}
                 <p>Смен: {pageData.count}</p>
                 <p>Помощи: {pageData.help}</p>
                 <p>Продажи: {pageData.sale}</p>

@@ -20,6 +20,27 @@ export default class ClientsList extends Component {
             });
         }
     }
+    handleNew = (id) => {
+        const url = 'https://bagiran.ru/main/trainer-level-notify';
+
+        fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            body: 'id=' + id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log(data);
+                this.props.update();
+            });
+    };
     handleModal = (modal, vk, name) => {
         this.setState({
             canUpate: true,
@@ -27,6 +48,7 @@ export default class ClientsList extends Component {
             vk,
             name
         });
+        this.props.update();
     };
     render() {
         const { pageData, modal, vk, name } = this.state;
@@ -85,9 +107,14 @@ export default class ClientsList extends Component {
                                 {' '}
                                 Уровень: {client.lvl}{' '}
                                 {client.play && (
-                                    <span className="clients-list_green">
+                                    <span
+                                        onClick={() =>
+                                            this.handleNew(client.id)
+                                        }
+                                        className="clients-list_green"
+                                    >
                                         {' '}
-                                        new{' '}
+                                        new
                                     </span>
                                 )}
                             </span>{' '}

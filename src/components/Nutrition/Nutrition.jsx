@@ -6,7 +6,7 @@ import './style.css';
 
 export default class Nutrition extends Component {
     state = {
-        pageData: [],
+        pageData: { header: { points: { clientFood: '' } } },
         activeDate: {
             day: 0,
             month: 0,
@@ -76,11 +76,18 @@ export default class Nutrition extends Component {
     };
     render() {
         const { pageData, activeDate } = this.state;
+        console.log(pageData);
         return (
             <main className="nutrition">
                 <Header
                     title="Питание"
-                    desc="Фиксируйте каждый прием пищи (за заполнный день 10 баллов) тренер проверит и напишет комментарий"
+                    // desc={
+                    //     <>
+                    //         Фиксируйте каждый прием пищи (за заполнный день{' '}
+                    //         {pageData.header.points.clientFood} баллов) тренер
+                    //         проверит и напишет комментарий
+                    //     </>
+                    // }
                 ></Header>
                 <Calendar
                     handleChange={this.handleChange}

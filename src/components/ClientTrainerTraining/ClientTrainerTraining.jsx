@@ -9,7 +9,8 @@ export default class Training extends Component {
     state = {
         pageData: {
             workoutState: {},
-            Workout: []
+            Workout: [],
+            header: { points: { training: '' } }
         },
         activeDay: [],
         statistics: [],
@@ -120,15 +121,25 @@ export default class Training extends Component {
     render() {
         const { pageData, activeDay, statistics } = this.state;
         const { activeId } = this.props;
+        console.log(pageData);
         return (
             <main className="training">
                 <ClientTrainerHeader
                     title="Тренировки"
-                    desc="Тренер фиксирует всю тренировку с подходами, повторениями и весами"
+                    desc={
+                        <>
+                            Тренер фиксирует всю тренировку с подходами,
+                            повторениями и весами <br />
+                            Баллы за тренировку:{' '}
+                            {pageData.header.points.training}
+                        </>
+                    }
                 ></ClientTrainerHeader>
                 <Statistics
                     pageData={pageData.workoutState}
-                    button={false}
+                    isTrainer={true}
+                    activeId={activeId}
+                    update={this.update}
                 ></Statistics>
                 {pageData.Workout.map((block, index) => (
                     <div key={index + '-TerenovkaStatistics'}>

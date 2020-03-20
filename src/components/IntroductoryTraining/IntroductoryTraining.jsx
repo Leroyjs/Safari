@@ -7,7 +7,14 @@ import IntroductoryTableRecord from '../IntroductoryTableRecord/';
 import DutySales from '../DutySales/';
 export default class IntroductoryTraining extends Component {
     state = {
-        pageData: {},
+        pageData: {
+            header: {
+                points: {
+                    trainerDemoRecord: '',
+                    trainerDemoDay: ''
+                }
+            }
+        },
         dataList: {},
         activeDate: {
             day: 0,
@@ -79,6 +86,7 @@ export default class IntroductoryTraining extends Component {
     };
     render() {
         const { pageData, activeDate, dataList } = this.state;
+        console.log(pageData);
         return (
             <main className="introductory-training">
                 <Header
@@ -86,9 +94,13 @@ export default class IntroductoryTraining extends Component {
                     desc={
                         <>
                             Тренер фиксирует вводные в календаре <br />
-                            (за заполненный день 3 балла) <br />
-                            (за договоренность 3 балла) <br />
-                            (за продажу с вводной 30 баллов) <br />
+                            (за заполненный день{' '}
+                            {pageData.header.points.trainerDemoDay} балла){' '}
+                            <br />
+                            (за продажу с вводной{' '}
+                            {
+                                pageData.header.points.trainerDemoRecord
+                            } баллов) <br />
                         </>
                     }
                 ></Header>

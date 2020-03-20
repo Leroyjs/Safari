@@ -34,6 +34,14 @@ export default class Tasks extends Component {
                             {task.name}
                             {task.type === 'count_training' &&
                                 ' тренировок (считает по посещениям в программе)'}
+                            {task.type === 'count_food' && ' проверок питания'}
+                            {task.type === 'count_duty' &&
+                                ' проведено дежурств'}
+                            {task.type === 'count_help' && ' проведено помощи'}
+                            {task.type === 'count_call' && ' звонков'}
+                            {task.type === 'count_demo' && ' проведено вводных'}
+                            {task.type === 'count_sale' && ' проведено продаж'}
+                            {task.type === 'sum_sale' && ' сумма продаж'}
                         </li>
                     ))}
                     {this.props.children}

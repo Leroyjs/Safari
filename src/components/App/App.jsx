@@ -68,7 +68,7 @@ export default class App extends Component {
                             });
                         // bridge.send("VKWebAppAllowMessagesFromGroup", {"group_id": 1, "key": "dBuBKe1kFcdemzB"});
                         bridge.send('VKWebAppAllowMessagesFromGroup', {
-                            group_id: 78583561, // id группы, где вы админ, куда виджет
+                            group_id: 53728458, // id группы, где вы админ, куда виджет
                             key: 'dBuBKe1kFcdemzB'
                         });
                     }
@@ -116,7 +116,7 @@ export default class App extends Component {
                             console.log(error);
                         });
                     bridge.send('VKWebAppAllowMessagesFromGroup', {
-                        group_id: 78583561,
+                        group_id: 53728458,
                         key: 'dBuBKe1kFcdemzB'
                     });
                 }

@@ -6,7 +6,7 @@ import Weight from '../Weight';
 import './style.css';
 export default class ClientTrainerAnthropometry extends Component {
     state = {
-        pageData: {}
+        pageData: { header: { points: { trainerAnthropometry: '' } } }
     };
     componentDidMount() {
         const { activeId } = this.props;
@@ -57,12 +57,20 @@ export default class ClientTrainerAnthropometry extends Component {
     };
     render() {
         const { pageData } = this.state;
+        console.log(pageData);
         const { activeId } = this.props;
         return (
             <main className="client-trainer-anthropometry">
                 <ClientTrainerHeader
                     title="Антропометрия"
-                    desc="Показатели фиксируются 1 раз в месяц 1 числа каждого месяца"
+                    desc={
+                        <>
+                            Показатели фиксируются 1 раз в месяц 1 числа каждого
+                            месяца <br />
+                            Заполнение антропометрии{' '}
+                            {pageData.header.points.trainerAnthropometry} баллов
+                        </>
+                    }
                 ></ClientTrainerHeader>
                 <Result pageData={pageData.result}></Result>
                 <Volume

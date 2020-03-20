@@ -4,38 +4,31 @@ import './style.css';
 
 export default class Modal extends Component {
     state = {
-        url: '/introductory/add-call',
+        url: '/main/trainer-set-status-record',
         addData: '',
-        title: 'Звонки на запись',
-        inputs: [
-            {
-                title: 'ФИО',
-                postArg: 'name',
-                mandatory: true
-            },
-            {
-                title: 'Телефон',
-                postArg: 'phone',
-                mandatory: true
-            }
-        ],
+        title: 'Выбрать статус',
         oneChargeList: [
             {
-                title: 'Записался',
+                title: 'Подтвердить',
                 postArg: 'status',
                 value: '1'
             },
             {
-                title: 'Отказался',
+                title: 'Бронь',
                 postArg: 'status',
                 value: '0'
+            },
+            {
+                title: 'Отменить',
+                postArg: 'status',
+                value: '2'
+            },
+            {
+                title: 'Не пришел',
+                postArg: 'status',
+                value: '3'
             }
         ],
-        secondInput: {
-            title: 'Причина(кратко)',
-            postArg: 'comment',
-            mandatory: false
-        },
         values: {
             inputs: ['', ''],
             secondInput: [''],
@@ -57,15 +50,6 @@ export default class Modal extends Component {
         body.style.overflow = 'auto';
     }
 
-    handleTextChange = (event) => {
-        const [index, type] = event.target.name.split('_');
-        let values = JSON.parse(JSON.stringify(this.state.values));
-        let errors = JSON.parse(JSON.stringify(this.state.errors));
-        console.log(index, type, values);
-        values[type][index] = event.target.value;
-        errors.inputs[index] = false;
-        this.setState({ values, errors });
-    };
     handleRadioChange = (event) => {
         const radioValue = event.target.value;
         let values = JSON.parse(JSON.stringify(this.state.values));
@@ -75,37 +59,13 @@ export default class Modal extends Component {
         console.log(this.state);
         this.setState({ values, errors });
     };
-    handleTimeChange = (event) => {
-        const timeValue = event.target.value;
-        let values = JSON.parse(JSON.stringify(this.state.values));
-        let errors = JSON.parse(JSON.stringify(this.state.errors));
-        values.time = timeValue;
-        errors.time = false;
-        console.log(this.state);
-        this.setState({ values, errors });
-    };
+
     handleSave = () => {
-        const {
-            url,
-            inputs,
-            oneChargeList,
-            values,
-            secondInput,
-            errors,
-            addData
-        } = this.state;
+        const { url, oneChargeList, values, errors } = this.state;
+        const { addData } = this.props;
         let data = '';
         let newErrors = JSON.parse(JSON.stringify(errors));
-        inputs.forEach((item, i) => {
-            if (values.inputs[i]) {
-                data += item.postArg + '=' + values.inputs[i] + '&';
-                newErrors.inputs[i] = false;
-            } else {
-                if (item.mandatory) {
-                    newErrors.inputs[i] = true;
-                }
-            }
-        });
+
         if (oneChargeList.length !== 0) {
             if (values.oneChargeList) {
                 data +=
@@ -113,15 +73,6 @@ export default class Modal extends Component {
                 newErrors.oneChargeList = false;
             } else {
                 newErrors.oneChargeList = true;
-            }
-        }
-        console.log(values.secondInput[0]);
-        if (values.secondInput[0] && values.oneChargeList === '0') {
-            data += secondInput.postArg + '=' + values.secondInput[0] + '&';
-            newErrors.secondInput = false;
-        } else {
-            if (secondInput.mandatory) {
-                newErrors.secondInput = true;
             }
         }
 
@@ -173,11 +124,10 @@ export default class Modal extends Component {
         const {
             title,
             errors,
-            values,
+
             oneChargeList,
-            inputs,
-            errorBack,
-            secondInput
+
+            errorBack
         } = this.state;
         console.log(errors);
         const freeTimeNone = true;
@@ -185,27 +135,7 @@ export default class Modal extends Component {
         return ReactDOM.createPortal(
             <section className="modal-trainer-introductory-call">
                 <h3>{title}</h3>
-                {inputs.length !== 0 && (
-                    <div className="modal-trainer-introductory-call__input">
-                        {inputs.map((input, index) => (
-                            <input
-                                className={
-                                    errors.inputs[index] &&
-                                    'modal-trainer-introductory-call__error'
-                                }
-                                onChange={this.handleTextChange}
-                                key={
-                                    index +
-                                    '-modal-trainer-introductory-call-input'
-                                }
-                                name={index + '_inputs_' + index.postArg}
-                                placeholder={input.title}
-                                type="text"
-                                value={values.inputs[index]}
-                            />
-                        ))}
-                    </div>
-                )}
+
                 {oneChargeList.length !== 0 && (
                     <div
                         className={
@@ -249,22 +179,7 @@ export default class Modal extends Component {
                         ))}
                     </div>
                 )}
-                {values.oneChargeList === '0' && (
-                    <div className="modal-trainer-introductory-call__input">
-                        <input
-                            className={
-                                errors.secondInput &&
-                                'modal-trainer-introductory-call__error'
-                            }
-                            onChange={this.handleTextChange}
-                            key={'second-modal-trainer-introductory-call-input'}
-                            name={'0_secondInput_'}
-                            placeholder={secondInput.title}
-                            type="text"
-                            value={values.secondInput}
-                        />
-                    </div>
-                )}
+
                 {errorBack}
                 <div className="modal-trainer-introductory-call__buttons">
                     <button onClick={this.handleSave}>Готово</button>

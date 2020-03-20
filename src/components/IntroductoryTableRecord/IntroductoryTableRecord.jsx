@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ModalTrainerIntroductoryRecord from '../ModalTrainerIntroductoryRecord';
+import x from './x.png';
 import './style.css';
 
 export default class IntroductoryTableRecord extends Component {
@@ -48,6 +49,27 @@ export default class IntroductoryTableRecord extends Component {
             modal
         });
     };
+    handleDel = (id) => {
+        fetch('https://bagiran.ru/introductory/del-demo', {
+            method: 'POST',
+            credentials: 'include',
+            body: 'id=' + id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log(data);
+                this.setState({
+                    canUpate: true
+                });
+            });
+    };
     render() {
         const { pageData, modal } = this.state;
         console.log(pageData);
@@ -62,6 +84,7 @@ export default class IntroductoryTableRecord extends Component {
                         <span>ФИО</span>
                         <span>Телефон</span>
                         <span>Тренировка</span>
+                        <span style={{ minWidth: '10px' }}></span>
                     </div>
                     {pageData.map((row, index) => (
                         <div
@@ -75,6 +98,15 @@ export default class IntroductoryTableRecord extends Component {
                             <span>{row.phone}</span>
                             <span className="introductory-table__little-item">
                                 {row.time}
+                            </span>
+                            <span
+                                onClick={() => this.handleDel(row.id)}
+                                style={{ minWidth: '10px' }}
+                            >
+                                <img
+                                    style={{ maxHeight: '10px' }}
+                                    src={x}
+                                ></img>
                             </span>
                         </div>
                     ))}

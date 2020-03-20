@@ -199,26 +199,29 @@ export default class DayNutrition extends Component {
                                             ))}
                                     </span>
                                 ))}
-                                <button
-                                    onClick={() =>
-                                        this.handleModal(
-                                            true,
-                                            'Прием пищи ' +
-                                                (pageData.eat.length + 1),
-                                            oneInput,
-                                            'type=' + (pageData.eat.length + 1),
-                                            '/nutrition/add'
-                                        )
-                                    }
-                                    style={{
-                                        maxWidth: '150px',
-                                        marginLeft: '0',
-                                        marginTop: '3px'
-                                    }}
-                                    className="button_standart"
-                                >
-                                    Добавить приeм пищи
-                                </button>
+                                {today && (
+                                    <button
+                                        onClick={() =>
+                                            this.handleModal(
+                                                true,
+                                                'Прием пищи ' +
+                                                    (pageData.eat.length + 1),
+                                                oneInput,
+                                                'type=' +
+                                                    (pageData.eat.length + 1),
+                                                '/nutrition/add'
+                                            )
+                                        }
+                                        style={{
+                                            maxWidth: '150px',
+                                            marginLeft: '0',
+                                            marginTop: '3px'
+                                        }}
+                                        className="button_standart"
+                                    >
+                                        Добавить приeм пищи
+                                    </button>
+                                )}
                             </>
                         ) : (
                             <>

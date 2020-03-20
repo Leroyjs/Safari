@@ -17,6 +17,15 @@ export default class ConversionDuty extends Component {
     }
     render() {
         const { pageData } = this.state;
+        let warnCall = false;
+        let warnDemo = false;
+
+        if (pageData.cvDemoCall < 20) {
+            warnCall = true;
+        }
+        if (pageData.cvSaleDemo < 25) {
+            warnDemo = true;
+        }
         return (
             <section className="conversion-introductory">
                 <div className="conversion-introductory__h2">
@@ -28,6 +37,24 @@ export default class ConversionDuty extends Component {
                         {pageData.cvSaleDemo}%
                     </div>
                 </div>
+                {warnCall && (
+                    <div className="conversion-duty__support">
+                        <div className="conversion-duty__question">!</div>
+                        <p>
+                            Пройди курс по продажам по телефону, плохо продаешь
+                            по телефону
+                        </p>
+                    </div>
+                )}
+                {warnDemo && (
+                    <div className="conversion-duty__support">
+                        <div className="conversion-duty__question">!</div>
+                        <p>
+                            Пройди курс по вводным тренировкам, мы расскажем как
+                            продавать на вводных
+                        </p>
+                    </div>
+                )}
                 <p>Звонков по вводным: {pageData.call}</p>
                 <p>Проведено вводных: {pageData.demo}</p>
                 <p>cv из звонков в проведенные: {pageData.cvDemoCall}%</p>

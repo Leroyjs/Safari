@@ -4,8 +4,8 @@ import './style.css';
 export default class Video extends Component {
     state = {
         pageData: {
-            name: '3 уровень',
-            url: 'https://www.youtube.com/embed/wGnDG_YOOf8'
+            name: '',
+            url: ''
         }
     };
     componentDidUpdate() {
@@ -24,7 +24,7 @@ export default class Video extends Component {
             <section className="video">
                 <h2>{name}</h2>
                 <iframe
-                    src={url}
+                    src={'https://www.youtube.com/embed/' + url}
                     frameBorder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen=""

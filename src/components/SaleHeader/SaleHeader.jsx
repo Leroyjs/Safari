@@ -4,7 +4,11 @@ import './style.css';
 
 export default class SaleHeader extends Component {
     state = {
-        pageData: {},
+        pageData: {
+            points: {
+                trainerSale: ''
+            }
+        },
         modal: false
     };
     componentDidUpdate() {
@@ -28,6 +32,14 @@ export default class SaleHeader extends Component {
         return (
             <header className="sale-header">
                 <h1>Продажи</h1>
+                <span
+                    style={{
+                        fontWeight: '300',
+                        marginBottom: '10px'
+                    }}
+                >
+                    Баллы за продажу {pageData.points.trainerSale}
+                </span>
                 <span>План</span>
                 <span className="sale-header__plan-cost">
                     {pageData.now} / {pageData.plan}
