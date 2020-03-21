@@ -31,6 +31,7 @@ export default class Nutrition extends Component {
                 return result.json();
             })
             .then((fulDays) => {
+                console.log(fulDays);
                 this.setState({
                     pageData: fulDays,
                     activeDate: {
@@ -70,13 +71,14 @@ export default class Nutrition extends Component {
                         pageData: fulDays,
                         activeDate: data
                     });
-                    console.log(this.state);
+                    console.log(fulDays);
                 });
         }
     };
     render() {
         const { pageData, activeDate } = this.state;
         console.log(pageData);
+        console.log(activeDate);
         return (
             <main className="nutrition">
                 <Header

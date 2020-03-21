@@ -191,15 +191,21 @@ export default class TerenovkaStatistics extends Component {
                                                                 1 +
                                                                 ' упражнение'}
                                                         </h4>
+                                                        {console.log(
+                                                            exercise.name !==
+                                                                false
+                                                        )}
                                                         {exercise.name ? (
                                                             <span>
                                                                 {exercise.name}
                                                             </span>
                                                         ) : (
                                                             canAdd &&
-                                                            pageData.exercises[
-                                                                index - 1
-                                                            ].name && (
+                                                            (index === 0 ||
+                                                                pageData
+                                                                    .exercises[
+                                                                    index - 1
+                                                                ].name) && (
                                                                 <button
                                                                     onClick={() =>
                                                                         this.handleModal(

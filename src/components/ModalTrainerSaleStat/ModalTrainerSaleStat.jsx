@@ -8,11 +8,11 @@ export default class Modal extends Component {
         addData: '',
         title: 'Провести продажу',
         inputs: [
-            {
-                title: 'ФИО',
-                postArg: 'name',
-                mandatory: true
-            },
+            // {
+            //     title: 'ФИО',
+            //     postArg: 'name',
+            //     mandatory: true
+            // },
             {
                 title: 'Телефон',
                 postArg: 'phone',
