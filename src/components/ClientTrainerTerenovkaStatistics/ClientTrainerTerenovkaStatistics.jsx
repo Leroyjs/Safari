@@ -191,10 +191,6 @@ export default class TerenovkaStatistics extends Component {
                                                                 1 +
                                                                 ' упражнение'}
                                                         </h4>
-                                                        {console.log(
-                                                            exercise.name !==
-                                                                false
-                                                        )}
                                                         {exercise.name ? (
                                                             <span>
                                                                 {exercise.name}

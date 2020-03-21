@@ -1,0 +1,120 @@
+.admin-trainers-game__lvl {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.admin-trainers-game__lvl h2 {
+    color: #ee4d45;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    margin-bottom: 30px;
+}
+
+.admin-trainers-game__lvl input {
+    font-size: 12px;
+    font-weight: 400;
+    border: none;
+    border-bottom: 1px solid #acacac;
+    margin-bottom: 30px;
+    margin-top: 5px;
+}
+
+.admin-trainers-game__lvl button {
+    padding: 5px 15px;
+    border-radius: 17px;
+    border: 1px solid #ee4d45;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ee4d45;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: .1s;
+}
+
+.admin-trainers-game__lvl button:hover {
+    padding: 5px 15px;
+    border-radius: 17px;
+    border: 1px solid #ee4d45;
+    background-color: #ee4d45;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.admin-trainers-game__lvl textarea {
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid #acacac;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    margin-top: 5px;
+    width: 430px;
+    height: 60px;
+    resize: initial;
+}
+
+
+.admin-trainers-game__column {
+    max-width: 430px;
+}
+
+.admin-trainers-game__lvl label {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.admin-trainers-game__column iframe {
+    width: 377px;
+    height: 240px;
+    background-color: rgba(0, 0, 0, 0.44);
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-bottom: 19px;
+}
+
+.admin-trainers-game__add-button {
+    width: 213px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #ee4d45;
+    background-color: #ee4d45;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 30px auto;
+    transition: .1s;
+}
+
+.admin-trainers-game__add-button:hover {
+    background-color: #fff;
+    color: #ee4d45;
+}
+
+.admin-trainers-game__button-block {
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin-trainers-game__inputs-block {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 20px;
+}

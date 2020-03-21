@@ -1,0 +1,25 @@
+.header {
+    background-image: linear-gradient(to top, #ef4244 0%, #f16147 100%);
+    color: #ffffff;
+    padding: 14px;
+    padding-top: 45px;
+}
+
+.header h1 {
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 50px;
+    margin: 0;
+}
+
+.header span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 35.02px;
+}
+
+.header p {
+    font-size: 12px;
+    font-weight: 300;
+    margin: 0;
+}
