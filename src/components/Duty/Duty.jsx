@@ -5,6 +5,7 @@ import CalendarStatDuty from '../CalendarStatDuty/';
 import DutySales from '../DutySales/';
 import ModalBool from '../ModalBool';
 import ModalDutyRating from '../ModalDutyRating';
+import Preloader from '../Preloader';
 import './style.css';
 export default class Duty extends Component {
     state = {
@@ -24,7 +25,8 @@ export default class Duty extends Component {
         },
         isDuty: false,
         modal: false,
-        code: 0
+        code: 0,
+        isLoaded: false
     };
     componentDidMount() {
         const now = new Date();
@@ -65,7 +67,8 @@ export default class Duty extends Component {
                                 day: now.getDate()
                             },
                             dataList: data.days,
-                            isDuty
+                            isDuty,
+                            isLoaded: true
                         });
                     });
             });
@@ -204,60 +207,68 @@ export default class Duty extends Component {
             isDuty,
             modal,
             code,
-            close
+            close,
+            isLoaded
         } = this.state;
         console.warn(pageData);
         return (
-            <main className="duty">
-                <Header
-                    title="Дежурство"
-                    desc={
-                        <>
-                            Тренер фиксирует дежурство в календаре <br />
-                            (за заполненный день{' '}
-                            {pageData.header.points.trainerDutyDay} балла){' '}
-                            <br />
-                            (за каждую помощь{' '}
-                            {pageData.header.points.trainerDutyHelp} балла){' '}
-                            <br />
-                        </>
-                    }
-                >
-                    {isDuty && (
-                        <button
-                            className={'button_standart'}
-                            style={{ marginLeft: '0' }}
-                            onClick={() => this.handleModal(true)}
-                        >
-                            Сгенерировать код
-                        </button>
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="duty">
+                    <Header
+                        title="Дежурство"
+                        desc={
+                            <>
+                                Тренер фиксирует дежурство в календаре <br />
+                                (за заполненный день{' '}
+                                {
+                                    pageData.header.points.trainerDutyDay
+                                } балла) <br />
+                                (за каждую помощь{' '}
+                                {
+                                    pageData.header.points.trainerDutyHelp
+                                } балла) <br />
+                            </>
+                        }
+                    >
+                        {isDuty && (
+                            <button
+                                className={'button_standart'}
+                                style={{ marginLeft: '0' }}
+                                onClick={() => this.handleModal(true)}
+                            >
+                                Сгенерировать код
+                            </button>
+                        )}
+                    </Header>
+                    <Calendar
+                        handleChange={this.handleChange}
+                        activeDate={activeDate}
+                        pageData={dataList}
+                    ></Calendar>
+                    <CalendarStatDuty
+                        activeDate={activeDate}
+                    ></CalendarStatDuty>
+                    <DutySales pageData={pageData.dutySales}></DutySales>
+                    {modal && (
+                        <ModalBool
+                            url={'/calendar/del-code'}
+                            title={code}
+                            addData=""
+                            handleModal={this.handleModal}
+                        ></ModalBool>
                     )}
-                </Header>
-                <Calendar
-                    handleChange={this.handleChange}
-                    activeDate={activeDate}
-                    pageData={dataList}
-                ></Calendar>
-                <CalendarStatDuty activeDate={activeDate}></CalendarStatDuty>
-                <DutySales pageData={pageData.dutySales}></DutySales>
-                {modal && (
-                    <ModalBool
-                        url={'/calendar/del-code'}
-                        title={code}
-                        addData=""
-                        handleModal={this.handleModal}
-                    ></ModalBool>
-                )}
-                {Boolean(pageData.prevDutyId) && !close && (
-                    <ModalDutyRating
-                        addData={'id=' + pageData.prevDutyId}
-                        title={'Чек-лист'}
-                        url={'/calendar/score-duty'}
-                        update={this.update}
-                        handleClose={this.handleClose}
-                    ></ModalDutyRating>
-                )}
-            </main>
+                    {Boolean(pageData.prevDutyId) && !close && (
+                        <ModalDutyRating
+                            addData={'id=' + pageData.prevDutyId}
+                            title={'Чек-лист'}
+                            url={'/calendar/score-duty'}
+                            update={this.update}
+                            handleClose={this.handleClose}
+                        ></ModalDutyRating>
+                    )}
+                </main>
+            </>
         );
     }
 }

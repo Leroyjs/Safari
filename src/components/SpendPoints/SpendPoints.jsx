@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Header from '../Header';
 import SpendItems from '../SpendItems';
+import Preloader from '../Preloader';
 
 export default class SpendPoints extends Component {
     state = {
-        pageData: 0
+        pageData: { money: 0 },
+        isLoaded: false
     };
     componentDidMount() {
         const { whoIsIt } = this.props;
@@ -28,9 +30,9 @@ export default class SpendPoints extends Component {
                 return result.json();
             })
             .then((data) => {
-                console.warn(data);
                 this.setState({
-                    pageData: data
+                    pageData: data,
+                    isLoaded: true
                 });
             });
     }
@@ -57,22 +59,30 @@ export default class SpendPoints extends Component {
             })
             .then((data) => {
                 this.setState({
-                    pageData: data
+                    pageData: data,
+                    isLoaded: true
                 });
             });
     };
     render() {
         const { money } = this.state.pageData;
+        const { isLoaded } = this.state;
         const { whoIsIt } = this.props;
         return (
-            <main className="spend-points">
-                <Header
-                    title="Потратить баллы"
-                    subtitle={'На счету: ' + money + ' баллов'}
-                    desc="Зарабатывай баллы в игре или записывай ежедневно питание. Баллы можно потратить на оплату услуг клуба Safari sport"
-                ></Header>
-                <SpendItems update={this.update} whoIsIt={whoIsIt}></SpendItems>
-            </main>
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="spend-points">
+                    <Header
+                        title="Потратить баллы"
+                        subtitle={'На счету: ' + money + ' баллов'}
+                        desc="Зарабатывай баллы в игре или записывай ежедневно питание. Баллы можно потратить на оплату услуг клуба Safari sport"
+                    ></Header>
+                    <SpendItems
+                        update={this.update}
+                        whoIsIt={whoIsIt}
+                    ></SpendItems>
+                </main>
+            </>
         );
     }
 }

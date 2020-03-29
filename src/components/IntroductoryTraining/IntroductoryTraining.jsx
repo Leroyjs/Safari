@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import Header from '../Header';
+import Preloader from '../Preloader';
 import Calendar from '../Calendar';
 import IntroductoryTableCall from '../IntroductoryTableCall/';
 import IntroductoryTableRecord from '../IntroductoryTableRecord/';
@@ -20,7 +21,8 @@ export default class IntroductoryTraining extends Component {
             day: 0,
             month: 0,
             year: 0
-        }
+        },
+        isLoaded: false
     };
     componentDidMount() {
         const now = new Date();
@@ -46,7 +48,8 @@ export default class IntroductoryTraining extends Component {
                         month: 1 + now.getMonth(),
                         day: now.getDate()
                     },
-                    dataList: data.days
+                    dataList: data.days,
+                    isLoaded: true
                 });
             });
     }
@@ -85,38 +88,41 @@ export default class IntroductoryTraining extends Component {
         }
     };
     render() {
-        const { pageData, activeDate, dataList } = this.state;
+        const { pageData, activeDate, dataList, isLoaded } = this.state;
         console.log(pageData);
         return (
-            <main className="introductory-training">
-                <Header
-                    title="Вводные тренировки"
-                    desc={
-                        <>
-                            Тренер фиксирует вводные в календаре <br />
-                            (за заполненный день{' '}
-                            {pageData.header.points.trainerDemoDay} балла){' '}
-                            <br />
-                            (за продажу с вводной{' '}
-                            {
-                                pageData.header.points.trainerDemoRecord
-                            } баллов) <br />
-                        </>
-                    }
-                ></Header>
-                <Calendar
-                    handleChange={this.handleChange}
-                    activeDate={activeDate}
-                    pageData={dataList}
-                ></Calendar>
-                <IntroductoryTableCall
-                    activeDate={activeDate}
-                ></IntroductoryTableCall>
-                <IntroductoryTableRecord
-                    activeDate={activeDate}
-                ></IntroductoryTableRecord>
-                <DutySales pageData={pageData.dutySales}></DutySales>
-            </main>
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="introductory-training">
+                    <Header
+                        title="Вводные тренировки"
+                        desc={
+                            <>
+                                Тренер фиксирует вводные в календаре <br />
+                                (за заполненный день{' '}
+                                {
+                                    pageData.header.points.trainerDemoDay
+                                } балла) <br />
+                                (за продажу с вводной{' '}
+                                {pageData.header.points.trainerDemoRecord}{' '}
+                                баллов) <br />
+                            </>
+                        }
+                    ></Header>
+                    <Calendar
+                        handleChange={this.handleChange}
+                        activeDate={activeDate}
+                        pageData={dataList}
+                    ></Calendar>
+                    <IntroductoryTableCall
+                        activeDate={activeDate}
+                    ></IntroductoryTableCall>
+                    <IntroductoryTableRecord
+                        activeDate={activeDate}
+                    ></IntroductoryTableRecord>
+                    <DutySales pageData={pageData.dutySales}></DutySales>
+                </main>
+            </>
         );
     }
 }

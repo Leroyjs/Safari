@@ -1,0 +1,179 @@
+.terenovka-statistics {
+    margin-top: 14px;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.terenovka-statistics__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+
+
+.terenovka-statistics__title h2 {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.terenovka-statistics__title h3 {
+    font-weight: 400;
+    font-size: 12px;
+    margin: 0;
+}
+
+.terenovka-statistics__item {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 7px;
+
+    padding-top: 7px;
+}
+
+.terenovka-statistics__item:not(:last-of-type) {
+    border-bottom: 1px solid rgb(185, 185, 185);
+}
+
+
+
+
+.terenovka-statistics__item-load_warm-up {
+    width: 70%;
+    min-width: 180px;
+    border-left: 1px solid rgb(185, 185, 185);
+    height: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.terenovka-statistics__item-load {
+    border-left: 1px solid rgb(185, 185, 185);
+    width: 70%;
+    min-width: 180px;
+    min-height: 26px;
+}
+
+.terenovka-statistics__item-load-top {
+    width: 100%;
+    display: flex;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.terenovka-statistics__item-load-top b {
+    width: 20%;
+    text-align: center;
+}
+
+.terenovka-statistics__item-load-top img {
+    margin-bottom: -10px;
+}
+
+.terenovka-statistics__item-load-bottom b {
+    width: 20%;
+    text-align: center;
+}
+
+.terenovka-statistics__item-load-bottom {
+    width: 100%;
+    display: flex;
+    color: #a1a1a1;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.terenovka-statistics__item h4 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.terenovka-statistics__item-title span {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.terenovka-statistics__rating-area {
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 14px;
+}
+
+.terenovka-statistics button {
+    color: #ee4d45;
+    font-size: 12px;
+    font-weight: 400;
+    min-width: 38px;
+    height: 17px;
+    border-radius: 10px;
+    border: 1px solid #ee4d45;
+    background-color: #fff;
+}
+
+.terenovka-statistics__dop-item {
+    position: relative;
+    margin: 14px;
+}
+
+.rating-area {
+    overflow: hidden;
+    width: 86px;
+    position: relative;
+}
+
+.rating-area span {
+    position: absolute;
+    left: 0;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.rating-area:not(:checked)>input {
+    display: none;
+}
+
+.rating-area:not(:checked)>label {
+    float: right;
+    width: 16px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 50px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+}
+
+.rating-area:not(:checked)>label:before {
+    content: '★';
+}
+
+.rating-area>input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+}
+
+.rating-area:not(:checked)>label:hover,
+.rating-area:not(:checked)>label:hover~label {
+    color: gold;
+}
+
+.rating-area>input:checked+label:hover,
+.rating-area>input:checked+label:hover~label,
+.rating-area>input:checked~label:hover,
+.rating-area>input:checked~label:hover~label,
+.rating-area>label:hover~input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area>label:active {
+    position: relative;
+}

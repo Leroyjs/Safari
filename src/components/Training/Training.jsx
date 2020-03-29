@@ -7,6 +7,7 @@ import TrainingMonth from '../TrainingMonth';
 import TerenovkaStatistics from '../TerenovkaStatistics';
 import ModalRating from '../ModalRating';
 import ModalRatingSolo from '../ModalRatingSolo';
+import Preloader from '../Preloader';
 import './style.css';
 
 export default class Training extends Component {
@@ -19,7 +20,8 @@ export default class Training extends Component {
         activeDay: [],
         statistics: [],
         myCoach: true,
-        modal: true
+        modal: true,
+        isLoaded: false
     };
     componentDidMount() {
         let url = 'https://bagiran.ru/training';
@@ -62,7 +64,8 @@ export default class Training extends Component {
                             activeDay,
                             pageData: data,
                             myCoach,
-                            statistics
+                            statistics,
+                            isLoaded: true
                         });
                     });
             });
@@ -147,74 +150,83 @@ export default class Training extends Component {
         });
     };
     render() {
-        const { pageData, activeDay, statistics, myCoach, modal } = this.state;
+        const {
+            pageData,
+            activeDay,
+            statistics,
+            myCoach,
+            modal,
+            isLoaded
+        } = this.state;
         let newTraning = Boolean(pageData.prevTrainingId);
-        console.log(pageData);
         return (
-            <main className="training">
-                <Header
-                    title="Тренировки"
-                    desc={
-                        <>
-                            Тренер фиксирует всю тренировку с подходами,
-                            повторениями и весами <br></br>
-                            Баллы за тренировку{' '}
-                            {pageData.header.points.training}
-                        </>
-                    }
-                ></Header>
-                <Statistics
-                    update={this.update}
-                    pageData={pageData.workoutState}
-                ></Statistics>
-                {myCoach
-                    ? pageData.Workout.map((block, index) => (
-                          <div key={index + '-TerenovkaStatistics'}>
-                              <TrainingMonth
-                                  index={index}
-                                  handleLoad={this.handleLoad}
-                                  pageData={block}
-                              ></TrainingMonth>
-                              {activeDay[index] && (
-                                  <TerenovkaStatistics
-                                      pageData={statistics[index]}
-                                  ></TerenovkaStatistics>
-                              )}
-                          </div>
-                      ))
-                    : pageData.Workout.map((block, index) => (
-                          <div key={index + '-TerenovkaStatistics'}>
-                              <ClientTrainingMonth
-                                  index={index}
-                                  handleLoad={this.handleLoad}
-                                  pageData={block}
-                                  activeId={0}
-                                  update={this.update}
-                              ></ClientTrainingMonth>
-                              {activeDay[index] && (
-                                  <ClientTerenovkaStatistics
-                                      pageData={statistics[index]}
-                                      activeId={0}
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="training">
+                    <Header
+                        title="Тренировки"
+                        desc={
+                            <>
+                                Тренер фиксирует всю тренировку с подходами,
+                                повторениями и весами <br></br>
+                                Баллы за тренировку{' '}
+                                {pageData.header.points.training}
+                            </>
+                        }
+                    ></Header>
+                    <Statistics
+                        update={this.update}
+                        pageData={pageData.workoutState}
+                    ></Statistics>
+                    {myCoach
+                        ? pageData.Workout.map((block, index) => (
+                              <div key={index + '-TerenovkaStatistics'}>
+                                  <TrainingMonth
+                                      index={index}
                                       handleLoad={this.handleLoad}
-                                  ></ClientTerenovkaStatistics>
-                              )}
-                          </div>
-                      ))}
-                {modal && myCoach && newTraning && (
-                    <ModalRating
-                        handleModal={this.handleModal}
-                        update={this.update}
-                        id={pageData.prevTrainingId}
-                    ></ModalRating>
-                )}
-                {modal && !myCoach && newTraning && (
-                    <ModalRatingSolo
-                        handleModal={this.handleModal}
-                        update={this.update}
-                        id={pageData.prevTrainingId}
-                    ></ModalRatingSolo>
-                )}
-            </main>
+                                      pageData={block}
+                                  ></TrainingMonth>
+                                  {activeDay[index] && (
+                                      <TerenovkaStatistics
+                                          pageData={statistics[index]}
+                                      ></TerenovkaStatistics>
+                                  )}
+                              </div>
+                          ))
+                        : pageData.Workout.map((block, index) => (
+                              <div key={index + '-TerenovkaStatistics'}>
+                                  <ClientTrainingMonth
+                                      index={index}
+                                      handleLoad={this.handleLoad}
+                                      pageData={block}
+                                      activeId={0}
+                                      update={this.update}
+                                  ></ClientTrainingMonth>
+                                  {activeDay[index] && (
+                                      <ClientTerenovkaStatistics
+                                          pageData={statistics[index]}
+                                          activeId={0}
+                                          handleLoad={this.handleLoad}
+                                      ></ClientTerenovkaStatistics>
+                                  )}
+                              </div>
+                          ))}
+                    {modal && myCoach && newTraning && (
+                        <ModalRating
+                            handleModal={this.handleModal}
+                            update={this.update}
+                            id={pageData.prevTrainingId}
+                        ></ModalRating>
+                    )}
+                    {modal && !myCoach && newTraning && (
+                        <ModalRatingSolo
+                            handleModal={this.handleModal}
+                            update={this.update}
+                            id={pageData.prevTrainingId}
+                        ></ModalRatingSolo>
+                    )}
+                </main>
+            </>
         );
     }
 }

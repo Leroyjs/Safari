@@ -73,7 +73,28 @@ export default class Modal extends Component {
         values.oneChargeList = radioValue;
         errors.oneChargeList = false;
         console.log(this.state);
-        this.setState({ values, errors });
+        if (radioValue === '0') {
+            this.setState({
+                values,
+                secondInput: {
+                    title: 'Причина(кратко)',
+                    postArg: 'comment',
+                    mandatory: true
+                },
+                errors
+            });
+        }
+        if (radioValue === '1') {
+            this.setState({
+                values,
+                secondInput: {
+                    title: 'Причина(кратко)',
+                    postArg: 'comment',
+                    mandatory: false
+                },
+                errors
+            });
+        }
     };
     handleTimeChange = (event) => {
         const timeValue = event.target.value;

@@ -58,16 +58,17 @@ export default class Modal extends Component {
         }
     }
     handleOne = () => {
-        const { url } = this.state;
-        let data = 'id=';
+        const url = '/main/customer-select-trainer';
+        let data = '';
 
         this.send(url, data);
     };
 
     handleSave = () => {
         const { url, addData, myTrainer } = this.state;
+        const { handleModalOk } = this.props;
         let data = 'id=' + myTrainer.id + addData;
-
+        handleModalOk(true);
         this.send(url, data);
     };
     handleModal = (modal, close) => {
@@ -110,7 +111,7 @@ export default class Modal extends Component {
             });
     }
     render() {
-        const { handleModal } = this.props;
+        const { handleModal, handleModalOk } = this.props;
         const { title, errorBack, myTrainer, modal } = this.state;
 
         return ReactDOM.createPortal(
@@ -201,6 +202,7 @@ export default class Modal extends Component {
                 </>
                 {modal && (
                     <ModalSelectTrainer
+                        handleModalOk={handleModalOk}
                         url={'/training/buy'}
                         handleModal={this.handleModal}
                         title="Выбрать тренера"

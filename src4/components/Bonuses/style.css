@@ -1,0 +1,67 @@
+.bonuses {
+    background-color: #262b3f;
+    color: #ffffff;
+    padding: 14px;
+}
+
+.bonuses h2 {
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #ee4d45;
+    height: 21px;
+    border-radius: 10px;
+    padding: 1px 10px;
+    margin: 0;
+    display: inline;
+}
+
+.bonuses p {
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.bonuses li {
+    list-style-type: none;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 21px;
+}
+
+.bonuses li:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    left: 25px;
+    height: 17px;
+    width: 17px;
+    border: 1px #fff solid;
+}
+
+li.bonuses_active:before {
+    background-color: #ee4d45;
+    border: 1px #ee4d45 solid;
+}
+
+.bonuses button {
+    padding: 8px 30px;
+    border-radius: 20px;
+    border: 1px solid #ee4d45;
+    background-color: #262b3f;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+    left: 50%;
+    margin-left: -125px;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: .2s;
+}
+
+.bonuses button:hover {
+    background-color: #ee4d45;
+    color: #ffffff;
+
+}

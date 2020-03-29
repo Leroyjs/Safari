@@ -104,7 +104,11 @@ export default class Modal extends Component {
                     <input
                         type="checkbox"
                         id={'0-checkbox'}
-                        style={{ marginRight: '10px' }}
+                        style={{
+                            marginRight: '10px',
+                            minWidth: '13px',
+                            minHeight: '13px'
+                        }}
                         checked={checkbox[0]}
                         onChange={this.handleList}
                     />
@@ -122,7 +126,11 @@ export default class Modal extends Component {
                     <input
                         type="checkbox"
                         id={'1-checkbox'}
-                        style={{ marginRight: '10px' }}
+                        style={{
+                            marginRight: '10px',
+                            minWidth: '13px',
+                            minHeight: '13px'
+                        }}
                         checked={checkbox[1]}
                         onChange={this.handleList}
                     />
@@ -140,7 +148,11 @@ export default class Modal extends Component {
                     <input
                         type="checkbox"
                         id={'2-checkbox'}
-                        style={{ marginRight: '10px' }}
+                        style={{
+                            marginRight: '10px',
+                            minWidth: '13px',
+                            minHeight: '13px'
+                        }}
                         checked={checkbox[2]}
                         onChange={this.handleList}
                     />
@@ -160,7 +172,11 @@ export default class Modal extends Component {
                     <input
                         type="checkbox"
                         id={'3-checkbox'}
-                        style={{ marginRight: '10px' }}
+                        style={{
+                            marginRight: '10px',
+                            minWidth: '13px',
+                            minHeight: '13px'
+                        }}
                         checked={checkbox[3]}
                         onChange={this.handleList}
                     />
@@ -180,12 +196,15 @@ export default class Modal extends Component {
                     <input
                         type="checkbox"
                         id={'4-checkbox'}
-                        style={{ marginRight: '10px' }}
+                        style={{
+                            marginRight: '10px',
+                            minWidth: '13px',
+                            minHeight: '13px'
+                        }}
                         checked={checkbox[4]}
                         onChange={this.handleList}
                     />
                     <label htmlFor={'4-checkbox'}>
-                        {' '}
                         Отметка у администратора о закрытии смены с помощью
                         тренерской карты
                     </label>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Header';
 import Calendar from '../Calendar';
 import DayNutrition from '../DayNutrition';
+import Preloader from '../Preloader';
 import './style.css';
 
 export default class Nutrition extends Component {
@@ -11,7 +12,8 @@ export default class Nutrition extends Component {
             day: 0,
             month: 0,
             year: 0
-        }
+        },
+        isLoaded: false
     };
     componentDidMount() {
         const now = new Date();
@@ -31,16 +33,15 @@ export default class Nutrition extends Component {
                 return result.json();
             })
             .then((fulDays) => {
-                console.log(fulDays);
                 this.setState({
                     pageData: fulDays,
                     activeDate: {
                         year: now.getFullYear(),
                         month: 1 + now.getMonth(),
                         day: now.getDate()
-                    }
+                    },
+                    isLoaded: true
                 });
-                console.log(this.state);
             });
     }
     handleChange = (data) => {
@@ -71,33 +72,33 @@ export default class Nutrition extends Component {
                         pageData: fulDays,
                         activeDate: data
                     });
-                    console.log(fulDays);
                 });
         }
     };
     render() {
-        const { pageData, activeDate } = this.state;
-        console.log(pageData);
-        console.log(activeDate);
+        const { pageData, activeDate, isLoaded } = this.state;
         return (
-            <main className="nutrition">
-                <Header
-                    title="Питание"
-                    // desc={
-                    //     <>
-                    //         Фиксируйте каждый прием пищи (за заполнный день{' '}
-                    //         {pageData.header.points.clientFood} баллов) тренер
-                    //         проверит и напишет комментарий
-                    //     </>
-                    // }
-                ></Header>
-                <Calendar
-                    handleChange={this.handleChange}
-                    activeDate={activeDate}
-                    pageData={pageData.days}
-                ></Calendar>
-                <DayNutrition activeDate={activeDate}></DayNutrition>
-            </main>
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="nutrition">
+                    <Header
+                        title="Питание"
+                        // desc={
+                        //     <>
+                        //         Фиксируйте каждый прием пищи (за заполнный день{' '}
+                        //         {pageData.header.points.clientFood} баллов) тренер
+                        //         проверит и напишет комментарий
+                        //     </>
+                        // }
+                    ></Header>
+                    <Calendar
+                        handleChange={this.handleChange}
+                        activeDate={activeDate}
+                        pageData={pageData.days}
+                    ></Calendar>
+                    <DayNutrition activeDate={activeDate}></DayNutrition>
+                </main>
+            </>
         );
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Preloader from '../Preloader';
 import Header from '../Header';
 import Volume from '../Volume';
 import Result from '../Result';
@@ -8,7 +9,8 @@ import './style.css';
 export default class Anthropometry extends Component {
     state = {
         pageData: {},
-        myCoach: true
+        myCoach: true,
+        isLoaded: false
     };
     componentDidMount() {
         let url = 'https://bagiran.ru/anthropometry';
@@ -42,7 +44,8 @@ export default class Anthropometry extends Component {
                         console.warn(myCoach);
                         this.setState({
                             pageData: data,
-                            myCoach
+                            myCoach,
+                            isLoaded: true
                         });
                     });
             });
@@ -86,85 +89,88 @@ export default class Anthropometry extends Component {
             });
     };
     render() {
-        const { pageData, myCoach } = this.state;
+        const { pageData, myCoach, isLoaded } = this.state;
         return (
-            <main className="anthropometry">
-                <Header
-                    title="Антропометрия"
-                    desc="Показатели фиксируются 1 раз в месяц 1 числа каждого месяца"
-                ></Header>
-                {myCoach ? (
-                    <Result pageData={pageData.result}></Result>
-                ) : (
-                    <Result
-                        url={'https://bagiran.ru/anthropometry/save-photo'}
-                        pageData={pageData.result}
-                        update={this.update}
-                    ></Result>
-                )}
-                {myCoach ? (
-                    <Volume
-                        pageData={pageData.volume}
-                        anthropometry="true"
-                    ></Volume>
-                ) : (
-                    <Volume
-                        pageData={pageData.volume}
-                        anthropometry="true"
-                        modalData={{
-                            url: '/client-trainer'
-                        }}
-                        isClientModal={true}
-                        update={this.update}
-                    ></Volume>
-                )}
-                {myCoach ? (
-                    <Weight
-                        pageData={pageData.weight}
-                        anthropometry="true"
-                        name="Вес (кг)"
-                    ></Weight>
-                ) : (
-                    <Weight
-                        pageData={pageData.weight}
-                        anthropometry="true"
-                        name="Вес (кг)"
-                        isClientModal={true}
-                        update={this.update}
-                        modalData={{
-                            url: '/anthropometry/save-weight',
-                            title: 'Ваш вес',
-                            inputs: {
-                                title: 'Вес',
-                                postArg: 'val'
-                            }
-                        }}
-                    ></Weight>
-                )}
-                {myCoach ? (
-                    <Weight
-                        pageData={pageData.puls}
-                        anthropometry="true"
-                        name="Пульс  (уд. мин)"
-                    ></Weight>
-                ) : (
-                    <Weight
-                        update={this.update}
-                        isClientModal={true}
-                        pageData={pageData.puls}
-                        anthropometry="true"
-                        name="Пульс  (уд. мин)"
-                        modalData={{
-                            url: '/anthropometry/save-pulse',
-                            title: 'Ваш пульс',
-                            inputs: {
-                                title: 'Пульс',
-                                postArg: 'val'
-                            }
-                        }}
-                    ></Weight>
-                )}
-            </main>
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="anthropometry">
+                    <Header
+                        title="Антропометрия"
+                        desc="Показатели фиксируются 1 раз в месяц 1 числа каждого месяца"
+                    ></Header>
+                    {myCoach ? (
+                        <Result pageData={pageData.result}></Result>
+                    ) : (
+                        <Result
+                            url={'https://bagiran.ru/anthropometry/save-photo'}
+                            pageData={pageData.result}
+                            update={this.update}
+                        ></Result>
+                    )}
+                    {myCoach ? (
+                        <Volume
+                            pageData={pageData.volume}
+                            anthropometry="true"
+                        ></Volume>
+                    ) : (
+                        <Volume
+                            pageData={pageData.volume}
+                            anthropometry="true"
+                            modalData={{
+                                url: '/client-trainer'
+                            }}
+                            isClientModal={true}
+                            update={this.update}
+                        ></Volume>
+                    )}
+                    {myCoach ? (
+                        <Weight
+                            pageData={pageData.weight}
+                            anthropometry="true"
+                            name="Вес (кг)"
+                        ></Weight>
+                    ) : (
+                        <Weight
+                            pageData={pageData.weight}
+                            anthropometry="true"
+                            name="Вес (кг)"
+                            isClientModal={true}
+                            update={this.update}
+                            modalData={{
+                                url: '/anthropometry/save-weight',
+                                title: 'Ваш вес',
+                                inputs: {
+                                    title: 'Вес',
+                                    postArg: 'val'
+                                }
+                            }}
+                        ></Weight>
+                    )}
+                    {myCoach ? (
+                        <Weight
+                            pageData={pageData.puls}
+                            anthropometry="true"
+                            name="Пульс  (уд. мин)"
+                        ></Weight>
+                    ) : (
+                        <Weight
+                            update={this.update}
+                            isClientModal={true}
+                            pageData={pageData.puls}
+                            anthropometry="true"
+                            name="Пульс  (уд. мин)"
+                            modalData={{
+                                url: '/anthropometry/save-pulse',
+                                title: 'Ваш пульс',
+                                inputs: {
+                                    title: 'Пульс',
+                                    postArg: 'val'
+                                }
+                            }}
+                        ></Weight>
+                    )}
+                </main>
+            </>
         );
     }
 }

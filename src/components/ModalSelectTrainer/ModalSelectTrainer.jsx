@@ -84,7 +84,7 @@ export default class Modal extends Component {
             : this.setState({ errors: newErrors });
     };
     send(url, data) {
-        const { handleModal } = this.props;
+        const { handleModal, handleModalOk = false } = this.props;
         console.log('https://bagiran.ru' + url);
         console.log(data);
         fetch('https://bagiran.ru' + url, {
@@ -109,6 +109,9 @@ export default class Modal extends Component {
                     console.log(data);
                 } else {
                     handleModal(false, true);
+                    if (handleModalOk) {
+                        handleModalOk(true);
+                    }
                 }
             });
     }

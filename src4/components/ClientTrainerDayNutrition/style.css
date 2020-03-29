@@ -1,0 +1,140 @@
+.day-nutrition {
+    background-color: #262b3f;
+    padding: 20px 16px;
+}
+
+
+.day-nutrition__block {
+    padding: 12px;
+    width: 100%;
+    min-height: 209px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.17);
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.day-nutrition__block h3 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.day-nutrition__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day-nutrition__header span {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.day-nutrition__header span img {
+    width: 14px;
+    height: 14px;
+    margin-left: 1px;
+}
+
+.day-nutrition__main {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 15px;
+}
+
+
+
+.day-nutrition__footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day-nutrition__footer span {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.day-nutrition__bonus {
+    align-self: flex-end;
+    font-size: 10px;
+    color: #ee4d45;
+}
+
+.day-nutrition__footer button {
+    color: #ee4d45;
+    width: 48px;
+    height: 17px;
+    border-radius: 10px;
+    border: 1px solid #ee4d45;
+    background-color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.day-nutrition__rating-area {
+    margin-top: -20px;
+    overflow: hidden;
+    width: 86px;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.day-nutrition__rating-area span {
+    position: absolute;
+    left: 0;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.day-nutrition__rating-area:not(:checked)>input {
+    display: none;
+}
+
+.day-nutrition__rating-area:not(:checked)>label {
+    float: right;
+    width: 16px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 50px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+}
+
+.day-nutrition__rating-area:not(:checked)>label:before {
+    content: '★';
+}
+
+.day-nutrition__rating-area>input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+}
+
+.day-nutrition__rating-area:not(:checked)>label:hover,
+.day-nutrition__rating-area:not(:checked)>label:hover~label {
+    color: gold;
+}
+
+.day-nutrition__rating-area>input:checked+label:hover,
+.day-nutrition__rating-area>input:checked+label:hover~label,
+.day-nutrition__rating-area>input:checked~label:hover,
+.day-nutrition__rating-area>input:checked~label:hover~label,
+.day-nutrition__rating-area>label:hover~input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area>label:active {
+    position: relative;
+}

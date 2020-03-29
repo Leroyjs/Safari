@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import HeaderPersonalArea from '../HeaderPersonalArea/';
 import Progress from '../Progress';
 import TrainerBonuses from '../TrainerBonuses';
+import Preloader from '../Preloader';
 import Volume from '../Volume';
 import Result from '../Result';
 import Bonuses from '../Bonuses';
@@ -9,6 +10,7 @@ import Calendar from '../Calendar';
 import ClientsList from '../ClientsList';
 import ModalVacation from '../ModalVacation';
 import CalendarListClients from '../CalendarListClients';
+import X from './x.png';
 import './style.css';
 
 export default class PersonalArea extends Component {
@@ -21,7 +23,8 @@ export default class PersonalArea extends Component {
             year: 0
         },
         myCoach: true,
-        vacationList: []
+        vacationList: [],
+        isLoaded: false
     };
 
     componentDidMount() {
@@ -60,7 +63,8 @@ export default class PersonalArea extends Component {
                             console.warn(myCoach);
                             this.setState({
                                 pageData: data,
-                                myCoach
+                                myCoach,
+                                isLoaded: true
                             });
                         });
                 });
@@ -105,7 +109,8 @@ export default class PersonalArea extends Component {
                                     day: now.getDate()
                                 },
                                 dataList: data.days,
-                                vacationList
+                                vacationList,
+                                isLoaded: true
                             });
                         });
                 });
@@ -237,6 +242,20 @@ export default class PersonalArea extends Component {
             modal
         });
     };
+    handleDel = (id) => {
+        fetch('https://bagiran.ru/api/del-holiday', {
+            method: 'POST',
+            body: ' id=' + id,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Request-Headers': 'X-Requested-With, Origin',
+                Origin: 'https://localhost:3000/'
+            }
+        }).then(() => {
+            this.updata();
+        });
+    };
     render() {
         const { data, whoIsIt } = this.props;
         const {
@@ -245,7 +264,8 @@ export default class PersonalArea extends Component {
             dataList,
             myCoach,
             modal,
-            vacationList
+            vacationList,
+            isLoaded
         } = this.state;
         console.warn(pageData);
         let lvl = 0;
@@ -253,112 +273,128 @@ export default class PersonalArea extends Component {
             lvl = pageData.header.lvl;
         }
         return (
-            <div className="personal-area">
-                <HeaderPersonalArea
-                    whoIsIt={whoIsIt}
-                    data={data}
-                    updata={this.updata}
-                    pageData={pageData.header}
-                    myCoach={myCoach}
-                >
-                    {whoIsIt === 'isTrainer' && (
-                        <button
-                            style={{
-                                width: 'auto',
-                                height: 'auto',
-                                marginTop: '8px',
-                                marginLeft: '30px',
-                                padding: '0 20px'
-                            }}
-                            onClick={() => this.handleModal(true)}
-                        >
-                            Отпуск
-                        </button>
-                    )}
-                </HeaderPersonalArea>
-                {whoIsIt === 'isClient' && (
-                    <main>
-                        <Progress pageData={pageData.chartWeight}></Progress>
-                        <Volume pageData={pageData.volume}></Volume>
-                        <Result pageData={pageData.result}></Result>
-                        <Bonuses
-                            lvl={lvl}
-                            update={this.updata}
-                            pageData={pageData.bonus}
-                        ></Bonuses>
-                    </main>
-                )}
-                {whoIsIt === 'isTrainer' && (
-                    <main>
-                        <Calendar
-                            handleChange={this.handleChange}
-                            activeDate={activeDate}
-                            pageData={dataList}
-                        ></Calendar>
-                        <div
-                            style={{
-                                backgroundColor: '#fff',
-                                padding: '0 14px'
-                            }}
-                        >
-                            <span
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <div className="personal-area">
+                    <HeaderPersonalArea
+                        whoIsIt={whoIsIt}
+                        data={data}
+                        updata={this.updata}
+                        pageData={pageData.header}
+                        myCoach={myCoach}
+                    >
+                        {whoIsIt === 'isTrainer' && (
+                            <button
                                 style={{
-                                    paddingBottom: '7px',
-                                    fontSize: '15px',
-                                    fontWeight: '600'
+                                    width: 'auto',
+                                    height: 'auto',
+                                    marginTop: '8px',
+                                    marginLeft: '30px',
+                                    padding: '0 20px'
+                                }}
+                                onClick={() => this.handleModal(true)}
+                            >
+                                Выходной
+                            </button>
+                        )}
+                    </HeaderPersonalArea>
+                    {whoIsIt === 'isClient' && (
+                        <main>
+                            <Progress
+                                pageData={pageData.chartWeight}
+                            ></Progress>
+                            <Volume pageData={pageData.volume}></Volume>
+                            <Result pageData={pageData.result}></Result>
+                            <Bonuses
+                                lvl={lvl}
+                                update={this.updata}
+                                pageData={pageData.bonus}
+                            ></Bonuses>
+                        </main>
+                    )}
+                    {whoIsIt === 'isTrainer' && (
+                        <main>
+                            <Calendar
+                                handleChange={this.handleChange}
+                                activeDate={activeDate}
+                                pageData={dataList}
+                            ></Calendar>
+                            <div
+                                style={{
+                                    backgroundColor: '#fff',
+                                    padding: '0 14px'
                                 }}
                             >
-                                Текущие отпуска:
-                            </span>
-                            {vacationList.length ? (
-                                vacationList.map((item, index) => (
-                                    <div
-                                        key={index + '-vacationList'}
-                                        style={{
-                                            borderTop:
-                                                index && '1px #cdcdcd solid',
-                                            fontSize: '11px',
-                                            padding: '7px'
-                                        }}
-                                    >
-                                        <span>
-                                            Начало отпуска: {item.date_from}
-                                        </span>
-                                        <br />
-                                        <span>
-                                            Конец отпуска: {item.date_to}
-                                        </span>
-                                    </div>
-                                ))
-                            ) : (
-                                <span> пусто</span>
+                                <span
+                                    style={{
+                                        paddingBottom: '7px',
+                                        fontSize: '15px',
+                                        fontWeight: '600'
+                                    }}
+                                >
+                                    Текущие выходные:
+                                </span>
+                                {vacationList.length ? (
+                                    vacationList.map((item, index) => (
+                                        <div
+                                            key={index + '-vacationList'}
+                                            style={{
+                                                borderTop:
+                                                    index &&
+                                                    '1px #cdcdcd solid',
+                                                fontSize: '11px',
+                                                padding: '7px'
+                                            }}
+                                        >
+                                            {console.warn(item)}
+                                            <span>
+                                                Начало: {item.date_from}
+                                            </span>
+                                            <img
+                                                src={X}
+                                                alt="x"
+                                                onClick={() =>
+                                                    this.handleDel(item.id)
+                                                }
+                                                style={{
+                                                    height: '10px',
+                                                    marginLeft: '20px'
+                                                }}
+                                            />
+                                            <br />
+                                            <span>Конец: {item.date_to}</span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <span> пусто</span>
+                                )}
+                            </div>
+                            <CalendarListClients
+                                activeDate={activeDate}
+                                clientsList={pageData.clientsList}
+                            ></CalendarListClients>
+                            <TrainerBonuses
+                                lvl={lvl}
+                                update={this.updata}
+                                pageData={pageData.bonus}
+                            ></TrainerBonuses>
+                            <ClientsList
+                                update={this.updata}
+                                handleChangeId={this.props.handleChangeId}
+                                pageData={pageData.clientsList}
+                            ></ClientsList>
+                            {modal && (
+                                <ModalVacation
+                                    title={'Начало отпуска'}
+                                    addData={''}
+                                    updata={this.updata}
+                                    handleModal={this.handleModal}
+                                ></ModalVacation>
                             )}
-                        </div>
-                        <CalendarListClients
-                            activeDate={activeDate}
-                            clientsList={pageData.clientsList}
-                        ></CalendarListClients>
-                        <TrainerBonuses
-                            lvl={lvl}
-                            update={this.updata}
-                            pageData={pageData.bonus}
-                        ></TrainerBonuses>
-                        <ClientsList
-                            update={this.updata}
-                            handleChangeId={this.props.handleChangeId}
-                            pageData={pageData.clientsList}
-                        ></ClientsList>
-                        {modal && (
-                            <ModalVacation
-                                title={'Начало отпуска'}
-                                addData={''}
-                                updata={this.updata}
-                                handleModal={this.handleModal}
-                            ></ModalVacation>
-                        )}
-                    </main>
-                )}
-            </div>
+                        </main>
+                    )}
+                </div>
+            </>
         );
     }
 }

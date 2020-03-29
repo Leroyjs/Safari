@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ModalSelectTrainer from '../ModalSelectTrainer';
+import ModalOk from '../ModalOk';
 import './style.css';
 
 export default class HeaderPersonalArea extends Component {
@@ -13,7 +14,8 @@ export default class HeaderPersonalArea extends Component {
             training: '654',
             customers: '34'
         },
-        modal: false
+        modal: false,
+        modalOk: false
     };
 
     componentDidUpdate() {
@@ -26,6 +28,12 @@ export default class HeaderPersonalArea extends Component {
             });
         }
     }
+    handleModalOk = (modalOk) => {
+        this.setState({
+            canUpate: true,
+            modalOk
+        });
+    };
     handleModal = (modal) => {
         this.props.updata();
         this.setState({
@@ -35,8 +43,9 @@ export default class HeaderPersonalArea extends Component {
     };
     render() {
         const { data, whoIsIt, myCoach, children } = this.props;
-        const { pageData, modal } = this.state;
+        const { pageData, modal, modalOk } = this.state;
         console.warn(myCoach);
+        console.log(pageData);
         return (
             <header className="header-personal-area">
                 <h1>Личный кабинет</h1>
@@ -94,8 +103,15 @@ export default class HeaderPersonalArea extends Component {
                     <ModalSelectTrainer
                         url={'/main/customer-select-trainer'}
                         handleModal={this.handleModal}
+                        handleModalOk={this.handleModalOk}
                         title="Выбрать тренера"
                     ></ModalSelectTrainer>
+                )}
+                {modalOk && (
+                    <ModalOk
+                        text={'Тренер выбран'}
+                        handleModal={this.handleModalOk}
+                    ></ModalOk>
                 )}
             </header>
         );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ModalClientRecording from '../ModalClientRecording';
 import ModalClientStatRecording from '../ModalClientStatRecording';
 import ModalBuyWorkout from '../ModalBuyWorkout';
+import ModalOk from '../ModalOk';
 import './style.css';
 
 export default class Statistics extends Component {
@@ -13,7 +14,8 @@ export default class Statistics extends Component {
             nextWorkout: ''
         },
         modalRecord: false,
-        modalBlock: false
+        modalBlock: false,
+        modalOk: false
     };
 
     componentDidUpdate() {
@@ -32,6 +34,12 @@ export default class Statistics extends Component {
             modalRecord
         });
     };
+    handleModalOk = (modalOk) => {
+        this.setState({
+            canUpate: true,
+            modalOk
+        });
+    };
     handleModalBlock = (modalBlock) => {
         this.setState({
             canUpate: true,
@@ -40,7 +48,12 @@ export default class Statistics extends Component {
     };
     render() {
         const { isTrainer, update, activeId } = this.props;
-        const { pageData = true, modalRecord, modalBlock } = this.state;
+        const {
+            pageData = true,
+            modalRecord,
+            modalBlock,
+            modalOk
+        } = this.state;
         return (
             <section className="statistics">
                 <p>
@@ -80,11 +93,18 @@ export default class Statistics extends Component {
                         <ModalClientRecording
                             update={update}
                             handleModal={this.handleModal}
+                            handleModalOk={this.handleModalOk}
                         ></ModalClientRecording>
                     ))}
-
+                {modalOk && (
+                    <ModalOk
+                        text={'Тренер получил ваш запрос'}
+                        handleModal={this.handleModalOk}
+                    ></ModalOk>
+                )}
                 {modalBlock && (
                     <ModalBuyWorkout
+                        handleModalOk={this.handleModalOk}
                         handleModal={this.handleModalBlock}
                         title="Приобрести ПТ"
                         addData=""

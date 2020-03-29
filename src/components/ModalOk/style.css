@@ -1,0 +1,19 @@
+.modal-ok {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    left: 0;
+    bottom: 60px;
+    background-color: #EF4344;
+    z-index: 99;
+    transition: 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 7px;
+}
+
+.modal-ok_hidden {
+    opacity: 0;
+}

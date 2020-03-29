@@ -1,0 +1,101 @@
+.modal-trainer-clients-list {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 99999999;
+}
+
+.modal-trainer-clients-list__input {
+    width: 70%;
+}
+
+.modal-trainer-clients-list__buttons {
+    margin-top: 30px;
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.modal-trainer-clients-list__buttons button {
+    border: 1px solid #ee4d45;
+    background-color: #fff;
+    border-radius: 20px;
+    color: #ee4d45;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 2px 18px;
+    transition: .2s;
+}
+
+.modal-trainer-clients-list__buttons button:hover {
+    background-color: #ee4d45;
+    color: #fff;
+}
+
+.modal-trainer-clients-list__input input {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.modal-trainer-clients-list__input input[type=text] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #acacac;
+}
+
+.modal-trainer-clients-list__error {
+    border-color: #ee4d45 !important;
+}
+
+input.modal-trainer-clients-list__error::placeholder {
+    color: #ee4d45;
+}
+
+.modal-trainer-clients-list__List {
+    width: 70%;
+    max-height: 150px;
+    border: 1px solid #acacac;
+    border-radius: 10px;
+    overflow: auto;
+    margin: 5px 0;
+}
+
+.modal-trainer-clients-list_low {
+    max-height: 75px;
+}
+
+.modal-trainer-clients-list__List input[type=radio] {
+    display: none;
+}
+
+.modal-trainer-clients-list__List input:checked+label {
+    background-color: #ee4d45;
+    color: #fff;
+}
+
+.modal-trainer-clients-list__List label {
+    padding-left: 10px;
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.modal-trainer-clients-list__List-item {
+    display: block;
+    display: flex;
+}
+
+.modal-trainer-clients-list__List-item:not(:last-of-type) {
+    border-bottom: 1px solid #acacac;
+}

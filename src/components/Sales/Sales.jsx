@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SaleHeader from '../SaleHeader';
 import TrainingMonth from '../TrainingMonth';
+import Preloader from '../Preloader';
 import SaleStat from '../SaleStat';
 import ConversionDuty from '../ConversionDuty';
 import ConversionIntroductory from '../ConversionIntroductory';
@@ -19,7 +20,8 @@ export default class Duty extends Component {
         activeMonth: '',
         list: {
             trainings: []
-        }
+        },
+        isLoaded: false
     };
     componentDidMount() {
         let url = 'https://bagiran.ru/sales';
@@ -47,7 +49,8 @@ export default class Duty extends Component {
                     pageData: data,
                     sales: data.sales,
                     duty: data.duty,
-                    demo: data.demo
+                    demo: data.demo,
+                    isLoaded: true
                 });
             });
     }
@@ -79,25 +82,28 @@ export default class Duty extends Component {
             });
     };
     render() {
-        const { pageData, list, sales, duty, demo } = this.state;
+        const { pageData, list, sales, duty, demo, isLoaded } = this.state;
         console.log(pageData);
         return (
-            <main className="sales">
-                <SaleHeader pageData={pageData.header}></SaleHeader>
-                <TrainingMonth
-                    index={1}
-                    handleLoad={this.handleLoad}
-                    title="Продажи"
-                    pageData={list}
-                    folding={false}
-                ></TrainingMonth>
-                <SaleStat pageData={sales}></SaleStat>
-                <ConversionDuty pageData={duty}></ConversionDuty>
-                <ConversionIntroductory
-                    pageData={demo}
-                ></ConversionIntroductory>
-                <SalesGraphics pageData={pageData.footer}></SalesGraphics>
-            </main>
+            <>
+                {!isLoaded && <Preloader></Preloader>}
+                <main className="sales">
+                    <SaleHeader pageData={pageData.header}></SaleHeader>
+                    <TrainingMonth
+                        index={1}
+                        handleLoad={this.handleLoad}
+                        title="Продажи"
+                        pageData={list}
+                        folding={false}
+                    ></TrainingMonth>
+                    <SaleStat pageData={sales}></SaleStat>
+                    <ConversionDuty pageData={duty}></ConversionDuty>
+                    <ConversionIntroductory
+                        pageData={demo}
+                    ></ConversionIntroductory>
+                    <SalesGraphics pageData={pageData.footer}></SalesGraphics>
+                </main>
+            </>
         );
     }
 }
