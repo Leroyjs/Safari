@@ -4,15 +4,22 @@ import Header from '../Header';
 import Volume from '../Volume';
 import Result from '../Result';
 import Weight from '../Weight';
+import ModalInfo from '../ModalInfo';
 import './style.css';
 
 export default class Anthropometry extends Component {
     state = {
         pageData: {},
         myCoach: true,
-        isLoaded: false
+        isLoaded: false,
+        modalInfo: false
     };
     componentDidMount() {
+        let now = new Date();
+        let modalInfo = false;
+        if (now.getDate() == 1) {
+            modalInfo = true;
+        }
         let url = 'https://bagiran.ru/anthropometry';
         fetch(url, {
             method: 'POST',
@@ -41,11 +48,12 @@ export default class Anthropometry extends Component {
                         return result.json();
                     })
                     .then((myCoach) => {
-                        console.warn(myCoach);
+                        console.warn(data);
                         this.setState({
                             pageData: data,
                             myCoach,
-                            isLoaded: true
+                            isLoaded: true,
+                            modalInfo
                         });
                     });
             });
@@ -88,8 +96,13 @@ export default class Anthropometry extends Component {
                     });
             });
     };
+    handleModalInfo = (modalInfo) => {
+        this.setState({
+            modalInfo
+        });
+    };
     render() {
-        const { pageData, myCoach, isLoaded } = this.state;
+        const { pageData, myCoach, isLoaded, modalInfo } = this.state;
         return (
             <>
                 {!isLoaded && <Preloader></Preloader>}
@@ -168,6 +181,11 @@ export default class Anthropometry extends Component {
                                 }
                             }}
                         ></Weight>
+                    )}
+                    {modalInfo && (
+                        <ModalInfo
+                            handleModal={this.handleModalInfo}
+                        ></ModalInfo>
                     )}
                 </main>
             </>
